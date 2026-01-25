@@ -115,7 +115,6 @@ export const Welcome = () => {
 					baseWeight: 100,
 				})}
 			</p>
-			+{' '}
 			<h1 ref={titleRef} className="mt-7" aria-label="Portfolio">
 				{renderText({
 					text: 'Portfolio',
