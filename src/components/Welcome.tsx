@@ -16,6 +16,7 @@ const renderText = ({ text, className, baseWeight = 400 }: RenderTextProps) => {
 			<span
 				key={index}
 				className={className}
+				aria-hidden="true"
 				style={{ fontVariationSettings: `"wght" ${baseWeight}` }}
 			>
 				{/* // Preserve spaces with non-breaking space */}
@@ -107,21 +108,21 @@ export const Welcome = () => {
 
 	return (
 		<section id="welcome">
-			<p ref={subtitleRef}>
+			<p ref={subtitleRef} aria-label="Hey, I'm Brandon! Welcome to my">
 				{renderText({
 					text: "Hey, I'm Brandon! Welcome to my",
 					className: 'text-3xl font-georama',
 					baseWeight: 100,
 				})}
 			</p>
-			<h1 ref={titleRef} className="mt-7">
+			+{' '}
+			<h1 ref={titleRef} className="mt-7" aria-label="Portfolio">
 				{renderText({
 					text: 'Portfolio',
 					className: 'text-9xl italic font-georama',
 					baseWeight: 400,
 				})}
 			</h1>
-
 			<div className="small-screen">
 				<p>
 					This Portfolio is designed for desktop/tablet screens only.
