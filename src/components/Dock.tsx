@@ -28,8 +28,9 @@ export const Dock = () => {
 
 		const iconEls = dock.querySelectorAll('.dock-icon');
 
-		const { left } = dock.getBoundingClientRect();
 		const animateIcons = ({ mouseX }: AnimateIconsProps) => {
+			const { left } = dock.getBoundingClientRect();
+
 			iconEls.forEach((el) => {
 				if (!(el instanceof HTMLElement)) return;
 				const { left: iconLeft, width } = el.getBoundingClientRect();
@@ -45,7 +46,9 @@ export const Dock = () => {
 				});
 			});
 		};
+
 		const handleMouseMove = (e: MouseEvent) => {
+			const { left } = dock.getBoundingClientRect();
 			animateIcons({ mouseX: e.clientX - left });
 		};
 
@@ -60,6 +63,7 @@ export const Dock = () => {
 				});
 			});
 		};
+
 		dock.addEventListener('mousemove', handleMouseMove);
 		dock.addEventListener('mouseleave', resetIcons);
 
