@@ -36,6 +36,10 @@ export type FinderImageFile = FinderBase & {
 export type FinderPdfFile = FinderBase & {
 	kind: 'file';
 	fileType: 'pdf';
+	/**
+	 * Optional because some PDFs are local/embedded or represent metadata-only entries.
+	 * Consumers of FinderPdfFile should guard for undefined before using href.
+	 */
 	href?: string;
 };
 
