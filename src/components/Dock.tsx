@@ -2,14 +2,11 @@ import { dockApps } from '#constants';
 import { useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import type { ReactElement } from 'react';
 import { useRef } from 'react';
 import { Tooltip } from 'react-tooltip';
 
 type DockApp = (typeof dockApps)[number];
-
-interface ToggleAppProps {
-	app: Pick<DockApp, 'id' | 'canOpen'>;
-}
 
 interface AnimateIconsProps {
 	mouseX: number;
@@ -18,11 +15,9 @@ interface AnimateIconsProps {
 /**
  * macOS-style dock with GSAP-driven magnification and window toggles.
  */
-export const Dock = () => {
+export const Dock = (): ReactElement => {
 	const dockRef = useRef<HTMLDivElement>(null);
 	const { openWindow, closeWindow, windows } = useWindowStore();
-	const isWindowKey = (id: string): id is keyof typeof windows =>
-		id in windows;
 
 	useGSAP(() => {
 		const dock = dockRef.current;
@@ -80,8 +75,8 @@ export const Dock = () => {
 	/**
 	 * Opens or closes a window if the dock app is allowed to open.
 	 */
-	const toggleApp = ({ app }: ToggleAppProps) => {
-		if (!app.canOpen || !isWindowKey(app.id)) return;
+	const toggleApp = (app: DockApp) => {
+		if (!app.canOpen) return;
 
 		const win = windows[app.id];
 
@@ -95,26 +90,25 @@ export const Dock = () => {
 	return (
 		<section id="dock">
 			<div ref={dockRef} className="dock-container">
-				{dockApps.map(({ id, name, icon, canOpen }) => (
-					<div
-						key={id ?? name}
-						className="relative flex justify-center"
-					>
+				{dockApps.map((app) => (
+					<div key={app.id} className="relative flex justify-center">
 						<button
 							type="button"
 							className="dock-icon"
-							aria-label={name}
+							aria-label={app.name}
 							data-tooltip-id="dock-tooltip"
-							data-tooltip-content={name}
+							data-tooltip-content={app.name}
 							data-tooltip-delay-show={150}
-							disabled={!canOpen}
-							onClick={() => toggleApp({ app: { id, canOpen } })}
+							disabled={!app.canOpen}
+							onClick={() => {
+								toggleApp(app);
+							}}
 						>
 							<img
-								src={`/images/${icon}`}
-								alt={name}
+								src={`/images/${app.icon}`}
+								alt={app.name}
 								loading="lazy"
-								className={canOpen ? '' : 'opacity-60'}
+								className={app.canOpen ? '' : 'opacity-60'}
 							/>
 						</button>
 					</div>
