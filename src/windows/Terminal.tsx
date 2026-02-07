@@ -5,6 +5,7 @@ import { Check, Flag } from 'lucide-react';
 import type { ReactElement } from 'react';
 
 const Terminal = (): ReactElement => {
+	const loadedCount = techStack.length;
 	return (
 		<>
 			<div id="window-header">
@@ -41,8 +42,8 @@ const Terminal = (): ReactElement => {
 
 				<div className="footnote">
 					<p>
-						<Check size={20} /> 5 of 5 stacks loaded successfully
-						(100%)
+						<Check size={20} /> {loadedCount} of{' '}
+						{techStack.length} stacks loaded successfully (100%)
 					</p>
 
 					<p className="text-black">
