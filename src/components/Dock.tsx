@@ -15,6 +15,9 @@ interface AnimateIconsProps {
 	mouseX: number;
 }
 
+/**
+ * macOS-style dock with GSAP-driven magnification and window toggles.
+ */
 export const Dock = () => {
 	const dockRef = useRef<HTMLDivElement>(null);
 	const { openWindow, closeWindow, windows } = useWindowStore();
@@ -35,7 +38,8 @@ export const Dock = () => {
 				const { left: iconLeft, width } = el.getBoundingClientRect();
 				const center = iconLeft - left + width / 2;
 				const distance = Math.abs(mouseX - center);
-				const intensity = Math.exp(-(distance ** 2.75 / 20000)); // Gaussian falloff
+				// Gaussian falloff keeps the dock scaling smooth near the cursor.
+				const intensity = Math.exp(-(distance ** 2.75 / 20000));
 
 				gsap.to(el, {
 					scale: 1 + 0.25 * intensity,
@@ -48,6 +52,7 @@ export const Dock = () => {
 
 		const handleMouseMove = (e: MouseEvent) => {
 			const { left } = dock.getBoundingClientRect();
+			// Translate mouse X into dock-local coordinates.
 			animateIcons({ mouseX: e.clientX - left });
 		};
 
@@ -72,6 +77,9 @@ export const Dock = () => {
 		};
 	}, []);
 
+	/**
+	 * Opens or closes a window if the dock app is allowed to open.
+	 */
 	const toggleApp = ({ app }: ToggleAppProps) => {
 		if (!app.canOpen || !isWindowKey(app.id)) return;
 

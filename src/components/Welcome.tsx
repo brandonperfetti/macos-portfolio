@@ -8,6 +8,9 @@ interface RenderTextProps {
 	baseWeight?: number;
 }
 
+/**
+ * Renders a string as individual spans to enable per-letter animation.
+ */
 const renderText = ({ text, className, baseWeight = 400 }: RenderTextProps) => {
 	return [...text].map((char, index) => {
 		const isSpace = char === ' ';
@@ -19,7 +22,7 @@ const renderText = ({ text, className, baseWeight = 400 }: RenderTextProps) => {
 				aria-hidden="true"
 				style={{ fontVariationSettings: `"wght" ${baseWeight}` }}
 			>
-				{/* // Preserve spaces with non-breaking space */}
+				{/* Preserve spaces with non-breaking space */}
 				{isSpace ? '\u00A0' : char}
 			</span>
 		);
@@ -42,6 +45,9 @@ interface AnimateLetterProps {
 	duration?: number;
 }
 
+/**
+ * Binds hover-driven font weight animation to a container's letter spans.
+ */
 const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 	if (!container) return;
 	const letters = container.querySelectorAll('span');
@@ -66,7 +72,8 @@ const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 		letters.forEach((letter) => {
 			const { left: l, width: w } = letter.getBoundingClientRect();
 			const distance = Math.abs(mouseX - (l - left + w / 2));
-			const intensity = Math.exp(-(distance ** 2 / 20000)); // Gaussian falloff
+			// Gaussian falloff keeps the weight change smooth near the cursor.
+			const intensity = Math.exp(-(distance ** 2 / 20000));
 
 			animateLetter({ letter, weight: min + (max - min) * intensity });
 		});
@@ -86,6 +93,9 @@ const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 	};
 };
 
+/**
+ * Welcome hero with GSAP-driven variable font hover effect.
+ */
 export const Welcome = () => {
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const subtitleRef = useRef<HTMLParagraphElement>(null);

@@ -20,6 +20,10 @@ interface WindowState {
 	focusWindow: (windowKey: WindowKey) => void;
 }
 
+/**
+ * Central window store for open/close/focus actions.
+ * Uses monotonic z-index to keep focused windows above others.
+ */
 const useWindowStore = create<WindowState>()(
 	immer((set) => ({
 		windows: WINDOW_CONFIG as Record<WindowKey, WindowMeta>,
@@ -29,6 +33,7 @@ const useWindowStore = create<WindowState>()(
 			set((state) => {
 				const win = state.windows[windowKey];
 				win.isOpen = true;
+				// Assign newest z-index to bring the window to the front.
 				win.zIndex = state.nextZIndex;
 				win.data = data ?? win.data;
 				state.nextZIndex++;
@@ -44,6 +49,7 @@ const useWindowStore = create<WindowState>()(
 			set((state) => {
 				const win = state.windows[windowKey];
 				if (!win.isOpen) return;
+				// Bump z-index only for open windows to preserve stacking order.
 				win.zIndex = state.nextZIndex++;
 			}),
 	})),

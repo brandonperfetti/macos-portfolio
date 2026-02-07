@@ -1,5 +1,8 @@
 import { Dock, Navbar, Welcome } from '#components';
 
+/**
+ * Root layout for the macOS-style portfolio.
+ */
 const App = () => {
 	return (
 		<main>

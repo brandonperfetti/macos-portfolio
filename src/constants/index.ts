@@ -1,3 +1,6 @@
+/**
+ * Top-nav link labels and their window targets.
+ */
 const navLinks = [
 	{
 		id: 1,
@@ -16,6 +19,9 @@ const navLinks = [
 	},
 ];
 
+/**
+ * Status/action icons shown in the top nav.
+ */
 const navIcons = [
 	{
 		id: 1,
@@ -35,6 +41,9 @@ const navIcons = [
 	},
 ];
 
+/**
+ * Dock icon config. `id` must map to a window key when `canOpen` is true.
+ */
 const dockApps = [
 	{
 		id: 'finder',
@@ -74,6 +83,9 @@ const dockApps = [
 	},
 ] as const;
 
+/**
+ * Article cards shown in the Safari/Articles window.
+ */
 const blogPosts = [
 	{
 		id: 1,
@@ -98,6 +110,9 @@ const blogPosts = [
 	},
 ];
 
+/**
+ * Tech stack grouped by category.
+ */
 const techStack = [
 	{
 		category: 'Frontend',
@@ -125,6 +140,9 @@ const techStack = [
 	},
 ];
 
+/**
+ * Social links with icon and accent color.
+ */
 const socials = [
 	{
 		id: 1,
@@ -156,6 +174,9 @@ const socials = [
 	},
 ];
 
+/**
+ * Sidebar items for the Photos window.
+ */
 const photosLinks = [
 	{
 		id: 1,
@@ -184,6 +205,9 @@ const photosLinks = [
 	},
 ];
 
+/**
+ * Gallery image tiles for the Photos window.
+ */
 const gallery = [
 	{
 		id: 1,
@@ -214,6 +238,9 @@ export {
 	gallery,
 };
 
+/**
+ * Finder root: Work projects and related assets.
+ */
 const WORK_LOCATION = {
 	id: 1,
 	type: 'work',
@@ -382,6 +409,9 @@ const WORK_LOCATION = {
 	],
 };
 
+/**
+ * Finder root: About me content and images.
+ */
 const ABOUT_LOCATION = {
 	id: 2,
 	type: 'about',
@@ -435,6 +465,9 @@ const ABOUT_LOCATION = {
 	],
 };
 
+/**
+ * Finder root: Resume files (pdf or external links).
+ */
 const RESUME_LOCATION = {
 	id: 3,
 	type: 'resume',
@@ -454,6 +487,9 @@ const RESUME_LOCATION = {
 	],
 };
 
+/**
+ * Finder root: Trash items (non-openable by default).
+ */
 const TRASH_LOCATION = {
 	id: 4,
 	type: 'trash',
@@ -482,6 +518,9 @@ const TRASH_LOCATION = {
 	],
 };
 
+/**
+ * Finder root map by location key.
+ */
 export const locations = {
 	work: WORK_LOCATION,
 	about: ABOUT_LOCATION,
@@ -489,8 +528,14 @@ export const locations = {
 	trash: TRASH_LOCATION,
 };
 
+/**
+ * Baseline z-index for unfocused windows.
+ */
 const INITIAL_Z_INDEX = 1000;
 
+/**
+ * Initial window state for all supported window ids.
+ */
 const WINDOW_CONFIG = {
 	finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 	contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
