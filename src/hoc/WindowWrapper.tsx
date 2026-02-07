@@ -7,6 +7,9 @@ import Draggable from 'gsap/draggable';
 import type { ComponentType, ReactElement, JSX as ReactJSX } from 'react';
 import { useLayoutEffect, useRef } from 'react';
 
+/**
+ * Wraps a window component with open/close animation, drag behavior, and z-index focus.
+ */
 const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 	Component: ComponentType<Props>,
 	windowKey: WindowKey,

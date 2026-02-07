@@ -75,6 +75,7 @@ export const Dock = (): ReactElement => {
 	/**
 	 * Opens or closes a window if the dock app is allowed to open.
 	 */
+	// `DockApp` guarantees `WindowKey` when `canOpen` is true.
 	const toggleApp = (app: DockApp) => {
 		if (!app.canOpen) return;
 
