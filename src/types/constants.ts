@@ -1,5 +1,7 @@
 import type { WindowKey } from './windows';
 
+// Shared shapes for constant-driven config data.
+
 type NavLinkTarget = Extract<WindowKey, 'finder' | 'contact' | 'resume'>;
 
 export interface NavLink {

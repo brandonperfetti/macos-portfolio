@@ -1,3 +1,4 @@
+// Finder file/folder discriminated unions.
 export type FinderFileType = 'txt' | 'url' | 'img' | 'fig' | 'pdf';
 
 export interface FinderBase {

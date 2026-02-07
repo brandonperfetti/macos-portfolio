@@ -1,3 +1,4 @@
+// Shared window state types.
 export type WindowKey =
 	| 'finder'
 	| 'contact'
