@@ -1,10 +1,12 @@
 import { navIcons, navLinks } from '#constants';
-import dayjs from 'dayjs';
+import { useCurrentTime } from '#hooks';
 
 /**
  * Top navigation bar with portfolio links and current time.
  */
 export const Navbar = () => {
+	const currentTime = useCurrentTime();
+
 	return (
 		<nav>
 			<div>
@@ -31,7 +33,9 @@ export const Navbar = () => {
 					))}
 				</ul>
 				{/* Local time display for desktop-like feel */}
-				<time>{dayjs().format('ddd MMM D h:mm A')}</time>
+				<time dateTime={currentTime.toISOString()}>
+					{currentTime.format('ddd MMM D h:mm A')}
+				</time>
 			</div>
 		</nav>
 	);
