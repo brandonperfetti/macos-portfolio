@@ -1,18 +1,14 @@
 import { dockApps } from '#constants';
+import useWindowStore from '#store/window';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { Tooltip } from 'react-tooltip';
 
-interface AppProps {
-	name: string;
-	icon: string;
-	id?: string;
-	canOpen: boolean;
-}
+type DockApp = (typeof dockApps)[number];
 
 interface ToggleAppProps {
-	app: Pick<AppProps, 'id' | 'canOpen'>;
+	app: Pick<DockApp, 'id' | 'canOpen'>;
 }
 
 interface AnimateIconsProps {
@@ -21,6 +17,9 @@ interface AnimateIconsProps {
 
 export const Dock = () => {
 	const dockRef = useRef<HTMLDivElement>(null);
+	const { openWindow, closeWindow, windows } = useWindowStore();
+	const isWindowKey = (id: string): id is keyof typeof windows =>
+		id in windows;
 
 	useGSAP(() => {
 		const dock = dockRef.current;
@@ -74,7 +73,15 @@ export const Dock = () => {
 	}, []);
 
 	const toggleApp = ({ app }: ToggleAppProps) => {
-		// TODO: Implement open window logic
+		if (!app.canOpen || !isWindowKey(app.id)) return;
+
+		const win = windows[app.id];
+
+		if (win.isOpen) {
+			closeWindow(app.id);
+		} else {
+			openWindow(app.id);
+		}
 	};
 
 	return (
