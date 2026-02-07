@@ -8,3 +8,6 @@
 - Actions: `openWindow()`, `closeWindow()`, `focusWindow()` mutate state via Immer drafts
 
 Pattern: Use Immer draft mutations (e.g. `state.windows[key].isOpen = true`) instead of returning new objects.
+
+## Types
+`WindowKey` and `WindowConfig` live in `src/types/windows.ts` and are imported via `#types`.

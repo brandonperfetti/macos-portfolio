@@ -6,6 +6,11 @@ Interactive macOS-inspired portfolio built with React 19, TypeScript, Vite, GSAP
 - Package manager: npm (see `package-lock.json`)
 - Commands: `npm run dev`, `npm run build`, `npm run lint`, `npm run preview`
 
+## Types
+- Shared type definitions live in `src/types/` and are re-exported via the `#types` alias.
+- Finder data uses discriminated unions (`kind` + `fileType`) to keep rendering type-safe.
+- Prefer `satisfies` for config/data objects (`dockApps`, `locations`, `WINDOW_CONFIG`) to enforce shape without losing literals.
+
 ## Progressive Disclosure
 - Architecture and aliases: `docs/ARCHITECTURE.md`
 - Styling and Tailwind conventions: `docs/STYLING.md`

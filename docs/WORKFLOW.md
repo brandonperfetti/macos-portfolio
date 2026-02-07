@@ -8,8 +8,9 @@
 
 ## Type Safety
 - Strict TypeScript with project references (`tsconfig.json` → `tsconfig.app.json`)
-- `as const` assertions for literal type inference (see `dockApps`)
-- Type guards for window keys: `id is keyof typeof windows`
+- Prefer `satisfies` for config/data objects to enforce shape without losing literal types.
+- Shared type definitions live under `src/types/` and are re-exported via `#types`.
+- Dock apps enforce `WindowKey` when `canOpen: true`, so extra window-key guards are usually unnecessary.
 
 ## Imports
 - Prefer alias-based imports via barrels (e.g. `#components`, `#hooks`, `#store`).

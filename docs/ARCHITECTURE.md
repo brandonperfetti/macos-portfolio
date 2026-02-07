@@ -15,9 +15,16 @@ All app metadata lives in `src/constants/index.ts`:
 - `dockApps`: Dock icon configuration with `canOpen` flags
 - `WINDOW_CONFIG`: Initial window state structure
 - `locations`: Hierarchical folder/file data for Finder-like navigation
-- Uses `as const` assertions for type narrowing
+- Uses `satisfies` to enforce type shape without losing literal inference
 
 Pattern: New windows require entries in both `WINDOW_CONFIG` and `dockApps`.
+
+## Types
+Shared type definitions live in `src/types/` and are re-exported via `#types`.
+
+- `src/types/windows.ts`: window keys and window state shapes
+- `src/types/finder.ts`: Finder discriminated unions (`kind` + `fileType`)
+- `src/types/constants.ts`: shared config shapes for constants
 
 ## Component Architecture
 - `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`
