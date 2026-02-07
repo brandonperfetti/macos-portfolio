@@ -23,8 +23,6 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			const el = ref.current;
 			if (!el || !isOpen) return;
 
-			el.style.display = 'block';
-
 			gsap.fromTo(
 				el,
 				{ scale: 0.8, opacity: 0, y: 40 },
