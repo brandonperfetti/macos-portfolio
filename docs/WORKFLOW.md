@@ -10,3 +10,6 @@
 - Strict TypeScript with project references (`tsconfig.json` → `tsconfig.app.json`)
 - `as const` assertions for literal type inference (see `dockApps`)
 - Type guards for window keys: `id is keyof typeof windows`
+
+## Imports
+- Prefer alias-based imports via barrels (e.g. `#components`, `#hooks`, `#store`).

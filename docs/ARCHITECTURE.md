@@ -27,10 +27,13 @@ Pattern: New windows require entries in both `WINDOW_CONFIG` and `dockApps`.
 ## Path Aliases (Critical)
 Vite is configured with hash-prefixed aliases in `vite.config.ts`:
 
-- `#components` → `src/components/index.ts`
-- `#constants` → `src/constants/index.ts`
-- `#store` → `src/store/window.ts`
+- `#components` → `src/components`
+- `#constants` → `src/constants`
+- `#hooks` → `src/hooks`
+- `#store` → `src/store`
 - `#hoc` → `src/hoc`
 - `#windows` → `src/windows`
 
-Never use relative imports (`../components`). Use `#components`, `#constants`, `#store`, `#hoc`, `#windows`.
+Aliased folders use `index.ts` barrels to expose public exports.
+
+Never use relative imports (`../components`). Use `#components`, `#constants`, `#hooks`, `#store`, `#hoc`, `#windows`.
