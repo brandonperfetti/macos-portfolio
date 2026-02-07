@@ -3,6 +3,8 @@
 ## JSDoc and Comments
 Use JSDoc and inline comments to help future engineers understand non-obvious behavior.
 
+Default expectation: when making code changes or adding files, include JSDoc and helpful comments as part of the change (not as a follow-up pass).
+
 ### When to Use JSDoc
 - Exported components, hooks, and utilities
 - Public functions that are used across modules
