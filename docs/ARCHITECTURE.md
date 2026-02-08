@@ -31,6 +31,7 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 
 - `src/lib/gsap.ts`: core GSAP export
 - `src/lib/gsap-draggable.ts`: Draggable plugin registration + exports
+- `src/lib/pdf.ts`: pdf.js worker setup + React PDF exports
 
 ## Component Architecture
 - `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`
