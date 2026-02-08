@@ -1,4 +1,4 @@
-import type { WindowKey } from './windows';
+import type { WindowKey } from '#types';
 
 // Shared shapes for constant-driven config data.
 
