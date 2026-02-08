@@ -3,10 +3,20 @@
  * Provides a minimal public API surface used by this app.
  */
 declare module 'gsap/draggable' {
+	/** Namespace for Draggable option types. */
+	namespace Draggable {
+		/** Options passed to Draggable.create. */
+		interface Vars {
+			onPress?: () => void;
+		}
+	}
+
 	/** Draggable plugin class from GSAP. */
 	class Draggable {
 		/**
 		 * Creates draggable instances for the provided targets.
+		 * @param target Target element(s) to make draggable.
+		 * @param vars Optional Draggable options.
 		 * @returns Array of Draggable instances.
 		 */
 		static create(
