@@ -37,7 +37,7 @@ const Resume = (): ReactElement => {
 				<h2>Resume.pdf</h2>
 
 				<a
-					href="files/resume.pdf"
+					href="/files/resume.pdf"
 					download
 					className="cursor-pointer"
 					title="Download resume"
@@ -49,7 +49,7 @@ const Resume = (): ReactElement => {
 			<div ref={containerRef}>
 				{loadError ? <p role="alert">{loadError}</p> : null}
 				<Document
-					file="files/resume.pdf"
+					file="/files/resume.pdf"
 					loading={<p>Loading resume…</p>}
 					onLoadSuccess={() => {
 						setLoadError(null);
