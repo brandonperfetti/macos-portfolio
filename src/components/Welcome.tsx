@@ -1,5 +1,6 @@
+import { gsap } from '#lib';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import type { ReactElement } from 'react';
 import { useRef } from 'react';
 
 interface RenderTextProps {
@@ -12,7 +13,13 @@ interface RenderTextProps {
  * Renders a string as individual spans to enable per-letter animation.
  */
 const renderText = ({ text, className, baseWeight = 400 }: RenderTextProps) => {
-	return [...text].map((char, index) => {
+	const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+	const segments = Array.from(
+		segmenter.segment(text),
+		(segment) => segment.segment,
+	);
+
+	return segments.map((char, index) => {
 		const isSpace = char === ' ';
 
 		return (
@@ -20,7 +27,9 @@ const renderText = ({ text, className, baseWeight = 400 }: RenderTextProps) => {
 				key={index}
 				className={className}
 				aria-hidden="true"
-				style={{ fontVariationSettings: `"wght" ${baseWeight}` }}
+				style={{
+					fontVariationSettings: `"wght" ${String(baseWeight)}`,
+				}}
 			>
 				{/* Preserve spaces with non-breaking space */}
 				{isSpace ? '\u00A0' : char}
@@ -61,7 +70,7 @@ const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 		return gsap.to(letter, {
 			duration,
 			ease: 'power2.out',
-			fontVariationSettings: `"wght" ${weight}`,
+			fontVariationSettings: `"wght" ${String(weight)}`,
 		});
 	};
 
@@ -79,10 +88,11 @@ const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 		});
 	};
 
-	const handleMouseLeave = () =>
+	const handleMouseLeave = () => {
 		letters.forEach((letter) => {
 			animateLetter({ letter, weight: base, duration: 0.3 });
 		});
+	};
 
 	container.addEventListener('mousemove', handleMouseMove);
 	container.addEventListener('mouseleave', handleMouseLeave);
@@ -96,7 +106,7 @@ const setupTextHover = ({ container, type }: SetupTextHoverProps) => {
 /**
  * Welcome hero with GSAP-driven variable font hover effect.
  */
-export const Welcome = () => {
+export const Welcome = (): ReactElement => {
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const subtitleRef = useRef<HTMLParagraphElement>(null);
 
@@ -111,8 +121,8 @@ export const Welcome = () => {
 		});
 
 		return () => {
-			titleCleanup && titleCleanup();
-			subtitleCleanup && subtitleCleanup();
+			titleCleanup?.();
+			subtitleCleanup?.();
 		};
 	}, []);
 

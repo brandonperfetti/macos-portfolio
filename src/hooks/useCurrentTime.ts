@@ -1,12 +1,15 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
-export const useCurrentTime = () => {
+/**
+ * Returns the current time as a Dayjs instance and keeps it aligned to minute boundaries.
+ * @returns A Dayjs object that updates once per minute.
+ */
+export const useCurrentTime = (): Dayjs => {
 	const [currentTime, setCurrentTime] = useState<Dayjs>(() => dayjs());
 
 	useEffect(() => {
 		let intervalId: ReturnType<typeof setInterval> | undefined;
-		let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 		const syncToMinute = () => {
 			setCurrentTime(dayjs());
@@ -19,10 +22,10 @@ export const useCurrentTime = () => {
 		// Align updates to the next minute boundary to avoid drift.
 		const msToNextMinute =
 			60_000 - (now.second() * 1000 + now.millisecond());
-		timeoutId = setTimeout(syncToMinute, msToNextMinute);
+		const timeoutId = setTimeout(syncToMinute, msToNextMinute);
 
 		return () => {
-			if (timeoutId) clearTimeout(timeoutId);
+			clearTimeout(timeoutId);
 			if (intervalId) clearInterval(intervalId);
 		};
 	}, []);

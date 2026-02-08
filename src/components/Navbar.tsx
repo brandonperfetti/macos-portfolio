@@ -1,10 +1,11 @@
 import { navIcons, navLinks } from '#constants';
 import { useCurrentTime } from '#hooks';
+import type { ReactElement } from 'react';
 
 /**
  * Top navigation bar with portfolio links and current time.
  */
-export const Navbar = () => {
+export const Navbar = (): ReactElement => {
 	const currentTime = useCurrentTime();
 
 	return (
@@ -26,7 +27,7 @@ export const Navbar = () => {
 						<li key={id}>
 							<img
 								src={img}
-								alt={`icon-${id}`}
+								alt={`icon-${String(id)}`}
 								className="icon-hover"
 							/>
 						</li>

@@ -1,3 +1,17 @@
+import type {
+	BlogPost,
+	DockApp,
+	FinderLocation,
+	GalleryItem,
+	LocationsMap,
+	NavIcon,
+	NavLink,
+	PhotosLink,
+	SocialLink,
+	TechStackCategory,
+	WindowConfig,
+} from '#types';
+
 /**
  * Top-nav link labels and their window targets.
  */
@@ -17,7 +31,7 @@ const navLinks = [
 		name: 'Resume',
 		type: 'resume',
 	},
-];
+] satisfies NavLink[];
 
 /**
  * Status/action icons shown in the top nav.
@@ -39,7 +53,7 @@ const navIcons = [
 		id: 4,
 		img: '/icons/mode.svg',
 	},
-];
+] satisfies NavIcon[];
 
 /**
  * Dock icon config. `id` must map to a window key when `canOpen` is true.
@@ -81,7 +95,7 @@ const dockApps = [
 		icon: 'trash.png',
 		canOpen: false,
 	},
-] as const;
+] satisfies DockApp[];
 
 /**
  * Article cards shown in the Safari/Articles window.
@@ -108,7 +122,7 @@ const blogPosts = [
 		image: '/images/blog3.png',
 		link: 'https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations',
 	},
-];
+] satisfies BlogPost[];
 
 /**
  * Tech stack grouped by category.
@@ -138,7 +152,7 @@ const techStack = [
 		category: 'Dev Tools',
 		items: ['Git', 'GitHub', 'Docker'],
 	},
-];
+] satisfies TechStackCategory[];
 
 /**
  * Social links with icon and accent color.
@@ -172,7 +186,7 @@ const socials = [
 		bg: '#05b6f6',
 		link: 'https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all',
 	},
-];
+] satisfies SocialLink[];
 
 /**
  * Sidebar items for the Photos window.
@@ -203,7 +217,7 @@ const photosLinks = [
 		icon: '/icons/gicon5.svg',
 		title: 'Favorites',
 	},
-];
+] satisfies PhotosLink[];
 
 /**
  * Gallery image tiles for the Photos window.
@@ -225,17 +239,10 @@ const gallery = [
 		id: 4,
 		img: '/images/gal4.png',
 	},
-];
+] satisfies GalleryItem[];
 
 export {
-	navLinks,
-	navIcons,
-	dockApps,
-	blogPosts,
-	techStack,
-	socials,
-	photosLinks,
-	gallery,
+	blogPosts, dockApps, gallery, navIcons, navLinks, photosLinks, socials, techStack
 };
 
 /**
@@ -407,7 +414,7 @@ const WORK_LOCATION = {
 			],
 		},
 	],
-};
+} as const satisfies FinderLocation;
 
 /**
  * Finder root: About me content and images.
@@ -463,7 +470,7 @@ const ABOUT_LOCATION = {
 			],
 		},
 	],
-};
+} as const satisfies FinderLocation;
 
 /**
  * Finder root: Resume files (pdf or external links).
@@ -485,7 +492,7 @@ const RESUME_LOCATION = {
 			// href: "/your/resume/path.pdf",
 		},
 	],
-};
+} as const satisfies FinderLocation;
 
 /**
  * Finder root: Trash items (non-openable by default).
@@ -516,7 +523,7 @@ const TRASH_LOCATION = {
 			imageUrl: '/images/trash-2.png',
 		},
 	],
-};
+} as const satisfies FinderLocation;
 
 /**
  * Finder root map by location key.
@@ -526,7 +533,7 @@ export const locations = {
 	about: ABOUT_LOCATION,
 	resume: RESUME_LOCATION,
 	trash: TRASH_LOCATION,
-};
+} as const satisfies LocationsMap;
 
 /**
  * Baseline z-index for unfocused windows.
@@ -536,7 +543,7 @@ const INITIAL_Z_INDEX = 1000;
 /**
  * Initial window state for all supported window ids.
  */
-const WINDOW_CONFIG = {
+const WINDOW_CONFIG: WindowConfig = {
 	finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 	contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 	resume: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },

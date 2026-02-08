@@ -1,10 +1,9 @@
 import { INITIAL_Z_INDEX, WINDOW_CONFIG } from '#constants';
+import type { WindowData, WindowKey } from '#types';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-type WindowKey = keyof typeof WINDOW_CONFIG;
-
-type WindowData = unknown;
+export type { WindowData, WindowKey };
 
 interface WindowMeta {
 	isOpen: boolean;
@@ -12,7 +11,7 @@ interface WindowMeta {
 	data: WindowData | null;
 }
 
-interface WindowState {
+export interface WindowState {
 	windows: Record<WindowKey, WindowMeta>;
 	nextZIndex: number;
 	openWindow: (windowKey: WindowKey, data?: WindowData | null) => void;
@@ -29,29 +28,32 @@ const useWindowStore = create<WindowState>()(
 		windows: WINDOW_CONFIG as Record<WindowKey, WindowMeta>,
 		nextZIndex: INITIAL_Z_INDEX + 1,
 
-		openWindow: (windowKey, data = null) =>
-			set((state) => {
+		openWindow: (windowKey, data = null) => {
+			set((state: WindowState) => {
 				const win = state.windows[windowKey];
 				win.isOpen = true;
 				// Assign newest z-index to bring the window to the front.
 				win.zIndex = state.nextZIndex;
 				win.data = data ?? win.data;
 				state.nextZIndex++;
-			}),
-		closeWindow: (windowKey) =>
-			set((state) => {
+			});
+		},
+		closeWindow: (windowKey) => {
+			set((state: WindowState) => {
 				const win = state.windows[windowKey];
 				win.isOpen = false;
 				win.zIndex = INITIAL_Z_INDEX;
 				win.data = null;
-			}),
-		focusWindow: (windowKey) =>
-			set((state) => {
+			});
+		},
+		focusWindow: (windowKey) => {
+			set((state: WindowState) => {
 				const win = state.windows[windowKey];
 				if (!win.isOpen) return;
 				// Bump z-index only for open windows to preserve stacking order.
 				win.zIndex = state.nextZIndex++;
-			}),
+			});
+		},
 	})),
 );
 

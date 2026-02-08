@@ -1,1 +1,1 @@
-export { useCurrentTime } from './useCurrentTime';
+export * from './useCurrentTime';

@@ -15,9 +15,22 @@ All app metadata lives in `src/constants/index.ts`:
 - `dockApps`: Dock icon configuration with `canOpen` flags
 - `WINDOW_CONFIG`: Initial window state structure
 - `locations`: Hierarchical folder/file data for Finder-like navigation
-- Uses `as const` assertions for type narrowing
+- Uses `satisfies` to enforce type shape without losing literal inference
 
 Pattern: New windows require entries in both `WINDOW_CONFIG` and `dockApps`.
+
+## Types
+Shared type definitions live in `src/types/` and are re-exported via `#types`.
+
+- `src/types/windows.ts`: window keys and window state shapes
+- `src/types/finder.ts`: Finder discriminated unions (`kind` + `fileType`)
+- `src/types/constants.ts`: shared config shapes for constants
+
+## Lib Modules
+Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
+
+- `src/lib/gsap.ts`: core GSAP export
+- `src/lib/gsap-draggable.ts`: Draggable plugin registration + exports
 
 ## Component Architecture
 - `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`
@@ -32,8 +45,10 @@ Vite is configured with hash-prefixed aliases in `vite.config.ts`:
 - `#hooks` → `src/hooks`
 - `#store` → `src/store`
 - `#hoc` → `src/hoc`
+- `#lib` → `src/lib`
 - `#windows` → `src/windows`
+- `#types` → `src/types`
 
-Aliased folders use `index.ts` barrels to expose public exports.
+Aliased folders use `index.ts` barrels to expose public exports (including `#types`).
 
-Never use relative imports (`../components`). Use `#components`, `#constants`, `#hooks`, `#store`, `#hoc`, `#windows`.
+Never use relative imports (`../components`). Use `#components`, `#constants`, `#hooks`, `#store`, `#hoc`, `#windows`, `#lib`, `#types`.
