@@ -51,4 +51,4 @@ Vite is configured with hash-prefixed aliases in `vite.config.ts`:
 
 Aliased folders use `index.ts` barrels to expose public exports (including `#types`).
 
-Never use relative imports (`../components`). Use `#components`, `#constants`, `#hooks`, `#store`, `#hoc`, `#windows`.
+Never use relative imports (`../components`). Use `#components`, `#constants`, `#hooks`, `#store`, `#hoc`, `#windows`, `#lib`, `#types`.
