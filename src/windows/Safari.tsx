@@ -37,6 +37,7 @@ const Safari = (): ReactElement => {
 						<input
 							type="text"
 							placeholder="Search or enter website name"
+							aria-label="Search or enter website name"
 							className="flex-1"
 						/>
 					</div>
