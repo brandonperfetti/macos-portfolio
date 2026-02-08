@@ -1,7 +1,7 @@
 import { dockApps } from '#constants';
+import { gsap } from '#lib';
 import { useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';
 import { Tooltip } from 'react-tooltip';

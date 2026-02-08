@@ -1,9 +1,7 @@
-import type { WindowState } from '#store';
-import { useWindowStore } from '#store';
+import { Draggable, gsap } from '#lib/gsap-draggable';
+import { useWindowStore, type WindowState } from '#store';
 import type { WindowKey } from '#types';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import Draggable from 'gsap/draggable';
 import type { ComponentType, ReactElement, JSX as ReactJSX } from 'react';
 import { useLayoutEffect, useRef } from 'react';
 
