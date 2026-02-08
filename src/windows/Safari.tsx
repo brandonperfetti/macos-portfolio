@@ -23,17 +23,18 @@ const Safari = (): ReactElement => {
 			<div id="window-header">
 				<WindowControls target="safari" />
 
-				<PanelLeft className="icon ml-10" />
+				{/* TODO: Toolbar actions are decorative for now; wire buttons later. */}
+				<PanelLeft className="icon ml-10" aria-hidden="true" />
 
 				<div className="ml-5 flex items-center gap-1">
-					<ChevronLeft className="icon" />
-					<ChevronRight className="icon" />
+					<ChevronLeft className="icon" aria-hidden="true" />
+					<ChevronRight className="icon" aria-hidden="true" />
 				</div>
 
 				<div className="flex-center flex-1 gap-3">
-					<ShieldHalf className="icon" />
+					<ShieldHalf className="icon" aria-hidden="true" />
 					<div className="search">
-						<SearchIcon className="icon" />
+						<SearchIcon className="icon" aria-hidden="true" />
 						<input
 							type="text"
 							placeholder="Search or enter website name"
@@ -44,9 +45,9 @@ const Safari = (): ReactElement => {
 				</div>
 
 				<div className="flex items-center gap-5">
-					<Share className="icon" />
-					<Plus className="icon" />
-					<Copy className="icon" />
+					<Share className="icon" aria-hidden="true" />
+					<Plus className="icon" aria-hidden="true" />
+					<Copy className="icon" aria-hidden="true" />
 				</div>
 			</div>
 

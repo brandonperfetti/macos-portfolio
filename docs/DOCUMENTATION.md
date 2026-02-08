@@ -19,6 +19,7 @@ Default expectation: when making code changes or adding files, include JSDoc and
 - Prefer explaining *why* something is done, not *what* the code already says
 - Document tricky GSAP math, z-index/focus rules, or window state transitions
 - Avoid redundant comments that restate the code
+- Use `TODO:` for intentionally deferred work so it is searchable
 
 ## Examples
 
