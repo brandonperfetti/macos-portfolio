@@ -1,5 +1,6 @@
 import { navIcons, navLinks } from '#constants';
 import { useCurrentTime } from '#hooks';
+import { useWindowStore } from '#store';
 import type { ReactElement } from 'react';
 
 /**
@@ -7,6 +8,7 @@ import type { ReactElement } from 'react';
  */
 export const Navbar = (): ReactElement => {
 	const currentTime = useCurrentTime();
+	const { openWindow } = useWindowStore();
 
 	return (
 		<nav>
@@ -15,8 +17,18 @@ export const Navbar = (): ReactElement => {
 				<p className="font-bold">Brandon's Portfolio</p>
 
 				<ul>
-					{navLinks.map((item) => (
-						<li key={item.id}>{item.name}</li>
+					{navLinks.map(({ id, name, type }) => (
+						<li key={id}>
+							<button
+								type="button"
+								className="cursor-pointer"
+								onClick={() => {
+									openWindow(type);
+								}}
+							>
+								{name}
+							</button>
+						</li>
 					))}
 				</ul>
 			</div>
