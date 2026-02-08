@@ -1,6 +1,10 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
+/**
+ * Returns the current time as a Dayjs instance and keeps it aligned to minute boundaries.
+ * @returns A Dayjs object that updates once per minute.
+ */
 export const useCurrentTime = (): Dayjs => {
 	const [currentTime, setCurrentTime] = useState<Dayjs>(() => dayjs());
 
