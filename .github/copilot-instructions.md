@@ -13,6 +13,7 @@ Interactive macOS-inspired portfolio built with React 19, TypeScript, Vite, GSAP
 
 ## Progressive Disclosure
 - Architecture and aliases: `docs/ARCHITECTURE.md`
+- Accessibility standards: `docs/ACCESSIBILITY.md`
 - Styling and Tailwind conventions: `docs/STYLING.md`
 - GSAP patterns: `docs/ANIMATION.md`
 - Workflow and type safety: `docs/WORKFLOW.md`

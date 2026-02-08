@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 import { Dock, Navbar, Welcome } from '#components';
-import { Terminal } from '#windows';
+import { Safari, Terminal } from '#windows';
 
 
 /**
@@ -15,6 +15,7 @@ const App = (): ReactElement => {
 			<Dock />
 
 			<Terminal />
+			<Safari />
 		</main>
 	);
 };
