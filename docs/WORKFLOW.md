@@ -14,3 +14,4 @@
 
 ## Imports
 - Prefer alias-based imports via barrels (e.g. `#components`, `#hooks`, `#store`).
+- Shared runtime utilities live under `src/lib/` and are imported via `#lib`.

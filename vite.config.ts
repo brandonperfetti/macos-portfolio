@@ -26,6 +26,7 @@ export default defineConfig({
 				'src/store',
 			),
 			'#hoc': resolve(dirname(fileURLToPath(import.meta.url)), 'src/hoc'),
+			'#lib': resolve(dirname(fileURLToPath(import.meta.url)), 'src/lib'),
 			'#windows': resolve(
 				dirname(fileURLToPath(import.meta.url)),
 				'src/windows',

@@ -26,6 +26,12 @@ Shared type definitions live in `src/types/` and are re-exported via `#types`.
 - `src/types/finder.ts`: Finder discriminated unions (`kind` + `fileType`)
 - `src/types/constants.ts`: shared config shapes for constants
 
+## Lib Modules
+Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
+
+- `src/lib/gsap.ts`: core GSAP export
+- `src/lib/gsap-draggable.ts`: Draggable plugin registration + exports
+
 ## Component Architecture
 - `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics
@@ -39,6 +45,7 @@ Vite is configured with hash-prefixed aliases in `vite.config.ts`:
 - `#hooks` → `src/hooks`
 - `#store` → `src/store`
 - `#hoc` → `src/hoc`
+- `#lib` → `src/lib`
 - `#windows` → `src/windows`
 - `#types` → `src/types`
 
