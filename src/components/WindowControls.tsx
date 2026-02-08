@@ -25,6 +25,7 @@ export const WindowControls = ({
 				className="minimize"
 				aria-label="Minimize window"
 				aria-disabled="true"
+				disabled
 				// TODO: Wire minimize behavior.
 			/>
 			<button
@@ -32,6 +33,7 @@ export const WindowControls = ({
 				className="maximize"
 				aria-label="Maximize window"
 				aria-disabled="true"
+				disabled
 				// TODO: Wire maximize behavior.
 			/>
 		</div>
