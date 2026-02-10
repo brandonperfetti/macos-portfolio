@@ -86,10 +86,7 @@ const Finder = (): ReactElement => {
 				</div>
 				<ul className="content">
 					{currentLocation.children.map((item) => (
-						<li
-							key={item.id}
-							className={item.position}
-						>
+						<li key={item.id} className={item.position}>
 							<button
 								type="button"
 								className="flex flex-col items-center gap-2"
