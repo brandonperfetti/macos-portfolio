@@ -90,5 +90,8 @@ export type FinderLocation = FinderFolder & {
 	type: LocationType;
 };
 
+/** Finder folder type used in navigation (root or nested). */
+export type FinderLocationFolder = FinderLocation | FinderFolder;
+
 /** Map of location keys to Finder root nodes. */
 export type LocationsMap = Record<LocationType, FinderLocation>;

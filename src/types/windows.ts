@@ -10,8 +10,10 @@ export type WindowKey =
 	| 'txtfile'
 	| 'imgfile';
 
-/** Generic data bag stored on each window instance. */
-export type WindowData = Record<string, unknown>;
+/** Arbitrary data payload stored on each window instance. */
+export type WindowData =
+	| Record<string, unknown>
+	| import('./finder').FinderNode;
 
 /** Window state entry for a single window. */
 export interface WindowConfigEntry {
