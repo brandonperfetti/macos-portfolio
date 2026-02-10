@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 import { Dock, Navbar, Welcome } from '#components';
-import { Resume, Safari, Terminal } from '#windows';
+import { Finder, Resume, Safari, Terminal } from '#windows';
 
 /**
  * Root layout for the macOS-style portfolio.
@@ -16,6 +16,7 @@ const App = (): ReactElement => {
 			<Terminal />
 			<Safari />
 			<Resume />
+			<Finder />
 		</main>
 	);
 };
