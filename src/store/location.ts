@@ -1,18 +1,18 @@
 import { locations } from '#constants';
-import type { FinderLocation } from '#types';
+import type { FinderLocationFolder } from '#types';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-const DEFAULT_LOCATION: FinderLocation = locations.work;
+const DEFAULT_LOCATION: FinderLocationFolder = locations.work;
 
 /**
  * Store shape for the active Finder location.
  */
 export interface LocationState {
-	/** Currently active location, or null when unset. */
-	activeLocation: FinderLocation | null;
-	/** Sets the active location (or clears it with null). */
-	setActiveLocation: (location: FinderLocation | null) => void;
+	/** Currently active folder, or null when unset. */
+	activeLocation: FinderLocationFolder | null;
+	/** Sets the active folder (or clears it with null). */
+	setActiveLocation: (location: FinderLocationFolder | null) => void;
 	/** Resets the active location to the default. */
 	resetActiveLocation: () => void;
 }
