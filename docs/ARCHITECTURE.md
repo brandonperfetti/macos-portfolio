@@ -34,7 +34,7 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 - `src/lib/pdf.ts`: pdf.js worker setup + React PDF exports
 
 ## Component Architecture
-- `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`
+- `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`, and mounted window entry points (for example `Contact`, `Finder`, `Safari`, `Resume`).
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics
 - Barrel exports via `src/components/index.ts`
 
