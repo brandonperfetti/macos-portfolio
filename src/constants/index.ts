@@ -241,8 +241,17 @@ const gallery = [
 	},
 ] satisfies GalleryItem[];
 
+/** Avatar URL shown in the Contact window. */
+const CONTACT_AVATAR_URL =
+	'https://res.cloudinary.com/dgwdyrmsn/image/upload/v1683142617/bp-spotlight/images/avatar_jeycju.jpg';
+
+/** Primary email shown in the Contact window. */
+const CONTACT_EMAIL = 'brandon@brandonperfetti.com';
+
 export {
 	blogPosts,
+	CONTACT_AVATAR_URL,
+	CONTACT_EMAIL,
 	dockApps,
 	gallery,
 	navIcons,
