@@ -26,7 +26,7 @@ const Finder = (): ReactElement => {
 				return;
 			case 'fig':
 			case 'url':
-				window.open(item.href, '_blank');
+				window.open(item.href, '_blank', 'noopener,noreferrer');
 				return;
 			case 'txt':
 				openWindow('txtfile', item);
