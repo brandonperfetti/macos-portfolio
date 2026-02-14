@@ -1,13 +1,8 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
 import { useWindowStore, type WindowState } from '#store';
-import { isFinderFile, type FinderImageFile } from '#types';
-import { useState, type ReactElement } from 'react';
-
-const isFinderImageFile = (value: unknown): value is FinderImageFile => {
-	if (!isFinderFile(value) || value.fileType !== 'img') return false;
-	return typeof value.imageUrl === 'string';
-};
+import { isFinderImageFile } from '#types';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 
 const ImageFile = (): ReactElement | null => {
 	const data = useWindowStore(
@@ -17,6 +12,13 @@ const ImageFile = (): ReactElement | null => {
 	const imageUrl = isImageFile ? data.imageUrl : null;
 	const [failedSrc, setFailedSrc] = useState<string | null>(null);
 	const [isRetrying, setIsRetrying] = useState(false);
+	const isMountedRef = useRef(true);
+
+	useEffect(() => {
+		return () => {
+			isMountedRef.current = false;
+		};
+	}, []);
 
 	if (!isImageFile) return null;
 	const hasFailed = failedSrc === imageUrl;
@@ -40,10 +42,12 @@ const ImageFile = (): ReactElement | null => {
 								setIsRetrying(true);
 								const probe = new Image();
 								probe.onload = () => {
+									if (!isMountedRef.current) return;
 									setFailedSrc(null);
 									setIsRetrying(false);
 								};
 								probe.onerror = () => {
+									if (!isMountedRef.current) return;
 									setIsRetrying(false);
 								};
 								probe.src = data.imageUrl;
@@ -66,6 +70,7 @@ const ImageFile = (): ReactElement | null => {
 	);
 };
 
+/** Finder-backed image-preview window. */
 const ImageFileWindow = WindowWrapper(ImageFile, 'imgfile');
 
 export default ImageFileWindow;
