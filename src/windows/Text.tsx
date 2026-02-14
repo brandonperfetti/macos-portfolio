@@ -1,17 +1,14 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
 import { useWindowStore, type WindowState } from '#store';
-import type { FinderTextFile } from '#types';
+import { type FinderTextFile, isFinderFile } from '#types';
 import type { ReactElement } from 'react';
 
 const isFinderTextFile = (value: unknown): value is FinderTextFile => {
-	if (!value || typeof value !== 'object') return false;
+	if (!isFinderFile(value) || value.fileType !== 'txt') return false;
 
 	const candidate = value as Partial<FinderTextFile>;
 	return (
-		candidate.kind === 'file' &&
-		candidate.fileType === 'txt' &&
-		typeof candidate.name === 'string' &&
 		Array.isArray(candidate.description) &&
 		candidate.description.every(
 			(description) => typeof description === 'string',

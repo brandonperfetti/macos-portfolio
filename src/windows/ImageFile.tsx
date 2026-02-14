@@ -1,19 +1,12 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
 import { useWindowStore, type WindowState } from '#store';
-import type { FinderImageFile } from '#types';
+import { isFinderFile, type FinderImageFile } from '#types';
 import { useState, type ReactElement } from 'react';
 
 const isFinderImageFile = (value: unknown): value is FinderImageFile => {
-	if (!value || typeof value !== 'object') return false;
-
-	const candidate = value as Partial<FinderImageFile>;
-	return (
-		candidate.kind === 'file' &&
-		candidate.fileType === 'img' &&
-		typeof candidate.name === 'string' &&
-		typeof candidate.imageUrl === 'string'
-	);
+	if (!isFinderFile(value) || value.fileType !== 'img') return false;
+	return typeof value.imageUrl === 'string';
 };
 
 const ImageFile = (): ReactElement | null => {
@@ -23,6 +16,7 @@ const ImageFile = (): ReactElement | null => {
 	const isImageFile = isFinderImageFile(data);
 	const imageUrl = isImageFile ? data.imageUrl : null;
 	const [failedSrc, setFailedSrc] = useState<string | null>(null);
+	const [isRetrying, setIsRetrying] = useState(false);
 
 	if (!isImageFile) return null;
 	const hasFailed = failedSrc === imageUrl;
@@ -40,12 +34,22 @@ const ImageFile = (): ReactElement | null => {
 						<p>Preview unavailable for {data.name}</p>
 						<button
 							type="button"
-							className="rounded bg-neutral-700 px-3 py-1 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+							className="rounded bg-neutral-700 px-3 py-1 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
+							disabled={isRetrying}
 							onClick={() => {
-								setFailedSrc(null);
+								setIsRetrying(true);
+								const probe = new Image();
+								probe.onload = () => {
+									setFailedSrc(null);
+									setIsRetrying(false);
+								};
+								probe.onerror = () => {
+									setIsRetrying(false);
+								};
+								probe.src = data.imageUrl;
 							}}
 						>
-							Retry
+							{isRetrying ? 'Retrying...' : 'Retry'}
 						</button>
 					</div>
 				) : (
