@@ -1,3 +1,5 @@
+import type { FinderNode } from '#types';
+
 // Shared window state types.
 /** Supported window keys for the desktop UI. */
 export type WindowKey =
@@ -11,9 +13,7 @@ export type WindowKey =
 	| 'imgfile';
 
 /** Arbitrary data payload stored on each window instance. */
-export type WindowData =
-	| Record<string, unknown>
-	| import('./finder').FinderNode;
+export type WindowData = FinderNode | Record<string, unknown>;
 
 /** Window state entry for a single window. */
 export interface WindowConfigEntry {

@@ -18,6 +18,8 @@ export interface FinderBase {
 export type FinderFolder = FinderBase & {
 	/** Discriminator for folder entries. */
 	kind: 'folder';
+	/** Distinguishes root locations from nested folders. */
+	scope: 'root' | 'nested';
 	/** Optional position for the folder window itself. */
 	windowPosition?: string;
 	/** Child items contained within the folder. */
@@ -88,6 +90,8 @@ export type LocationType = 'work' | 'about' | 'resume' | 'trash';
 export type FinderLocation = FinderFolder & {
 	/** Location key used in routing/navigation. */
 	type: LocationType;
+	/** Root locations only. */
+	scope: 'root';
 };
 
 /** Finder folder type used in navigation (root or nested). */
