@@ -1,6 +1,7 @@
 /**
  * Window entry points exported by this module.
  */
+export { default as Contact } from './Contact';
 export { default as Finder } from './Finder';
 export { default as ImageFile } from './ImageFile';
 export { default as Resume } from './Resume';

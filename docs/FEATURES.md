@@ -9,6 +9,7 @@
 4. Export the window from `src/windows/index.ts`
 5. Mount the window in `src/App.tsx` if it should be globally render-ready
 6. Update Zustand/types if the window requires custom data shape
+7. Move reusable display values (for example contact email/avatar URLs) into `src/constants/index.ts` and import them into the window.
 
 ### Adding Navigation Items
 Update `navLinks` in `src/constants/index.ts` with `type` matching window keys.

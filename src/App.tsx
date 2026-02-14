@@ -1,7 +1,15 @@
 import type { ReactElement } from 'react';
 
 import { Dock, Navbar, Welcome } from '#components';
-import { Finder, ImageFile, Resume, Safari, Terminal, Text } from '#windows';
+import {
+	Contact,
+	Finder,
+	ImageFile,
+	Resume,
+	Safari,
+	Terminal,
+	Text,
+} from '#windows';
 
 /**
  * Root layout for the macOS-style portfolio.
@@ -19,6 +27,7 @@ const App = (): ReactElement => {
 			<Finder />
 			<ImageFile />
 			<Text />
+			<Contact />
 		</main>
 	);
 };

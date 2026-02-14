@@ -163,28 +163,28 @@ const socials = [
 		text: 'Github',
 		icon: '/icons/github.svg',
 		bg: '#f4656b',
-		link: 'https://github.com/JavaScript-Mastery-Pro',
+		link: 'https://github.com/brandonperfetti',
 	},
 	{
 		id: 2,
-		text: 'Platform',
+		text: 'Website',
 		icon: '/icons/atom.svg',
 		bg: '#4bcb63',
-		link: 'https://jsmastery.com/',
+		link: 'https://brandonperfetti.com/',
 	},
 	{
 		id: 3,
 		text: 'Twitter/X',
 		icon: '/icons/twitter.svg',
 		bg: '#ff866b',
-		link: 'https://x.com/jsmasterypro',
+		link: 'https://x.com/brandonperfetti',
 	},
 	{
 		id: 4,
 		text: 'LinkedIn',
 		icon: '/icons/linkedin.svg',
 		bg: '#05b6f6',
-		link: 'https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all',
+		link: 'https://www.linkedin.com/in/brandonperfetti/',
 	},
 ] satisfies SocialLink[];
 
@@ -241,8 +241,17 @@ const gallery = [
 	},
 ] satisfies GalleryItem[];
 
+/** Avatar URL shown in the Contact window. */
+const CONTACT_AVATAR_URL =
+	'https://res.cloudinary.com/dgwdyrmsn/image/upload/v1683142617/bp-spotlight/images/avatar_jeycju.jpg';
+
+/** Primary email shown in the Contact window. */
+const CONTACT_EMAIL = 'brandon@brandonperfetti.com';
+
 export {
 	blogPosts,
+	CONTACT_AVATAR_URL,
+	CONTACT_EMAIL,
 	dockApps,
 	gallery,
 	navIcons,
