@@ -20,21 +20,24 @@ const Finder = (): ReactElement => {
 			setActiveLocation(item);
 			return;
 		}
-		if (item.fileType === 'pdf') {
-			openWindow('resume');
-			return;
-		}
-		if ('href' in item && ['fig', 'url'].includes(item.fileType)) {
-			window.open(item.href, '_blank');
-			return;
-		}
-
-		if (item.fileType === 'txt') {
-			openWindow('txtfile', item);
-			return;
-		}
-		if (item.fileType === 'img') {
-			openWindow('imgfile', item);
+		switch (item.fileType) {
+			case 'pdf':
+				openWindow('resume');
+				return;
+			case 'fig':
+			case 'url':
+				window.open(item.href, '_blank');
+				return;
+			case 'txt':
+				openWindow('txtfile', item);
+				return;
+			case 'img':
+				openWindow('imgfile', item);
+				return;
+			default: {
+				// Warn if a new fileType is added without handling.
+				console.warn('Unhandled file type', item);
+			}
 		}
 	};
 
@@ -48,32 +51,32 @@ const Finder = (): ReactElement => {
 							item.kind === 'folder',
 					)
 					.map((item) => (
-					<li
-						key={item.id}
-						className={clsx(
-							item.id === activeLocation?.id
-								? 'active'
-								: 'not-active',
-						)}
-					>
-						<button
-							type="button"
-							className="flex w-full items-center gap-2"
-							onClick={() => {
-								setActiveLocation(item);
-							}}
+						<li
+							key={item.id}
+							className={clsx(
+								item.id === activeLocation?.id
+									? 'active'
+									: 'not-active',
+							)}
 						>
-							<img
-								src={item.icon}
-								alt={item.name}
-								className="w-4"
-							/>
-							<p className="truncate text-sm font-medium">
-								{item.name}
-							</p>
-						</button>
-					</li>
-				))}
+							<button
+								type="button"
+								className="flex w-full items-center gap-2"
+								onClick={() => {
+									setActiveLocation(item);
+								}}
+							>
+								<img
+									src={item.icon}
+									alt={item.name}
+									className="w-4"
+								/>
+								<p className="truncate text-sm font-medium">
+									{item.name}
+								</p>
+							</button>
+						</li>
+					))}
 			</ul>
 		</div>
 	);
