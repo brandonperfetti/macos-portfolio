@@ -19,4 +19,5 @@ Pattern: Use Immer draft mutations (e.g. `state.windows[key].isOpen = true`) ins
 Pattern: `activeLocation` uses `FinderLocationFolder` to support both root locations and nested folders.
 
 ## Types
-`WindowKey` and `WindowConfig` live in `src/types/windows.ts` and are imported via `#types`.
+`WindowKey` and `WindowConfig` live in `src/types/windows.ts`.
+Use `#types` for imports outside `src/types/*`; inside `src/types/*`, use local relative imports to avoid circular barrel resolution.

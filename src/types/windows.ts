@@ -1,4 +1,5 @@
-import type { FinderNode } from '#types';
+// Use local type imports inside /types to avoid circular #types barrel resolution.
+import type { FinderNode } from './finder';
 
 // Shared window state types.
 /** Supported window keys for the desktop UI. */

@@ -15,6 +15,7 @@
 ## Imports
 - Prefer alias-based imports via barrels (e.g. `#components`, `#hooks`, `#store`).
 - Shared runtime utilities live under `src/lib/` and are imported via `#lib`.
+- Inside `src/types/*`, prefer local relative imports (`./...`) over `#types` to avoid circular barrel resolution.
 
 ## Accessibility
 - Follow `docs/ACCESSIBILITY.md` when adding or updating UI.
