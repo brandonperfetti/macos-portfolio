@@ -1,20 +1,8 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
 import { useWindowStore, type WindowState } from '#store';
-import { type FinderTextFile, isFinderFile } from '#types';
-import type { ReactElement } from 'react';
-
-const isFinderTextFile = (value: unknown): value is FinderTextFile => {
-	if (!isFinderFile(value) || value.fileType !== 'txt') return false;
-
-	const candidate = value as Partial<FinderTextFile>;
-	return (
-		Array.isArray(candidate.description) &&
-		candidate.description.every(
-			(description) => typeof description === 'string',
-		)
-	);
-};
+import { isFinderTextFile } from '#types';
+import { useState, type ReactElement } from 'react';
 
 /**
  * Generic text-file window used by Finder "txt" file entries.
@@ -23,7 +11,9 @@ const Text = (): ReactElement | null => {
 	const data = useWindowStore(
 		(state: WindowState) => state.windows.txtfile.data,
 	);
+	const [failedImageSrc, setFailedImageSrc] = useState<string | null>(null);
 	if (!isFinderTextFile(data)) return null;
+	const showImage = Boolean(data.image) && failedImageSrc !== data.image;
 
 	return (
 		<>
@@ -34,11 +24,16 @@ const Text = (): ReactElement | null => {
 			</div>
 
 			<div className="space-y-4 p-5">
-				{data.image ? (
+				{showImage ? (
 					<img
 						src={data.image}
 						alt={data.name}
 						className="h-full w-full rounded-lg object-cover object-center"
+						onError={() => {
+							if (data.image) {
+								setFailedImageSrc(data.image);
+							}
+						}}
 					/>
 				) : null}
 				{data.subtitle ? (
@@ -61,6 +56,7 @@ const Text = (): ReactElement | null => {
 	);
 };
 
+/** Finder-backed text content window. */
 const TextWindow = WindowWrapper(Text, 'txtfile');
 
 export default TextWindow;
