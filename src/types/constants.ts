@@ -1,4 +1,5 @@
-import type { WindowKey } from '#types';
+// Use local type imports inside /types to avoid circular #types barrel resolution.
+import type { WindowKey } from './windows';
 
 // Shared shapes for constant-driven config data.
 
