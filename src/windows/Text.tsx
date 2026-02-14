@@ -12,7 +12,8 @@ const isFinderTextFile = (value: unknown): value is FinderTextFile => {
 		candidate.kind === 'file' &&
 		candidate.fileType === 'txt' &&
 		typeof candidate.name === 'string' &&
-		Array.isArray(candidate.description)
+		Array.isArray(candidate.description) &&
+		candidate.description.every((description) => typeof description === 'string')
 	);
 };
 
@@ -46,9 +47,9 @@ const Text = (): ReactElement | null => {
 					</p>
 				) : null}
 				<div className="space-y-3">
-					{data.description.map((paragraph) => (
+					{data.description.map((paragraph, index) => (
 						<p
-							key={paragraph}
+							key={index}
 							className="text-sm leading-6 text-neutral-800"
 						>
 							{paragraph}
