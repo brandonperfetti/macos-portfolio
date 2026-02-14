@@ -13,7 +13,8 @@ const Text = (): ReactElement | null => {
 	);
 	const [failedImageSrc, setFailedImageSrc] = useState<string | null>(null);
 	if (!isFinderTextFile(data)) return null;
-	const showImage = Boolean(data.image) && failedImageSrc !== data.image;
+	const imageSrc = data.image ?? null;
+	const showImage = imageSrc !== null && failedImageSrc !== imageSrc;
 
 	return (
 		<>
@@ -26,13 +27,11 @@ const Text = (): ReactElement | null => {
 			<div className="space-y-4 p-5">
 				{showImage ? (
 					<img
-						src={data.image}
+						src={imageSrc}
 						alt={data.name}
 						className="h-full w-full rounded-lg object-cover object-center"
 						onError={() => {
-							if (data.image) {
-								setFailedImageSrc(data.image);
-							}
+							setFailedImageSrc(imageSrc);
 						}}
 					/>
 				) : null}
