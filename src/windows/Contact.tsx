@@ -1,5 +1,5 @@
 import { WindowControls } from '#components';
-import { socials } from '#constants';
+import { CONTACT_AVATAR_URL, CONTACT_EMAIL, socials } from '#constants';
 import { WindowWrapper } from '#hoc';
 
 const Contact = () => {
@@ -12,7 +12,7 @@ const Contact = () => {
 
 			<div className="space-y-5 p-5">
 				<img
-					src="https://res.cloudinary.com/dgwdyrmsn/image/upload/v1683142617/bp-spotlight/images/avatar_jeycju.jpg"
+					src={CONTACT_AVATAR_URL}
 					alt="Brandon"
 					className="w-20 rounded-full"
 				/>
@@ -22,7 +22,7 @@ const Contact = () => {
 					Got an idea? A bug to squash? Or just want to talk tech? I'm
 					In!
 				</p>
-				<p>brandon@brandonperfetti.com</p>
+				<p>{CONTACT_EMAIL}</p>
 
 				<ul>
 					{socials.map(({ id, bg, link, icon, text }) => (
