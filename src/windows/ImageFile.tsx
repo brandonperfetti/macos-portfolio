@@ -32,11 +32,21 @@ const ImageFile = (): ReactElement | null => {
 			<div id="window-header">
 				<WindowControls target="imgfile" />
 				<h2>{data.name}</h2>
+				<div className="window-header-spacer" aria-hidden="true" />
 			</div>
 			<div className="preview">
 				{hasFailed ? (
-					<div className="flex h-64 items-center justify-center rounded bg-neutral-100 p-6 text-center text-sm font-medium text-neutral-600">
-						Preview unavailable for {data.name}
+					<div className="flex h-64 flex-col items-center justify-center gap-3 rounded bg-neutral-100 p-6 text-center text-sm font-medium text-neutral-600">
+						<p>Preview unavailable for {data.name}</p>
+						<button
+							type="button"
+							className="rounded bg-neutral-700 px-3 py-1 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+							onClick={() => {
+								setFailedSrc(null);
+							}}
+						>
+							Retry
+						</button>
 					</div>
 				) : (
 					<img
