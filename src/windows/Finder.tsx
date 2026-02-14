@@ -38,11 +38,16 @@ const Finder = (): ReactElement => {
 		}
 	};
 
-	const renderList = (name: string, items: FinderLocationFolder[]) => (
+	const renderList = (name: string, items: FinderNode[]) => (
 		<div>
 			<h3>{name}</h3>
 			<ul>
-				{items.map((item) => (
+				{items
+					.filter(
+						(item): item is FinderLocationFolder =>
+							item.kind === 'folder',
+					)
+					.map((item) => (
 					<li
 						key={item.id}
 						className={clsx(
