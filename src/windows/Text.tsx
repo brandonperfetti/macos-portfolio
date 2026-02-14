@@ -13,7 +13,9 @@ const isFinderTextFile = (value: unknown): value is FinderTextFile => {
 		candidate.fileType === 'txt' &&
 		typeof candidate.name === 'string' &&
 		Array.isArray(candidate.description) &&
-		candidate.description.every((description) => typeof description === 'string')
+		candidate.description.every(
+			(description) => typeof description === 'string',
+		)
 	);
 };
 
@@ -31,6 +33,7 @@ const Text = (): ReactElement | null => {
 			<div id="window-header">
 				<WindowControls target="txtfile" />
 				<h2>{data.name}</h2>
+				<div className="window-header-spacer" aria-hidden="true" />
 			</div>
 
 			<div className="space-y-4 p-5">
