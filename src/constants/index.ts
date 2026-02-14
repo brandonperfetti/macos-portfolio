@@ -242,7 +242,14 @@ const gallery = [
 ] satisfies GalleryItem[];
 
 export {
-	blogPosts, dockApps, gallery, navIcons, navLinks, photosLinks, socials, techStack
+	blogPosts,
+	dockApps,
+	gallery,
+	navIcons,
+	navLinks,
+	photosLinks,
+	socials,
+	techStack,
 };
 
 /**
@@ -254,6 +261,7 @@ const WORK_LOCATION = {
 	name: 'Work',
 	icon: '/icons/work.svg',
 	kind: 'folder',
+	scope: 'root',
 	children: [
 		// ▶ Project 1
 		{
@@ -261,6 +269,7 @@ const WORK_LOCATION = {
 			name: 'Nike Ecommerce Website Application',
 			icon: '/images/folder.png',
 			kind: 'folder',
+			scope: 'nested',
 			position: 'top-10 left-5', // icon position inside Finder
 			windowPosition: 'top-[5vh] left-5', // optional: Finder window position
 			children: [
@@ -314,6 +323,7 @@ const WORK_LOCATION = {
 			name: 'AI Resume Analyzer',
 			icon: '/images/folder.png',
 			kind: 'folder',
+			scope: 'nested',
 			position: 'top-52 right-80',
 			windowPosition: 'top-[20vh] left-7',
 			children: [
@@ -367,6 +377,7 @@ const WORK_LOCATION = {
 			name: 'Food Delivery App',
 			icon: '/images/folder.png',
 			kind: 'folder',
+			scope: 'nested',
 			position: 'top-10 left-80',
 			windowPosition: 'top-[33vh] left-7',
 			children: [
@@ -425,6 +436,7 @@ const ABOUT_LOCATION = {
 	name: 'About me',
 	icon: '/icons/info.svg',
 	kind: 'folder',
+	scope: 'root',
 	children: [
 		{
 			id: 1,
@@ -481,6 +493,7 @@ const RESUME_LOCATION = {
 	name: 'Resume',
 	icon: '/icons/file.svg',
 	kind: 'folder',
+	scope: 'root',
 	children: [
 		{
 			id: 1,
@@ -503,6 +516,7 @@ const TRASH_LOCATION = {
 	name: 'Trash',
 	icon: '/icons/trash.svg',
 	kind: 'folder',
+	scope: 'root',
 	children: [
 		{
 			id: 1,
