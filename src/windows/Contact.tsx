@@ -44,6 +44,7 @@ const Contact = () => {
 	);
 };
 
+/** Contact profile and social links window. */
 const ContactWindow = WindowWrapper(Contact, 'contact');
 
 export default ContactWindow;
