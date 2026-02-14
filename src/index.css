@@ -98,7 +98,7 @@ body {
 		}
 	}
 
-.window-controls {
+	.window-controls {
 		@apply flex gap-2;
 
 		.close {
@@ -112,6 +112,10 @@ body {
 		.maximize {
 			@apply size-3.5 rounded-full bg-[#2acb42];
 		}
+	}
+
+	.window-header-spacer {
+		@apply h-3.5 w-[3.625rem] shrink-0;
 	}
 
 	#window-header {
@@ -354,7 +358,7 @@ body {
 		@apply absolute top-36 right-32 w-md overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
 
 		h2 {
-			@apply w-full text-center text-sm font-bold;
+			@apply flex-1 text-center text-sm font-bold;
 		}
 	}
 
@@ -362,8 +366,8 @@ body {
 		@apply absolute top-40 left-2/12 w-xl overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
 
 		#window-header {
-			p {
-				@apply font-bold text-[#5f6266];
+			h2 {
+				@apply flex-1 text-center text-sm font-bold;
 			}
 		}
 
