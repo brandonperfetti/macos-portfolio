@@ -38,23 +38,26 @@ const Photos = (): ReactElement => {
 				<div className="gallery">
 					<ul>
 						{gallery.map(({ id, img }) => (
-							<li
-								key={id}
-								onClick={() => {
-									openWindow('imgfile', {
-										id,
-										name: 'Gallery image',
-										icon: '/images/image.png',
-										kind: 'file',
-										fileType: 'img',
-										imageUrl: img,
-									});
-								}}
-							>
-								<img
-									src={img}
-									alt={`Gallery image ${String(id)}`}
-								/>
+							<li key={id}>
+								<button
+									type="button"
+									aria-label={`Open gallery image ${String(id)}`}
+									onClick={() => {
+										openWindow('imgfile', {
+											id,
+											name: 'Gallery image',
+											icon: '/images/image.png',
+											kind: 'file',
+											fileType: 'img',
+											imageUrl: img,
+										});
+									}}
+								>
+									<img
+										src={img}
+										alt={`Gallery image ${String(id)}`}
+									/>
+								</button>
 							</li>
 						))}
 					</ul>
