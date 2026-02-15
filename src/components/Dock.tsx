@@ -98,34 +98,37 @@ export const Dock = (): ReactElement => {
 	return (
 		<section id="dock">
 			<div ref={dockRef} className="dock-container">
-				{dockApps.map((app) => (
-					<div key={app.id} className="relative flex justify-center">
-						<button
-							type="button"
-							className="dock-icon"
-							aria-label={app.name}
-							data-tooltip-id="dock-tooltip"
-							data-tooltip-content={app.name}
-							data-tooltip-delay-show={150}
-							// Keep trash clickable even though its `canOpen` flag is false.
-							disabled={!app.canOpen && app.id !== 'trash'}
-							onClick={() => {
-								toggleApp(app);
-							}}
+				{dockApps.map((app) => {
+					const isDisabled = !app.canOpen && app.id !== 'trash';
+
+					return (
+						<div
+							key={app.id}
+							className="relative flex justify-center"
 						>
-							<img
-								src={`/images/${app.icon}`}
-								alt={app.name}
-								loading="lazy"
-								className={
-									!app.canOpen && app.id !== 'trash'
-										? 'opacity-60'
-										: ''
-								}
-							/>
-						</button>
-					</div>
-				))}
+							<button
+								type="button"
+								className="dock-icon"
+								aria-label={app.name}
+								data-tooltip-id="dock-tooltip"
+								data-tooltip-content={app.name}
+								data-tooltip-delay-show={150}
+								// Keep trash clickable even though its `canOpen` flag is false.
+								disabled={isDisabled}
+								onClick={() => {
+									toggleApp(app);
+								}}
+							>
+								<img
+									src={`/images/${app.icon}`}
+									alt={app.name}
+									loading="lazy"
+									className={isDisabled ? 'opacity-60' : ''}
+								/>
+							</button>
+						</div>
+					);
+				})}
 				<Tooltip id="dock-tooltip" place="top" className="tooltip" />
 			</div>
 		</section>
