@@ -13,3 +13,8 @@
 
 ### Adding Navigation Items
 Update `navLinks` in `src/constants/index.ts` with `type` matching window keys.
+
+### Adding Home Desktop Shortcuts
+1. Source shortcut items from `locations` in `src/constants/index.ts` so Finder and Home stay aligned.
+2. On double-click, call `setActiveLocation(project)` before `openWindow('finder')` to open Finder focused on the selected folder.
+3. Scope GSAP Draggable selectors to the Home container ref (avoid global selectors like `.folder` without a container scope).
