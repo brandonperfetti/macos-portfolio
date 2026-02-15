@@ -79,6 +79,7 @@ export const Dock = (): ReactElement => {
 	// `DockApp` guarantees `WindowKey` when `canOpen` is true.
 	const toggleApp = (app: DockApp) => {
 		if (app.id === 'trash') {
+			// Explicit exception: trash is modeled as non-openable in constants but opens Finder at Trash from Dock.
 			setActiveLocation(locations.trash);
 			openWindow('finder');
 			return;
@@ -106,6 +107,7 @@ export const Dock = (): ReactElement => {
 							data-tooltip-id="dock-tooltip"
 							data-tooltip-content={app.name}
 							data-tooltip-delay-show={150}
+							// Keep trash clickable even though its `canOpen` flag is false.
 							disabled={!app.canOpen && app.id !== 'trash'}
 							onClick={() => {
 								toggleApp(app);
