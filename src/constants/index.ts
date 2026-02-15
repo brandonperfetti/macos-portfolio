@@ -519,10 +519,60 @@ const RESUME_LOCATION = {
 } as const satisfies FinderLocation;
 
 /**
+ * Finder root: Photos gallery files.
+ */
+const PHOTOS_LOCATION = {
+	id: 4,
+	type: 'photos',
+	name: 'Photos',
+	icon: '/images/photos.png',
+	kind: 'folder',
+	scope: 'root',
+	children: [
+		{
+			id: 1,
+			name: 'Gallery 1.png',
+			icon: '/images/image.png',
+			kind: 'file',
+			fileType: 'img',
+			position: 'top-10 left-10',
+			imageUrl: '/images/gal1.png',
+		},
+		{
+			id: 2,
+			name: 'Gallery 2.png',
+			icon: '/images/image.png',
+			kind: 'file',
+			fileType: 'img',
+			position: 'top-10 left-56',
+			imageUrl: '/images/gal2.png',
+		},
+		{
+			id: 3,
+			name: 'Gallery 3.png',
+			icon: '/images/image.png',
+			kind: 'file',
+			position: 'top-56 left-10',
+			fileType: 'img',
+			imageUrl: '/images/gal3.png',
+		},
+		{
+			id: 4,
+			name: 'Gallery 4.png',
+			icon: '/images/image.png',
+			kind: 'file',
+			fileType: 'img',
+			position: 'top-56 left-56',
+			imageUrl: '/images/gal4.png',
+		},
+	],
+} as const satisfies FinderLocation;
+
+/**
  * Finder root: Trash items (non-openable by default).
  */
 const TRASH_LOCATION = {
-	id: 4,
+	id: 5,
 	type: 'trash',
 	name: 'Trash',
 	icon: '/icons/trash.svg',
@@ -557,6 +607,7 @@ export const locations = {
 	work: WORK_LOCATION,
 	about: ABOUT_LOCATION,
 	resume: RESUME_LOCATION,
+	photos: PHOTOS_LOCATION,
 	trash: TRASH_LOCATION,
 } as const satisfies LocationsMap;
 
