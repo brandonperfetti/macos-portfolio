@@ -1,6 +1,6 @@
-import { dockApps } from '#constants';
+import { dockApps, locations } from '#constants';
 import { gsap } from '#lib';
-import { useWindowStore } from '#store';
+import { useLocationStore, useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';
@@ -18,6 +18,7 @@ interface AnimateIconsProps {
 export const Dock = (): ReactElement => {
 	const dockRef = useRef<HTMLDivElement>(null);
 	const { openWindow, closeWindow, windows } = useWindowStore();
+	const { setActiveLocation } = useLocationStore();
 
 	useGSAP(() => {
 		const dock = dockRef.current;
@@ -77,6 +78,11 @@ export const Dock = (): ReactElement => {
 	 */
 	// `DockApp` guarantees `WindowKey` when `canOpen` is true.
 	const toggleApp = (app: DockApp) => {
+		if (app.id === 'trash') {
+			setActiveLocation(locations.trash);
+			openWindow('finder');
+			return;
+		}
 		if (!app.canOpen) return;
 
 		const win = windows[app.id];
@@ -100,7 +106,7 @@ export const Dock = (): ReactElement => {
 							data-tooltip-id="dock-tooltip"
 							data-tooltip-content={app.name}
 							data-tooltip-delay-show={150}
-							disabled={!app.canOpen}
+							disabled={!app.canOpen && app.id !== 'trash'}
 							onClick={() => {
 								toggleApp(app);
 							}}
@@ -109,7 +115,11 @@ export const Dock = (): ReactElement => {
 								src={`/images/${app.icon}`}
 								alt={app.name}
 								loading="lazy"
-								className={app.canOpen ? '' : 'opacity-60'}
+								className={
+									!app.canOpen && app.id !== 'trash'
+										? 'opacity-60'
+										: ''
+								}
 							/>
 						</button>
 					</div>
