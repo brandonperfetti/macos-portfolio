@@ -1,8 +1,10 @@
 import type {
 	BlogPost,
 	DockApp,
+	FinderNode,
 	FinderLocation,
 	GalleryItem,
+	LocationType,
 	LocationsMap,
 	NavIcon,
 	NavLink,
@@ -557,6 +559,47 @@ export const locations = {
 	resume: RESUME_LOCATION,
 	trash: TRASH_LOCATION,
 } as const satisfies LocationsMap;
+
+interface HomeItemRef {
+	location: LocationType;
+	// Path of node IDs from the location root to the item to render on Home.
+	path: number[];
+}
+
+const homeItemRefs = [
+	{ location: 'work', path: [5] },
+	{ location: 'work', path: [6] },
+	{ location: 'work', path: [7] },
+] satisfies HomeItemRef[];
+
+const resolveHomeItem = ({
+	location,
+	path,
+}: HomeItemRef): FinderNode | null => {
+	let current: FinderNode = locations[location];
+
+	for (const nodeId of path) {
+		if (current.kind !== 'folder') return null;
+		const next: FinderNode | undefined = current.children.find(
+			(child: FinderNode) => child.id === nodeId,
+		);
+		if (!next) return null;
+		current = next;
+	}
+
+	return current;
+};
+
+/** Curated Finder nodes rendered as desktop shortcuts on Home. */
+export const homeItems = homeItemRefs
+	.map((ref, index) => {
+		const item = resolveHomeItem(ref);
+		if (!item) {
+			console.warn('Invalid home item reference', { index, ref });
+		}
+		return item;
+	})
+	.filter((item): item is FinderNode => item !== null);
 
 /**
  * Baseline z-index for unfocused windows.

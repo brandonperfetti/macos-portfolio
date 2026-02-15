@@ -15,6 +15,7 @@ All app metadata lives in `src/constants/index.ts`:
 - `dockApps`: Dock icon configuration with `canOpen` flags
 - `WINDOW_CONFIG`: Initial window state structure
 - `locations`: Hierarchical folder/file data for Finder-like navigation
+- `homeItems`: Curated desktop shortcut nodes resolved from `locations`
 - Uses `satisfies` to enforce type shape without losing literal inference
 
 Pattern: New windows require entries in both `WINDOW_CONFIG` and `dockApps`.
@@ -34,7 +35,8 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 - `src/lib/pdf.ts`: pdf.js worker setup + React PDF exports
 
 ## Component Architecture
-- `src/App.tsx`: Root layout with `<Navbar />`, `<Welcome />`, `<Dock />`, and mounted window entry points (for example `Contact`, `Finder`, `Safari`, `Resume`).
+- `src/App.tsx`: Root layout with `<Navbar />`, `<Home />`, `<Welcome />`, `<Dock />`, and mounted window entry points (for example `Contact`, `Finder`, `Safari`, `Resume`).
+- `src/components/Home.tsx`: Desktop home surface for project folder shortcuts that route into Finder.
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics
 - Barrel exports via `src/components/index.ts`
 

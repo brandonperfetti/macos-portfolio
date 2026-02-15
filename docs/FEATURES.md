@@ -13,3 +13,8 @@
 
 ### Adding Navigation Items
 Update `navLinks` in `src/constants/index.ts` with `type` matching window keys.
+
+### Adding Home Desktop Shortcuts
+1. Curate shortcut items with `homeItems` in `src/constants/index.ts` using path-based references into `locations`.
+2. Mirror Finder file/folder open behavior on double-click (folders open Finder, files open their mapped windows/links).
+3. Scope GSAP Draggable selectors to the Home container ref (avoid global selectors without container scope).
