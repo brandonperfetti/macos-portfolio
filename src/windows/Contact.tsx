@@ -13,16 +13,19 @@ const Contact = () => {
 			<div className="space-y-5 p-5">
 				<img
 					src={CONTACT_AVATAR_URL}
-					alt="Brandon"
+					alt="Brandon Perfetti avatar"
+					loading="lazy"
 					className="w-20 rounded-full"
 				/>
 
 				<h3>Let's Connect</h3>
 				<p>
 					Got an idea? A bug to squash? Or just want to talk tech? I'm
-					In!
+					in!
 				</p>
-				<p>{CONTACT_EMAIL}</p>
+				<p>
+					<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+				</p>
 
 				<ul>
 					{socials.map(({ id, bg, link, icon, text }) => (
