@@ -1,8 +1,12 @@
 import { WindowControls } from '#components';
 import { CONTACT_AVATAR_URL, CONTACT_EMAIL, socials } from '#constants';
 import { WindowWrapper } from '#hoc';
+import type { ReactElement } from 'react';
 
-const Contact = () => {
+/**
+ * Contact window showing profile details and social links.
+ */
+const Contact = (): ReactElement => {
 	return (
 		<>
 			<div className="window-header">
