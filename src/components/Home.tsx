@@ -1,12 +1,11 @@
-import { locations } from '#constants';
+import { homeItems } from '#constants';
 import { Draggable } from '#lib/gsap-draggable';
 import { useLocationStore, useWindowStore } from '#store';
+import type { FinderNode } from '#types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';
-
-const projects = locations.work.children;
 
 /**
  * Desktop home surface for project folders.
@@ -17,19 +16,40 @@ export const Home = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 	const containerRef = useRef<HTMLElement | null>(null);
 
-	const handleOpenProjectFinder = (project: (typeof projects)[number]) => {
-		// Select the target folder first, then open the Finder window shell.
-		setActiveLocation(project);
-		openWindow('finder');
+	const openItem = (item: FinderNode) => {
+		if (item.kind === 'folder') {
+			// Select the target folder first, then open the Finder window shell.
+			setActiveLocation(item);
+			openWindow('finder');
+			return;
+		}
+
+		switch (item.fileType) {
+			case 'pdf':
+				openWindow('resume');
+				return;
+			case 'fig':
+			case 'url':
+				window.open(item.href, '_blank', 'noopener,noreferrer');
+				return;
+			case 'txt':
+				openWindow('txtfile', item);
+				return;
+			case 'img':
+				openWindow('imgfile', item);
+				return;
+			default:
+				console.warn('Unhandled home item type', item);
+		}
 	};
 
 	useGSAP(() => {
 		const container = containerRef.current;
 		if (!container) return;
 
-		// Scope draggable targets to Home to avoid global ".folder" collisions.
-		const folders = container.querySelectorAll<HTMLElement>('.folder');
-		const instances = Draggable.create(Array.from(folders));
+		// Scope draggable targets to Home to avoid global selector collisions.
+		const items = container.querySelectorAll<HTMLElement>('.home-item');
+		const instances = Draggable.create(Array.from(items));
 		return () => {
 			instances.forEach((instance) => {
 				instance.kill();
@@ -39,16 +59,21 @@ export const Home = (): ReactElement => {
 	return (
 		<section id="home" ref={containerRef}>
 			<ul>
-				{projects.map((project) => (
+				{homeItems.map((item, index) => (
 					<li
-						key={project.id}
-						className={clsx('group folder', project.windowPosition)}
+						key={`${item.kind}-${String(item.id)}-${String(index)}`}
+						className={clsx(
+							'group home-item',
+							item.kind === 'folder'
+								? (item.windowPosition ?? item.position)
+								: item.position,
+						)}
 						onDoubleClick={() => {
-							handleOpenProjectFinder(project);
+							openItem(item);
 						}}
 					>
-						<img src="/images/folder.png" alt={project.name} />
-						<p>{project.name}</p>
+						<img src={item.icon} alt={item.name} />
+						<p>{item.name}</p>
 					</li>
 				))}
 			</ul>
