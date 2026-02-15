@@ -250,6 +250,38 @@ body {
 		}
 	}
 
+	.gallery-grid {
+		@apply grid grid-cols-5 grid-rows-5 gap-2.5;
+
+		li {
+			@apply overflow-hidden rounded-lg;
+
+			button {
+				@apply size-full;
+			}
+
+			img {
+				@apply size-full rounded-lg object-cover;
+			}
+
+			&:first-child {
+				@apply col-span-3 col-start-1 row-span-3 row-start-1;
+			}
+
+			&:nth-child(2) {
+				@apply col-span-2 col-start-4 row-span-3 row-start-1;
+			}
+
+			&:nth-child(3) {
+				@apply col-span-3 col-start-3 row-span-2 row-start-4;
+			}
+
+			&:last-child {
+				@apply col-span-2 col-start-1 row-span-2 row-start-4;
+			}
+		}
+	}
+
 	#photos {
 		@apply absolute top-96 left-1/2 w-4xl -translate-y-1/2 overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
 
@@ -285,29 +317,7 @@ body {
 			@apply p-5;
 
 			ul {
-				@apply grid grid-cols-5 grid-rows-5 gap-2.5;
-
-				li {
-					img {
-						@apply size-full rounded-lg object-cover;
-					}
-
-					&:first-child {
-						@apply col-span-3 col-start-1 row-span-3 row-start-1;
-					}
-
-					&:nth-child(2) {
-						@apply col-span-2 col-start-4 row-span-3 row-start-1;
-					}
-
-					&:nth-child(3) {
-						@apply col-span-3 col-start-3 row-span-2 row-start-4;
-					}
-
-					&:last-child {
-						@apply col-span-2 col-start-1 row-span-2 row-start-4;
-					}
-				}
+				@apply gallery-grid;
 			}
 		}
 	}
@@ -359,35 +369,7 @@ body {
 			@apply flex-1 bg-white p-5;
 
 			.photos-gallery {
-				@apply grid h-[420px] grid-cols-5 grid-rows-5 gap-2.5;
-
-				li {
-					@apply overflow-hidden rounded-lg;
-
-					button {
-						@apply size-full;
-					}
-
-					img {
-						@apply size-full rounded-lg object-cover;
-					}
-
-					&:first-child {
-						@apply col-span-3 col-start-1 row-span-3 row-start-1;
-					}
-
-					&:nth-child(2) {
-						@apply col-span-2 col-start-4 row-span-3 row-start-1;
-					}
-
-					&:nth-child(3) {
-						@apply col-span-3 col-start-3 row-span-2 row-start-4;
-					}
-
-					&:last-child {
-						@apply col-span-2 col-start-1 row-span-2 row-start-4;
-					}
-				}
+				@apply gallery-grid h-[420px];
 			}
 		}
 	}
