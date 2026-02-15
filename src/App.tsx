@@ -5,6 +5,7 @@ import {
 	Contact,
 	Finder,
 	ImageFile,
+	Photos,
 	Resume,
 	Safari,
 	Terminal,
@@ -20,15 +21,17 @@ const App = (): ReactElement => {
 			<Navbar />
 			<Home />
 			<Welcome />
-			<Dock />
 
-			<Terminal />
-			<Safari />
 			<Resume />
-			<Finder />
 			<ImageFile />
 			<Text />
+
+			<Dock />
+			<Finder />
+			<Safari />
+			<Photos />
 			<Contact />
+			<Terminal />
 		</main>
 	);
 };
