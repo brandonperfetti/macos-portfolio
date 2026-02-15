@@ -592,7 +592,13 @@ const resolveHomeItem = ({
 
 /** Curated Finder nodes rendered as desktop shortcuts on Home. */
 export const homeItems = homeItemRefs
-	.map(resolveHomeItem)
+	.map((ref, index) => {
+		const item = resolveHomeItem(ref);
+		if (!item) {
+			console.warn('Invalid home item reference', { index, ref });
+		}
+		return item;
+	})
 	.filter((item): item is FinderNode => item !== null);
 
 /**

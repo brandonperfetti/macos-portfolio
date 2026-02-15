@@ -29,9 +29,17 @@ export const Home = (): ReactElement => {
 				openWindow('resume');
 				return;
 			case 'fig':
-			case 'url':
-				window.open(item.href, '_blank', 'noopener,noreferrer');
+			case 'url': {
+				if (!item.href) return;
+
+				try {
+					const safeUrl = new URL(item.href).toString();
+					window.open(safeUrl, '_blank', 'noopener,noreferrer');
+				} catch {
+					console.warn('Invalid home item URL', item);
+				}
 				return;
+			}
 			case 'txt':
 				openWindow('txtfile', item);
 				return;
