@@ -18,7 +18,7 @@ const Text = (): ReactElement | null => {
 
 	return (
 		<>
-			<div id="window-header">
+			<div className="window-header">
 				<WindowControls target="txtfile" />
 				<h2>{data.name}</h2>
 				<div className="window-header-spacer" aria-hidden="true" />

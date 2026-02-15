@@ -25,7 +25,7 @@ const ImageFile = (): ReactElement | null => {
 
 	return (
 		<>
-			<div id="window-header">
+			<div className="window-header">
 				<WindowControls target="imgfile" />
 				<h2>{data.name}</h2>
 				<div className="window-header-spacer" aria-hidden="true" />

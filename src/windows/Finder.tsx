@@ -82,7 +82,7 @@ const Finder = (): ReactElement => {
 	);
 	return (
 		<>
-			<div id="window-header">
+			<div className="window-header">
 				<WindowControls target="finder" />
 				<Search className="icon" aria-hidden="true" />
 			</div>

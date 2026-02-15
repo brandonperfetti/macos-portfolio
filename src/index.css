@@ -118,7 +118,7 @@ body {
 		@apply h-3.5 w-[3.625rem] shrink-0;
 	}
 
-	#window-header {
+	.window-header {
 		@apply flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-400 select-none;
 	}
 
@@ -303,7 +303,7 @@ body {
 	#resume {
 		@apply absolute top-16 left-7/12 h-fit w-fit overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
 
-		#window-header {
+		.window-header {
 			h2 {
 				@apply flex-1 text-center text-sm font-bold;
 			}
@@ -365,7 +365,7 @@ body {
 	#imgfile {
 		@apply absolute top-40 left-2/12 w-xl overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
 
-		#window-header {
+		.window-header {
 			h2 {
 				@apply flex-1 text-center text-sm font-bold;
 			}
