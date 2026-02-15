@@ -14,3 +14,8 @@ Dock uses Tailwind + GSAP for animations:
 
 - `.dock-icon` class for hover targets
 - GSAP handles scale/translate transforms directly (not via Tailwind)
+
+## Selectors and IDs
+- Use IDs for unique root containers/anchors only (for example window roots like `#finder`, `#contact`).
+- Use classes for reusable/internal UI parts (for example `.window-header`).
+- Do not reuse the same ID on mounted components; repeated IDs create invalid HTML and brittle selector behavior.

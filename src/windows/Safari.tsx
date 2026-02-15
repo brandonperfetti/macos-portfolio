@@ -20,7 +20,7 @@ import type { ReactElement } from 'react';
 const Safari = (): ReactElement => {
 	return (
 		<>
-			<div id="window-header">
+			<div className="window-header">
 				<WindowControls target="safari" />
 
 				{/* TODO: Toolbar actions are decorative for now; wire buttons later. */}

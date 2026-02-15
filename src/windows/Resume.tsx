@@ -32,7 +32,7 @@ const Resume = (): ReactElement => {
 
 	return (
 		<>
-			<div id="window-header">
+			<div className="window-header">
 				<WindowControls target="resume" />
 				<h2>Resume.pdf</h2>
 
