@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { Dock, Navbar, Welcome } from '#components';
+import { Dock, Home, Navbar, Welcome } from '#components';
 import {
 	Contact,
 	Finder,
@@ -18,6 +18,7 @@ const App = (): ReactElement => {
 	return (
 		<main>
 			<Navbar />
+			<Home />
 			<Welcome />
 			<Dock />
 
