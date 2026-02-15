@@ -15,6 +15,11 @@ Dock uses Tailwind + GSAP for animations:
 - `.dock-icon` class for hover targets
 - GSAP handles scale/translate transforms directly (not via Tailwind)
 
+Gallery layouts use shared CSS utility classes in `src/index.css`:
+
+- `.gallery-grid` centralizes the reusable photo-grid layout and span rules
+- Applied to both standalone Photos app content (`#photos .gallery ul`) and Finder photos view (`#finder .photos-gallery`)
+
 ## Selectors and IDs
 - Use IDs for unique root containers/anchors only (for example window roots like `#finder`, `#contact`).
 - Use classes for reusable/internal UI parts (for example `.window-header`).
