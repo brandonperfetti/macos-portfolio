@@ -42,8 +42,8 @@ const Terminal = (): ReactElement => {
 
 				<div className="footnote">
 					<p>
-						<Check size={20} /> {loadedCount} of{' '}
-						{techStack.length} stacks loaded successfully (100%)
+						<Check size={20} /> {loadedCount} of {techStack.length}{' '}
+						stacks loaded successfully (100%)
 					</p>
 
 					<p className="text-black">
