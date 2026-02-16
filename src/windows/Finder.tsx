@@ -100,7 +100,7 @@ const Finder = (): ReactElement => {
 				</div>
 				{isPhotosLocation ? (
 					<div className="photos-view">
-						<ul className="photos-gallery">
+						<ul className="photos-gallery gallery-grid">
 							{photos.map((item) => (
 								<li key={item.id}>
 									<button

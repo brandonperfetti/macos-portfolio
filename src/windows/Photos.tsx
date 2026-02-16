@@ -36,7 +36,7 @@ const Photos = (): ReactElement => {
 				</div>
 
 				<div className="gallery">
-					<ul>
+					<ul className="gallery-grid">
 						{gallery.map(({ id, img }) => (
 							<li key={id}>
 								<button
