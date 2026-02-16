@@ -6,12 +6,19 @@ const localWorkerSrc = new URL(
 	import.meta.url,
 ).toString();
 
-// Prefer CDN worker for hosted deployments; fall back to bundled worker if CDN fetch fails.
-pdfjs.GlobalWorkerOptions.workerSrc = cdnWorkerSrc;
+// Start with the bundled worker so PDF rendering works immediately.
+// Upgrade to CDN asynchronously when the worker URL is confirmed reachable.
+pdfjs.GlobalWorkerOptions.workerSrc = localWorkerSrc;
 if (typeof window !== 'undefined') {
-	void fetch(cdnWorkerSrc, { method: 'HEAD' }).catch(() => {
-		pdfjs.GlobalWorkerOptions.workerSrc = localWorkerSrc;
-	});
+	void fetch(cdnWorkerSrc, { method: 'HEAD' })
+		.then((res) => {
+			if (res.ok) {
+				pdfjs.GlobalWorkerOptions.workerSrc = cdnWorkerSrc;
+			}
+		})
+		.catch(() => {
+			// CDN unreachable; keep local worker.
+		});
 }
 
 export { Document, Page, pdfjs };
