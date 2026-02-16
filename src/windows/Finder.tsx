@@ -49,6 +49,22 @@ const Finder = (): ReactElement => {
 		}
 	};
 
+	const isActiveLocation = (item: FinderLocationFolder): boolean => {
+		if (item === activeLocation) return true;
+		if (!activeLocation) return false;
+
+		const itemType = 'type' in item ? item.type : undefined;
+		const activeType =
+			'type' in activeLocation ? activeLocation.type : undefined;
+
+		return (
+			item.id === activeLocation.id &&
+			item.name === activeLocation.name &&
+			item.scope === activeLocation.scope &&
+			itemType === activeType
+		);
+	};
+
 	const renderList = (name: string, items: FinderNode[]) => (
 		<div>
 			<h3>{name}</h3>
@@ -62,7 +78,7 @@ const Finder = (): ReactElement => {
 						<li
 							key={item.id}
 							className={clsx(
-								item === activeLocation
+								isActiveLocation(item)
 									? 'active'
 									: 'not-active',
 							)}
@@ -107,6 +123,7 @@ const Finder = (): ReactElement => {
 								<li key={item.id}>
 									<button
 										type="button"
+										className="cursor-pointer"
 										onClick={() => {
 											openItem(item);
 										}}
