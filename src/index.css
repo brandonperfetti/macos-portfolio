@@ -299,6 +299,7 @@ body {
 				li {
 					@apply flex items-center gap-2 rounded-md px-3 py-2 transition-colors;
 
+					/* Static Photos sidebar: first item is intentionally highlighted. */
 					&:first-child {
 						@apply bg-blue-100 text-blue-700;
 					}
@@ -366,6 +367,7 @@ body {
 			@apply flex-1 bg-white p-5;
 
 			.photos-gallery {
+				/* Matches the Finder photos content viewport height in the fixed window layout. */
 				@apply h-[420px];
 			}
 		}
