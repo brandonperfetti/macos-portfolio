@@ -230,6 +230,17 @@ const GALLERY_IMAGES = [
 ] as const;
 
 /**
+ * Finder icon positions for photos root.
+ * Layout is designed for 4 tiles; extra images reuse slots.
+ */
+const GALLERY_POSITIONS = [
+	'top-10 left-10',
+	'top-10 left-56',
+	'top-56 left-10',
+	'top-56 left-56',
+] as const;
+
+/**
  * Gallery image tiles for the Photos window.
  */
 const gallery = GALLERY_IMAGES.map((img, index) => ({
@@ -528,14 +539,7 @@ const PHOTOS_LOCATION = {
 		icon: '/images/image.png',
 		kind: 'file',
 		fileType: 'img',
-		position:
-			index === 0
-				? 'top-10 left-10'
-				: index === 1
-					? 'top-10 left-56'
-					: index === 2
-						? 'top-56 left-10'
-						: 'top-56 left-56',
+		position: GALLERY_POSITIONS[index % GALLERY_POSITIONS.length],
 		imageUrl,
 	})),
 } as const satisfies FinderLocation;
