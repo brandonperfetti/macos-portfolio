@@ -18,7 +18,7 @@ interface AnimateIconsProps {
 export const Dock = (): ReactElement => {
 	const dockRef = useRef<HTMLDivElement>(null);
 	const { openWindow, closeWindow, windows } = useWindowStore();
-	const { setActiveLocation } = useLocationStore();
+	const { activeLocation, setActiveLocation } = useLocationStore();
 
 	useGSAP(() => {
 		const dock = dockRef.current;
@@ -79,7 +79,15 @@ export const Dock = (): ReactElement => {
 	// `DockApp` guarantees `WindowKey` when `canOpen` is true.
 	const toggleApp = (app: DockApp) => {
 		if (app.id === 'trash') {
-			// Explicit exception: trash is modeled as non-openable in constants but opens Finder at Trash from Dock.
+			const isFinderOpen = windows.finder.isOpen;
+			const isViewingTrash = activeLocation?.id === locations.trash.id;
+
+			// Treat Trash as a contextual Finder toggle: close only when already viewing Trash.
+			if (isFinderOpen && isViewingTrash) {
+				closeWindow('finder');
+				return;
+			}
+
 			setActiveLocation(locations.trash);
 			openWindow('finder');
 			return;
