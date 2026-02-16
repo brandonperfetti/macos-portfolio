@@ -315,10 +315,6 @@ body {
 
 		.gallery {
 			@apply p-5;
-
-			ul {
-				@apply gallery-grid;
-			}
 		}
 	}
 
@@ -369,7 +365,7 @@ body {
 			@apply flex-1 bg-white p-5;
 
 			.photos-gallery {
-				@apply gallery-grid h-[420px];
+				@apply h-[420px];
 			}
 		}
 	}
