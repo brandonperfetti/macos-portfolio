@@ -2,7 +2,7 @@ import { WindowControls } from '#components';
 import { locations } from '#constants';
 import { WindowWrapper } from '#hoc';
 import { useLocationStore, useWindowStore } from '#store';
-import type { FinderLocationFolder, FinderNode } from '#types';
+import type { FinderImageFile, FinderLocationFolder, FinderNode } from '#types';
 import clsx from 'clsx';
 import { Search } from 'lucide-react';
 import type { ReactElement } from 'react';
@@ -14,6 +14,14 @@ const Finder = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 	const { activeLocation, setActiveLocation } = useLocationStore();
 	const currentLocation = activeLocation ?? locations.work;
+	const isPhotosLocation = currentLocation === locations.photos;
+
+	const photos = isPhotosLocation
+		? currentLocation.children.filter(
+				(item): item is FinderImageFile =>
+					item.kind === 'file' && item.fileType === 'img',
+			)
+		: [];
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
@@ -41,6 +49,22 @@ const Finder = (): ReactElement => {
 		}
 	};
 
+	const isActiveLocation = (item: FinderLocationFolder): boolean => {
+		if (item === activeLocation) return true;
+		if (!activeLocation) return false;
+
+		const itemType = 'type' in item ? item.type : undefined;
+		const activeType =
+			'type' in activeLocation ? activeLocation.type : undefined;
+
+		return (
+			item.id === activeLocation.id &&
+			item.name === activeLocation.name &&
+			item.scope === activeLocation.scope &&
+			itemType === activeType
+		);
+	};
+
 	const renderList = (name: string, items: FinderNode[]) => (
 		<div>
 			<h3>{name}</h3>
@@ -54,14 +78,14 @@ const Finder = (): ReactElement => {
 						<li
 							key={item.id}
 							className={clsx(
-								item.id === activeLocation?.id
+								isActiveLocation(item)
 									? 'active'
 									: 'not-active',
 							)}
 						>
 							<button
 								type="button"
-								className="flex w-full items-center gap-2"
+								className="flex w-full cursor-pointer items-center gap-2"
 								onClick={() => {
 									setActiveLocation(item);
 								}}
@@ -92,24 +116,47 @@ const Finder = (): ReactElement => {
 					{renderList('Favorites', Object.values(locations))}
 					{renderList('Projects', locations.work.children)}
 				</div>
-				<ul className="content">
-					{currentLocation.children.map((item) => (
-						<li key={item.id} className={item.position}>
-							<button
-								type="button"
-								className="flex flex-col items-center gap-2"
-								onClick={() => {
-									openItem(item);
-								}}
-							>
-								<img src={item.icon} alt={item.name} />
-								<p className="truncate text-sm font-medium">
-									{item.name}
-								</p>
-							</button>
-						</li>
-					))}
-				</ul>
+				{isPhotosLocation ? (
+					<div className="photos-view">
+						<ul className="photos-gallery gallery-grid">
+							{photos.map((item) => (
+								<li key={item.id}>
+									<button
+										type="button"
+										className="cursor-pointer"
+										onClick={() => {
+											openItem(item);
+										}}
+									>
+										<img
+											src={item.imageUrl}
+											alt={item.name}
+										/>
+									</button>
+								</li>
+							))}
+						</ul>
+					</div>
+				) : (
+					<ul className="content">
+						{currentLocation.children.map((item) => (
+							<li key={item.id} className={item.position}>
+								<button
+									type="button"
+									className="flex flex-col items-center gap-2"
+									onClick={() => {
+										openItem(item);
+									}}
+								>
+									<img src={item.icon} alt={item.name} />
+									<p className="truncate text-sm font-medium">
+										{item.name}
+									</p>
+								</button>
+							</li>
+						))}
+					</ul>
+				)}
 			</div>
 		</>
 	);

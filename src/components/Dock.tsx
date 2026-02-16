@@ -1,6 +1,6 @@
-import { dockApps } from '#constants';
+import { dockApps, locations } from '#constants';
 import { gsap } from '#lib';
-import { useWindowStore } from '#store';
+import { useLocationStore, useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';
@@ -18,6 +18,7 @@ interface AnimateIconsProps {
 export const Dock = (): ReactElement => {
 	const dockRef = useRef<HTMLDivElement>(null);
 	const { openWindow, closeWindow, windows } = useWindowStore();
+	const { activeLocation, setActiveLocation } = useLocationStore();
 
 	useGSAP(() => {
 		const dock = dockRef.current;
@@ -77,6 +78,20 @@ export const Dock = (): ReactElement => {
 	 */
 	// `DockApp` guarantees `WindowKey` when `canOpen` is true.
 	const toggleApp = (app: DockApp) => {
+		if (app.id === 'trash') {
+			const isFinderOpen = windows.finder.isOpen;
+			const isViewingTrash = activeLocation?.id === locations.trash.id;
+
+			// Treat Trash as a contextual Finder toggle: close only when already viewing Trash.
+			if (isFinderOpen && isViewingTrash) {
+				closeWindow('finder');
+				return;
+			}
+
+			setActiveLocation(locations.trash);
+			openWindow('finder');
+			return;
+		}
 		if (!app.canOpen) return;
 
 		const win = windows[app.id];
@@ -91,29 +106,37 @@ export const Dock = (): ReactElement => {
 	return (
 		<section id="dock">
 			<div ref={dockRef} className="dock-container">
-				{dockApps.map((app) => (
-					<div key={app.id} className="relative flex justify-center">
-						<button
-							type="button"
-							className="dock-icon"
-							aria-label={app.name}
-							data-tooltip-id="dock-tooltip"
-							data-tooltip-content={app.name}
-							data-tooltip-delay-show={150}
-							disabled={!app.canOpen}
-							onClick={() => {
-								toggleApp(app);
-							}}
+				{dockApps.map((app) => {
+					const isDisabled = !app.canOpen && app.id !== 'trash';
+
+					return (
+						<div
+							key={app.id}
+							className="relative flex justify-center"
 						>
-							<img
-								src={`/images/${app.icon}`}
-								alt={app.name}
-								loading="lazy"
-								className={app.canOpen ? '' : 'opacity-60'}
-							/>
-						</button>
-					</div>
-				))}
+							<button
+								type="button"
+								className="dock-icon"
+								aria-label={app.name}
+								data-tooltip-id="dock-tooltip"
+								data-tooltip-content={app.name}
+								data-tooltip-delay-show={150}
+								// Keep trash clickable even though its `canOpen` flag is false.
+								disabled={isDisabled}
+								onClick={() => {
+									toggleApp(app);
+								}}
+							>
+								<img
+									src={`/images/${app.icon}`}
+									alt={app.name}
+									loading="lazy"
+									className={isDisabled ? 'opacity-60' : ''}
+								/>
+							</button>
+						</div>
+					);
+				})}
 				<Tooltip id="dock-tooltip" place="top" className="tooltip" />
 			</div>
 		</section>

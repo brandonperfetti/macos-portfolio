@@ -84,7 +84,7 @@ export type FinderFile =
 export type FinderNode = FinderFolder | FinderFile;
 
 /** Supported Finder root locations. */
-export type LocationType = 'work' | 'about' | 'resume' | 'trash';
+export type LocationType = 'work' | 'about' | 'resume' | 'photos' | 'trash';
 
 /** Root Finder location with a typed location key. */
 export type FinderLocation = FinderFolder & {

@@ -18,3 +18,12 @@ Update `navLinks` in `src/constants/index.ts` with `type` matching window keys.
 1. Curate shortcut items with `homeItems` in `src/constants/index.ts` using path-based references into `locations`.
 2. Mirror Finder file/folder open behavior on double-click (folders open Finder, files open their mapped windows/links).
 3. Scope GSAP Draggable selectors to the Home container ref (avoid global selectors without container scope).
+
+### Photos Behavior
+- Dock `Photos` opens the dedicated `Photos` window (`WindowKey: 'photos'`).
+- Finder `Photos` location renders an in-Finder gallery view.
+- Clicking any gallery image (in Photos app or Finder photos view) opens the image file window (`WindowKey: 'imgfile'`).
+
+### Trash Behavior
+- `trash` is intentionally configured with `canOpen: false` in `dockApps`.
+- Dock still treats `trash` as a special-case click target that opens Finder with the Trash location selected.

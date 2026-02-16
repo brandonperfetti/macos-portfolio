@@ -221,27 +221,32 @@ const photosLinks = [
 	},
 ] satisfies PhotosLink[];
 
+/** Shared image paths used by Photos app tiles and Finder photos location. */
+const GALLERY_IMAGES = [
+	'/images/gal1.png',
+	'/images/gal2.png',
+	'/images/gal3.png',
+	'/images/gal4.png',
+] as const;
+
+/**
+ * Finder icon positions for photos root.
+ * Layout is designed for 4 tiles; extra images reuse slots.
+ */
+const GALLERY_POSITIONS = [
+	'top-10 left-10',
+	'top-10 left-56',
+	'top-56 left-10',
+	'top-56 left-56',
+] as const;
+
 /**
  * Gallery image tiles for the Photos window.
  */
-const gallery = [
-	{
-		id: 1,
-		img: '/images/gal1.png',
-	},
-	{
-		id: 2,
-		img: '/images/gal2.png',
-	},
-	{
-		id: 3,
-		img: '/images/gal3.png',
-	},
-	{
-		id: 4,
-		img: '/images/gal4.png',
-	},
-] satisfies GalleryItem[];
+const gallery = GALLERY_IMAGES.map((img, index) => ({
+	id: index + 1,
+	img,
+})) satisfies GalleryItem[];
 
 /** Avatar URL shown in the Contact window. */
 const CONTACT_AVATAR_URL =
@@ -519,10 +524,31 @@ const RESUME_LOCATION = {
 } as const satisfies FinderLocation;
 
 /**
+ * Finder root: Photos gallery files.
+ */
+const PHOTOS_LOCATION = {
+	id: 4,
+	type: 'photos',
+	name: 'Photos',
+	icon: '/images/photos.png',
+	kind: 'folder',
+	scope: 'root',
+	children: GALLERY_IMAGES.map((imageUrl, index) => ({
+		id: index + 1,
+		name: `Gallery ${String(index + 1)}.png`,
+		icon: '/images/image.png',
+		kind: 'file',
+		fileType: 'img',
+		position: GALLERY_POSITIONS[index % GALLERY_POSITIONS.length],
+		imageUrl,
+	})),
+} as const satisfies FinderLocation;
+
+/**
  * Finder root: Trash items (non-openable by default).
  */
 const TRASH_LOCATION = {
-	id: 4,
+	id: 5,
 	type: 'trash',
 	name: 'Trash',
 	icon: '/icons/trash.svg',
@@ -557,6 +583,7 @@ export const locations = {
 	work: WORK_LOCATION,
 	about: ABOUT_LOCATION,
 	resume: RESUME_LOCATION,
+	photos: PHOTOS_LOCATION,
 	trash: TRASH_LOCATION,
 } as const satisfies LocationsMap;
 
