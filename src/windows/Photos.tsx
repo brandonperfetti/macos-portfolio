@@ -1,12 +1,14 @@
 import { WindowControls } from '#components';
-import { gallery, photosLinks } from '#constants';
+import { locations, photosLinks } from '#constants';
 import { WindowWrapper } from '#hoc';
 import { useWindowStore } from '#store';
 import { Mail, Search } from 'lucide-react';
 import type { ReactElement } from 'react';
 
+/** Photos gallery window showing a sidebar and clickable image grid. */
 const Photos = (): ReactElement => {
 	const { openWindow } = useWindowStore();
+	const photos = locations.photos.children;
 
 	return (
 		<>
@@ -37,26 +39,16 @@ const Photos = (): ReactElement => {
 
 				<div className="gallery">
 					<ul className="gallery-grid">
-						{gallery.map(({ id, img }) => (
-							<li key={id}>
+						{photos.map((item) => (
+							<li key={item.id}>
 								<button
 									type="button"
-									aria-label={`Open gallery image ${String(id)}`}
+									aria-label={`Open gallery image ${item.name}`}
 									onClick={() => {
-										openWindow('imgfile', {
-											id,
-											name: 'Gallery image',
-											icon: '/images/image.png',
-											kind: 'file',
-											fileType: 'img',
-											imageUrl: img,
-										});
+										openWindow('imgfile', item);
 									}}
 								>
-									<img
-										src={img}
-										alt={`Gallery image ${String(id)}`}
-									/>
+									<img src={item.imageUrl} alt={item.name} />
 								</button>
 							</li>
 						))}

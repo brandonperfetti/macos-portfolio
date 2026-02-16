@@ -14,12 +14,14 @@ const Finder = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 	const { activeLocation, setActiveLocation } = useLocationStore();
 	const currentLocation = activeLocation ?? locations.work;
-	const isPhotosLocation = currentLocation.id === locations.photos.id;
+	const isPhotosLocation = currentLocation === locations.photos;
 
-	const photos = currentLocation.children.filter(
-		(item): item is FinderImageFile =>
-			item.kind === 'file' && item.fileType === 'img',
-	);
+	const photos = isPhotosLocation
+		? currentLocation.children.filter(
+				(item): item is FinderImageFile =>
+					item.kind === 'file' && item.fileType === 'img',
+			)
+		: [];
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
