@@ -13,9 +13,13 @@ body {
 :root {
 	--mobile-navbar-height: 61px;
 	--mobile-window-header-height: 48px;
+
+	/* Z-index scale: desktop shell and overlays */
 	--z-navbar: 1000;
 	--z-theme-menu: 1100;
 	--z-theme-dropdown: 1200;
+	/* Z-index scale: mobile shell */
+	--z-mobile-navbar: 10000;
 }
 
 :root.theme-switching *,
@@ -121,7 +125,7 @@ body {
 	}
 
 	#mobile-navbar {
-		@apply relative z-[10000] hidden h-[var(--mobile-navbar-height)] items-center justify-between gap-5 px-5 text-white max-sm:flex;
+		@apply relative z-[var(--z-mobile-navbar)] hidden h-[var(--mobile-navbar-height)] items-center justify-between gap-5 px-5 text-white max-sm:flex;
 
 		&.mobile-navbar-opaque {
 			@apply dark:bg-dark-700/95 dark:border-dark-500 border-b border-gray-200 bg-white/95 text-black backdrop-blur-md dark:text-white;
