@@ -29,12 +29,10 @@ const MobileFinder = (): ReactElement => {
 			setBreadcrumb([]);
 			return;
 		}
-		setBreadcrumb((prev) => {
-			const next = prev.slice(0, -1);
-			const previousFolder = next[next.length - 1] ?? null;
-			setCurrentFolder(previousFolder);
-			return next;
-		});
+		const next = breadcrumb.slice(0, -1);
+		const previousFolder = next[next.length - 1] ?? null;
+		setBreadcrumb(next);
+		setCurrentFolder(previousFolder);
 	};
 
 	const openItem = (item: FinderNode) => {

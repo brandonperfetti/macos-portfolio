@@ -29,7 +29,7 @@ const MobileWindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		useLayoutEffect(() => {
 			const el = ref.current;
 			if (!el) return;
-			el.style.display = isOpen && isMobile ? 'block' : 'none';
+			el.style.display = isOpen && isMobile ? '' : 'none';
 		}, [isMobile, isOpen]);
 
 		if (!isMobile || !isOpen) return <></>;

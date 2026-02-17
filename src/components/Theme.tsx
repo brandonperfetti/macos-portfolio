@@ -2,7 +2,7 @@ import { useThemeStore } from '#store';
 import type { ThemeMode } from '#types/theme';
 import clsx from 'clsx';
 import { Laptop, MoonIcon, SunIcon } from 'lucide-react';
-import { useEffect, type ReactElement } from 'react';
+import { useEffect, useRef, type ReactElement } from 'react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -15,17 +15,23 @@ const STORAGE_KEY = 'theme';
 
 const Theme = (): ReactElement => {
 	const { theme, setTheme } = useThemeStore();
+	const didHydrateTheme = useRef(false);
 
 	useEffect(() => {
+		if (didHydrateTheme.current) return;
+		didHydrateTheme.current = true;
+
 		const savedTheme = localStorage.getItem(STORAGE_KEY);
 		if (
 			savedTheme === 'light' ||
 			savedTheme === 'dark' ||
 			savedTheme === 'system'
 		) {
-			setTheme(savedTheme);
+			if (savedTheme !== theme) {
+				setTheme(savedTheme);
+			}
 		}
-	}, [setTheme]);
+	}, [setTheme, theme]);
 
 	useEffect(() => {
 		const root = document.documentElement;

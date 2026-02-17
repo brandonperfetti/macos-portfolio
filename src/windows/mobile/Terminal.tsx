@@ -22,7 +22,9 @@ const MobileTerminal = (): ReactElement => {
 							</div>
 							<ul>
 								{items.map((item, index) => (
-									<li key={item}>
+									<li
+										key={`${category}-${String(index)}-${item}`}
+									>
 										{item}
 										{index < items.length - 1 ? ',' : ''}
 									</li>

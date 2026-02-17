@@ -28,7 +28,7 @@ export const MobileWindowHeader = ({
 	};
 
 	return (
-		<div id="mobile-window-header" className={clsx(className)}>
+		<div className={clsx('mobile-window-header', className)}>
 			<button
 				type="button"
 				className="mobile-header-back"

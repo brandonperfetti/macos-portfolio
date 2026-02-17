@@ -20,6 +20,8 @@ export interface NavLink {
 export interface NavIcon {
 	/** Stable numeric id. */
 	id: number;
+	/** Semantic icon type for rendering behavior. */
+	type: 'status' | 'theme';
 	/** Icon asset path. */
 	img: string;
 }

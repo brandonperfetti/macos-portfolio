@@ -40,9 +40,9 @@ export const Navbar = (): ReactElement => {
 
 			<div>
 				<ul>
-					{navIcons.map(({ id, img }) => (
+					{navIcons.map(({ id, img, type }) => (
 						<li key={id}>
-							{id === 4 ? (
+							{type === 'theme' ? (
 								<Theme />
 							) : (
 								<img

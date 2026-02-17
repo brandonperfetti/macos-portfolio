@@ -23,7 +23,10 @@ const MobilePhotos = (): ReactElement => {
 							>
 								<img
 									src={item.imageUrl}
-									alt={`Gallery image ${String(item.id)}`}
+									alt={
+										item.name ||
+										`Gallery image ${String(item.id)}`
+									}
 								/>
 							</button>
 						</li>

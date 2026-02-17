@@ -19,7 +19,11 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		);
 		const { isOpen, zIndex } = windows[windowKey];
 		const ref = useRef<HTMLElement | null>(null);
-		const [isDesktop, setIsDesktop] = useState(true);
+		const [isDesktop, setIsDesktop] = useState(() =>
+			typeof window !== 'undefined'
+				? window.matchMedia('(min-width: 640px)').matches
+				: true,
+		);
 
 		useEffect(() => {
 			const media = window.matchMedia('(min-width: 640px)');

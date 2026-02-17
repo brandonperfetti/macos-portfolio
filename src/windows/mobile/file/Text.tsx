@@ -27,12 +27,12 @@ const MobileText = (): ReactElement | null => {
 							{data.subtitle}
 						</h1>
 					) : null}
-					{data.description.map((text, index) => (
-						<p
-							key={`${text}-${String(index)}`}
-							className="text-base leading-8 text-black dark:text-white"
-						>
-							{text}
+						{data.description.map((text, index) => (
+							<p
+								key={`${text}-${String(index)}`}
+								className="text-base leading-8 text-black dark:text-white"
+							>
+								{text}
 						</p>
 					))}
 				</div>

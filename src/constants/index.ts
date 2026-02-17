@@ -41,18 +41,22 @@ const navLinks = [
 const navIcons = [
 	{
 		id: 1,
+		type: 'status',
 		img: '/icons/wifi.svg',
 	},
 	{
 		id: 2,
+		type: 'status',
 		img: '/icons/search.svg',
 	},
 	{
 		id: 3,
+		type: 'status',
 		img: '/icons/user.svg',
 	},
 	{
 		id: 4,
+		type: 'theme',
 		img: '/icons/mode.svg',
 	},
 ] satisfies NavIcon[];

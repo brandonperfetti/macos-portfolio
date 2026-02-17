@@ -9,6 +9,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 const MobileResume = (): ReactElement => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerWidth, setContainerWidth] = useState(0);
+	const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
 
 	useLayoutEffect(() => {
 		const container = containerRef.current;
@@ -33,14 +34,36 @@ const MobileResume = (): ReactElement => {
 			<MobileWindowHeader windowKey="resume" title="Resume" />
 			<div className="mobile-file-scroll">
 				<div ref={containerRef} className="w-full px-3 pb-6">
-					<Document className="resume-pdf" file="/files/resume.pdf">
-						<Page
-							pageNumber={1}
-							width={containerWidth || undefined}
-							renderTextLayer
-							renderAnnotationLayer
-						/>
-					</Document>
+					{resumeLoadError ? (
+						<p role="alert">{resumeLoadError}</p>
+					) : (
+						<Document
+							className="resume-pdf"
+							file="/files/resume.pdf"
+							loading={<p>Loading resume…</p>}
+							onLoadSuccess={() => {
+								setResumeLoadError(null);
+							}}
+							onLoadError={(error) => {
+								console.error(
+									'Failed to load mobile resume PDF:',
+									error,
+								);
+								setResumeLoadError(
+									error instanceof Error
+										? error.message
+										: 'Failed to load resume.',
+								);
+							}}
+						>
+							<Page
+								pageNumber={1}
+								width={containerWidth || undefined}
+								renderTextLayer
+								renderAnnotationLayer
+							/>
+						</Document>
+					)}
 				</div>
 			</div>
 		</>
