@@ -38,9 +38,9 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			};
 		}, []);
 
-		useGSAP(() => {
-			const el = ref.current;
-			if (!el || !isOpen || !isDesktop) return;
+			useGSAP(() => {
+				const el = ref.current;
+				if (!el || !isOpen || !isDesktop) return;
 
 			gsap.fromTo(
 				el,
@@ -53,11 +53,11 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 					ease: 'power3.out',
 				},
 			);
-		}, [isOpen]);
+			}, [isDesktop, isOpen]);
 
-		useGSAP(() => {
-			const el = ref.current;
-			if (!el || !isOpen || !isDesktop) return;
+			useGSAP(() => {
+				const el = ref.current;
+				if (!el || !isOpen || !isDesktop) return;
 
 			const [instance] = Draggable.create(el, {
 				onPress: () => {
@@ -68,7 +68,7 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			return () => {
 				instance.kill();
 			};
-		}, [focusWindow, isOpen, windowKey]);
+			}, [focusWindow, isDesktop, isOpen, windowKey]);
 
 		useLayoutEffect(() => {
 			const el = ref.current;
