@@ -20,6 +20,7 @@ body {
 	--z-theme-dropdown: 1200;
 	/* Z-index scale: mobile shell */
 	--z-mobile-navbar: 10000;
+	--z-mobile-window: 60;
 }
 
 :root.theme-switching *,
@@ -233,7 +234,7 @@ body {
 	}
 
 	#mobile-safari {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.blog {
 			@apply dark:bg-dark-700 mx-auto max-w-3xl bg-white px-4 py-5;
@@ -335,7 +336,7 @@ body {
 	}
 
 	#mobile-terminal {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.techstack {
 			@apply font-roboto p-5 text-sm leading-relaxed text-black dark:text-white;
@@ -403,7 +404,7 @@ body {
 	}
 
 	#mobile-contact {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.content {
 			@apply flex flex-col items-center space-y-5 px-5 py-6;
@@ -497,7 +498,7 @@ body {
 	}
 
 	#mobile-photos {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.gallery {
 			@apply px-4 py-5;
@@ -533,7 +534,7 @@ body {
 	}
 
 	#mobile-resume {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.resume-pdf {
 			@apply h-fit w-full object-contain object-center;
@@ -623,7 +624,7 @@ body {
 	}
 
 	#mobile-finder {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] h-[calc(100dvh-var(--mobile-navbar-height))] w-screen overflow-y-auto bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.breadcrumb {
 			@apply dark:bg-dark-300 dark:border-dark-500 sticky top-[var(--mobile-window-header-height)] z-20 flex items-center overflow-x-auto border-b border-gray-200 bg-gray-50 px-4 py-2.5 transition-colors duration-300;
@@ -673,7 +674,7 @@ body {
 	}
 
 	#mobile-txtfile {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
 	}
 
 	#imgfile {
@@ -695,7 +696,7 @@ body {
 	}
 
 	#mobile-imgfile {
-		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[60] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
+		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.preview {
 			@apply dark:bg-dark-700 flex min-h-full items-center bg-gray-100/10 px-5 py-2;
