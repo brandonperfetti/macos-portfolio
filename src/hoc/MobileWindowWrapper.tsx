@@ -11,7 +11,11 @@ const MobileWindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		const { isOpen, zIndex } = useWindowStore(
 			(state: WindowState) => state.windows[windowKey],
 		);
-		const [isMobile, setIsMobile] = useState(false);
+		const [isMobile, setIsMobile] = useState(() =>
+			typeof window !== 'undefined'
+				? window.matchMedia('(max-width: 639px)').matches
+				: false,
+		);
 
 		useEffect(() => {
 			const media = window.matchMedia('(max-width: 639px)');
