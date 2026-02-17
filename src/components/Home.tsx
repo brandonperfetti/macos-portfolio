@@ -4,8 +4,7 @@ import { useLocationStore, useWindowStore } from '#store';
 import type { FinderNode } from '#types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
-import type { ReactElement } from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 
 /**
  * Desktop home surface for project folders.
@@ -15,6 +14,7 @@ export const Home = (): ReactElement => {
 	const { setActiveLocation } = useLocationStore();
 	const { openWindow } = useWindowStore();
 	const containerRef = useRef<HTMLElement | null>(null);
+	const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
@@ -64,6 +64,20 @@ export const Home = (): ReactElement => {
 			});
 		};
 	}, []);
+
+	useEffect(() => {
+		const handlePointerDown = (event: PointerEvent) => {
+			const target = event.target as HTMLElement | null;
+			if (target?.closest('.home-item')) return;
+			setSelectedItemId(null);
+		};
+
+		document.addEventListener('pointerdown', handlePointerDown);
+		return () => {
+			document.removeEventListener('pointerdown', handlePointerDown);
+		};
+	}, []);
+
 	return (
 		<section id="home" ref={containerRef}>
 			<ul>
@@ -72,10 +86,14 @@ export const Home = (): ReactElement => {
 						key={`${item.kind}-${String(item.id)}-${String(index)}`}
 						className={clsx(
 							'group home-item',
+							selectedItemId === item.id && 'home-item-selected',
 							item.kind === 'folder'
 								? (item.windowPosition ?? item.position)
 								: item.position,
 						)}
+						onClick={() => {
+							setSelectedItemId(item.id);
+						}}
 						onDoubleClick={() => {
 							openItem(item);
 						}}

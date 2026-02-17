@@ -36,7 +36,7 @@ const Text = (): ReactElement | null => {
 					/>
 				) : null}
 				{data.subtitle ? (
-					<p className="text-sm font-semibold text-neutral-700">
+					<p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
 						{data.subtitle}
 					</p>
 				) : null}
@@ -44,7 +44,7 @@ const Text = (): ReactElement | null => {
 					{data.description.map((paragraph, index) => (
 						<p
 							key={index}
-							className="text-sm leading-6 text-neutral-800"
+							className="text-sm leading-6 text-neutral-800 dark:text-neutral-100"
 						>
 							{paragraph}
 						</p>

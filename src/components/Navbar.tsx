@@ -2,6 +2,7 @@ import { navIcons, navLinks } from '#constants';
 import { useCurrentTime } from '#hooks';
 import { useWindowStore } from '#store';
 import type { ReactElement } from 'react';
+import Theme from './Theme';
 
 /**
  * Top navigation bar with portfolio links and current time.
@@ -13,7 +14,11 @@ export const Navbar = (): ReactElement => {
 	return (
 		<nav>
 			<div>
-				<img src="/images/logo.svg" alt="logo" />
+				<img
+					src="/images/logo.svg"
+					alt="logo"
+					className="dark:invert"
+				/>
 				<p className="font-bold">Brandon's Portfolio</p>
 
 				<ul>
@@ -37,11 +42,15 @@ export const Navbar = (): ReactElement => {
 				<ul>
 					{navIcons.map(({ id, img }) => (
 						<li key={id}>
-							<img
-								src={img}
-								alt={`icon-${String(id)}`}
-								className="icon-hover"
-							/>
+							{id === 4 ? (
+								<Theme />
+							) : (
+								<img
+									src={img}
+									alt={`icon-${String(id)}`}
+									className="icon-hover dark:invert"
+								/>
+							)}
 						</li>
 					))}
 				</ul>

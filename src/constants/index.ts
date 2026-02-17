@@ -66,36 +66,42 @@ const dockApps = [
 		name: 'Portfolio', // was "Finder"
 		icon: 'finder.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'safari',
 		name: 'Articles', // was "Safari"
 		icon: 'safari.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'photos',
 		name: 'Gallery', // was "Photos"
 		icon: 'photos.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'contact',
 		name: 'Contact', // or "Get in touch"
 		icon: 'contact.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'terminal',
 		name: 'Skills', // was "Terminal"
 		icon: 'terminal.png',
 		canOpen: true,
+		showOnMobile: false,
 	},
 	{
 		id: 'trash',
 		name: 'Archive', // was "Trash"
 		icon: 'trash.png',
 		canOpen: false,
+		showOnMobile: false,
 	},
 ] satisfies DockApp[];
 

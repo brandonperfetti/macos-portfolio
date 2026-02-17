@@ -14,4 +14,9 @@ Photos location behavior:
 - Selecting the Photos location in Finder swaps the content area to a gallery view.
 - Selecting non-Photos locations keeps the standard Finder file/folder grid.
 
+Desktop item interaction model:
+- Finder content area uses single-click to select and double-click to open (Mac-like behavior).
+- Home desktop shortcuts also use single-click select + double-click open.
+- Click-away (outside item targets) clears selection highlights in both Home and Finder.
+
 Pattern: When adding new items, update `locations` to reflect the correct hierarchy and include any metadata used by the UI.

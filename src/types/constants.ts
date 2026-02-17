@@ -32,6 +32,8 @@ interface DockAppBase {
 	name: string;
 	/** Icon filename. */
 	icon: string;
+	/** Whether the icon should appear in mobile dock. */
+	showOnMobile: boolean;
 }
 
 /** Dock app config with enforced WindowKey when openable. */

@@ -1,10 +1,25 @@
 import type { ReactElement } from 'react';
 
-import { Dock, Home, Navbar, Welcome } from '#components';
+import {
+	Dock,
+	Home,
+	MobileHome,
+	MobileNavbar,
+	Navbar,
+	Welcome,
+} from '#components';
 import {
 	Contact,
 	Finder,
 	ImageFile,
+	MobileContact,
+	MobileFinder,
+	MobileImageFile,
+	MobilePhotos,
+	MobileResume,
+	MobileSafari,
+	MobileTerminal,
+	MobileText,
 	Photos,
 	Resume,
 	Safari,
@@ -19,19 +34,29 @@ const App = (): ReactElement => {
 	return (
 		<main>
 			<Navbar />
+			<MobileNavbar />
 			<Home />
+			<MobileHome />
 			<Welcome />
 
 			<Resume />
+			<MobileResume />
 			<ImageFile />
+			<MobileImageFile />
 			<Text />
+			<MobileText />
 
 			<Dock />
 			<Finder />
+			<MobileFinder />
 			<Safari />
+			<MobileSafari />
 			<Photos />
+			<MobilePhotos />
 			<Contact />
+			<MobileContact />
 			<Terminal />
+			<MobileTerminal />
 		</main>
 	);
 };

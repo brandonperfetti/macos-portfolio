@@ -131,22 +131,17 @@ export const Welcome = (): ReactElement => {
 			<p ref={subtitleRef} aria-label="Hey, I'm Brandon! Welcome to my">
 				{renderText({
 					text: "Hey, I'm Brandon! Welcome to my",
-					className: 'text-3xl font-georama',
+					className: 'max-sm:text-2xl text-3xl font-georama',
 					baseWeight: 100,
 				})}
 			</p>
 			<h1 ref={titleRef} className="mt-7" aria-label="Portfolio">
 				{renderText({
 					text: 'Portfolio',
-					className: 'text-9xl italic font-georama',
+					className: 'max-sm:text-7xl text-9xl italic font-georama',
 					baseWeight: 400,
 				})}
 			</h1>
-			<div className="small-screen">
-				<p>
-					This Portfolio is designed for desktop/tablet screens only.
-				</p>
-			</div>
 		</section>
 	);
 };

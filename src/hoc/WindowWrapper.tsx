@@ -3,7 +3,7 @@ import { useWindowStore, type WindowState } from '#store';
 import type { WindowKey } from '#types';
 import { useGSAP } from '@gsap/react';
 import type { ComponentType, ReactElement, JSX as ReactJSX } from 'react';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 /**
  * Wraps a window component with open/close animation, drag behavior, and z-index focus.
@@ -19,10 +19,24 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		);
 		const { isOpen, zIndex } = windows[windowKey];
 		const ref = useRef<HTMLElement | null>(null);
+		const [isDesktop, setIsDesktop] = useState(true);
+
+		useEffect(() => {
+			const media = window.matchMedia('(min-width: 640px)');
+			const sync = () => {
+				setIsDesktop(media.matches);
+			};
+
+			sync();
+			media.addEventListener('change', sync);
+			return () => {
+				media.removeEventListener('change', sync);
+			};
+		}, []);
 
 		useGSAP(() => {
 			const el = ref.current;
-			if (!el || !isOpen) return;
+			if (!el || !isOpen || !isDesktop) return;
 
 			gsap.fromTo(
 				el,
@@ -39,7 +53,7 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 
 		useGSAP(() => {
 			const el = ref.current;
-			if (!el || !isOpen) return;
+			if (!el || !isOpen || !isDesktop) return;
 
 			const [instance] = Draggable.create(el, {
 				onPress: () => {
@@ -55,8 +69,10 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		useLayoutEffect(() => {
 			const el = ref.current;
 			if (!el) return;
-			el.style.display = isOpen ? 'block' : 'none';
-		}, [isOpen]);
+			el.style.display = isOpen && isDesktop ? 'block' : 'none';
+		}, [isDesktop, isOpen]);
+
+		if (!isDesktop) return <></>;
 
 		return (
 			<section
