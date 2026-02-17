@@ -13,9 +13,9 @@ body {
 :root {
 	--mobile-navbar-height: 61px;
 	--mobile-window-header-height: 48px;
-	--z-navbar: 2147483000;
-	--z-theme-menu: 2147483100;
-	--z-theme-dropdown: 2147483200;
+	--z-navbar: 1000;
+	--z-theme-menu: 1100;
+	--z-theme-dropdown: 1200;
 }
 
 :root.theme-switching *,
