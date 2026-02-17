@@ -1,11 +1,16 @@
 import { useWindowStore } from '#store';
 import type { ReactElement } from 'react';
 
+/**
+ * Mobile landing screen with quick-launch actions for key windows.
+ * Uses `useWindowStore().openWindow` to open target windows from icon taps.
+ * @returns {ReactElement}
+ */
 export const MobileHome = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 
 	return (
-		<section id="mobile-home" className="sm:hidden">
+		<section id="mobile-home">
 			<ul>
 				<li>
 					<button

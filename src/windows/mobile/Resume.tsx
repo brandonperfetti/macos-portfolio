@@ -39,23 +39,23 @@ const MobileResume = (): ReactElement => {
 		<>
 			<MobileWindowHeader windowKey="resume" title="Resume" />
 			<div className="mobile-file-scroll">
-					<div ref={containerRef} className="w-full px-3 pb-6">
-						{resumeLoadError ? (
-							<div className="flex items-center justify-between gap-3">
-								<p role="alert">{resumeLoadError}</p>
-								<button
-									type="button"
-									className="cursor-pointer text-sm text-blue-600 hover:underline"
-									onClick={handleRetryLoad}
-								>
-									Retry
-								</button>
-							</div>
-						) : (
-							<Document
-								className="resume-pdf"
-								file={`/files/resume.pdf?retry=${String(resumeRetryCount)}`}
-								loading={<p>Loading resume…</p>}
+				<div ref={containerRef} className="w-full px-3 pb-6">
+					{resumeLoadError ? (
+						<div className="flex items-center justify-between gap-3">
+							<p role="alert">{resumeLoadError}</p>
+							<button
+								type="button"
+								className="cursor-pointer text-sm text-blue-600 hover:underline"
+								onClick={handleRetryLoad}
+							>
+								Retry
+							</button>
+						</div>
+					) : (
+						<Document
+							className="resume-pdf"
+							file={`/files/resume.pdf?retry=${String(resumeRetryCount)}`}
+							loading={<p>Loading resume…</p>}
 							onLoadSuccess={() => {
 								setResumeLoadError(null);
 							}}
