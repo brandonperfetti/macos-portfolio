@@ -23,7 +23,6 @@ const MobileWindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 				setIsMobile(media.matches);
 			};
 
-			sync();
 			media.addEventListener('change', sync);
 			return () => {
 				media.removeEventListener('change', sync);
