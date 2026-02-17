@@ -60,10 +60,12 @@ const MobileResume = (): ReactElement => {
 								setResumeLoadError(null);
 							}}
 							onLoadError={(error) => {
-								console.error(
-									'Failed to load mobile resume PDF:',
-									error,
-								);
+								if (import.meta.env.DEV) {
+									console.error(
+										'Failed to load mobile resume PDF:',
+										error,
+									);
+								}
 								setResumeLoadError(
 									error instanceof Error
 										? error.message
