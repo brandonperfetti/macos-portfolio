@@ -1,21 +1,22 @@
 import { useThemeStore } from '#store';
-import type { ThemeMode } from '#types/theme';
-import clsx from 'clsx';
-import { Laptop, MoonIcon, SunIcon } from 'lucide-react';
-import { useEffect, useRef, type ReactElement } from 'react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '#components/ui/dropdown-menu';
+import type { ThemeMode } from '#types';
+import clsx from 'clsx';
+import { Laptop, MoonIcon, SunIcon } from 'lucide-react';
+import { useEffect, useRef, type ReactElement } from 'react';
 
 const STORAGE_KEY = 'theme';
 
 const Theme = (): ReactElement => {
 	const { theme, setTheme } = useThemeStore();
 	const didHydrateTheme = useRef(false);
+	const shouldAnimateThemeSwitch = useRef(false);
 
 	useEffect(() => {
 		if (didHydrateTheme.current) return;
@@ -36,10 +37,16 @@ const Theme = (): ReactElement => {
 	useEffect(() => {
 		const root = document.documentElement;
 		const media = window.matchMedia('(prefers-color-scheme: dark)');
-		root.classList.add('theme-switching');
-		const timeoutId = window.setTimeout(() => {
-			root.classList.remove('theme-switching');
-		}, 280);
+		const shouldAnimate = shouldAnimateThemeSwitch.current;
+		shouldAnimateThemeSwitch.current = true;
+
+		let timeoutId: number | null = null;
+		if (shouldAnimate) {
+			root.classList.add('theme-switching');
+			timeoutId = window.setTimeout(() => {
+				root.classList.remove('theme-switching');
+			}, 280);
+		}
 
 		const applyTheme = () => {
 			if (theme === 'light') {
@@ -68,8 +75,12 @@ const Theme = (): ReactElement => {
 		media.addEventListener('change', handleSystemThemeChange);
 
 		return () => {
-			window.clearTimeout(timeoutId);
-			root.classList.remove('theme-switching');
+			if (timeoutId !== null) {
+				window.clearTimeout(timeoutId);
+			}
+			if (shouldAnimate) {
+				root.classList.remove('theme-switching');
+			}
 			media.removeEventListener('change', handleSystemThemeChange);
 		};
 	}, [theme]);

@@ -129,7 +129,7 @@ const Finder = (): ReactElement => {
 				<Search className="icon" aria-hidden="true" />
 			</div>
 
-			<div className="flex h-full bg-white">
+			<div className="dark:bg-dark-700 flex h-full bg-white">
 				<div className="sidebar">
 					{renderList('Favorites', Object.values(locations))}
 					{renderList('Projects', locations.work.children)}
