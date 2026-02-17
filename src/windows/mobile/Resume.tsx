@@ -10,6 +10,12 @@ const MobileResume = (): ReactElement => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerWidth, setContainerWidth] = useState(0);
 	const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
+	const [resumeRetryCount, setResumeRetryCount] = useState(0);
+
+	const handleRetryLoad = () => {
+		setResumeLoadError(null);
+		setResumeRetryCount((prev) => prev + 1);
+	};
 
 	useLayoutEffect(() => {
 		const container = containerRef.current;
@@ -33,14 +39,23 @@ const MobileResume = (): ReactElement => {
 		<>
 			<MobileWindowHeader windowKey="resume" title="Resume" />
 			<div className="mobile-file-scroll">
-				<div ref={containerRef} className="w-full px-3 pb-6">
-					{resumeLoadError ? (
-						<p role="alert">{resumeLoadError}</p>
-					) : (
-						<Document
-							className="resume-pdf"
-							file="/files/resume.pdf"
-							loading={<p>Loading resume…</p>}
+					<div ref={containerRef} className="w-full px-3 pb-6">
+						{resumeLoadError ? (
+							<div className="flex items-center justify-between gap-3">
+								<p role="alert">{resumeLoadError}</p>
+								<button
+									type="button"
+									className="cursor-pointer text-sm text-blue-600 hover:underline"
+									onClick={handleRetryLoad}
+								>
+									Retry
+								</button>
+							</div>
+						) : (
+							<Document
+								className="resume-pdf"
+								file={`/files/resume.pdf?retry=${String(resumeRetryCount)}`}
+								loading={<p>Loading resume…</p>}
 							onLoadSuccess={() => {
 								setResumeLoadError(null);
 							}}
