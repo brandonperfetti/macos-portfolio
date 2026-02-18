@@ -18,16 +18,26 @@ const Resume = (): ReactElement => {
 	const [numPages, setNumPages] = useState(1);
 
 	useLayoutEffect(() => {
-		const updateWidth = () => {
-			if (!containerRef.current) return;
-			setPageWidth(containerRef.current.clientWidth);
+		const container = containerRef.current;
+		if (!container) return;
+
+		const syncWidth = () => {
+			setPageWidth(container.clientWidth);
 		};
 
-		updateWidth();
-		window.addEventListener('resize', updateWidth);
+		syncWidth();
 
+		if (typeof ResizeObserver !== 'undefined') {
+			const observer = new ResizeObserver(syncWidth);
+			observer.observe(container);
+			return () => {
+				observer.disconnect();
+			};
+		}
+
+		window.addEventListener('resize', syncWidth);
 		return () => {
-			window.removeEventListener('resize', updateWidth);
+			window.removeEventListener('resize', syncWidth);
 		};
 	}, []);
 
