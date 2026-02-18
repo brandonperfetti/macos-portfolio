@@ -1,7 +1,7 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
 import { useContainerWidth } from '#hooks';
-import { Document, Page } from '#lib';
+import { Document, Page } from '#lib/pdf';
 import { Download } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { useState } from 'react';

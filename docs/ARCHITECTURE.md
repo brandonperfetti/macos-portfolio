@@ -38,12 +38,16 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 - `src/lib/gsap.ts`: core GSAP export
 - `src/lib/gsap-draggable.ts`: Draggable plugin registration + exports
 - `src/lib/pdf.ts`: pdf.js worker setup + React PDF exports (CDN-first `.mjs` worker with local bundled fallback)
+- `src/lib/index.ts`: intentionally re-exports GSAP only; PDF helpers should be imported from `#lib/pdf` to keep `react-pdf` out of the base bundle.
 
 ## Component Architecture
-- `src/App.tsx`: Root layout with desktop + mobile surfaces (`Navbar`/`MobileNavbar`, `Home`/`MobileHome`) and mounted desktop/mobile windows.
+- `src/App.tsx`: Root layout with desktop + mobile surfaces (`Navbar`/`MobileNavbar`, `Home`/`MobileHome`) and lazy-loaded windows.
+  - Window modules are loaded with `React.lazy`.
+  - Each window key renders only one device variant (desktop or mobile) via `useIsMobile`.
 - `src/components/Home.tsx`: Desktop home surface for project folder shortcuts that route into Finder.
 - `src/components/Theme.tsx`: Theme selector using Radix dropdown primitives.
 - `src/hooks/useContainerWidth.ts`: Shared container-width observer hook used by desktop/mobile resume windows (`ResizeObserver` with `window.resize` fallback).
+- `src/hooks/useIsMobile.ts`: shared viewport breakpoint hook (`max-width: 639px`) for app-level variant gating.
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics and explicit Trash-to-Finder exception behavior
 - `src/windows/Finder.tsx`: Finder shell that switches between standard file-grid mode and photos-gallery mode when the active location is Photos
 - `src/windows/Photos.tsx`: Standalone Photos app-style gallery window

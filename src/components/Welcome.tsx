@@ -1,4 +1,4 @@
-import { gsap } from '#lib';
+import { gsap } from '#lib/gsap';
 import { useGSAP } from '@gsap/react';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';

@@ -1,7 +1,7 @@
 import { MobileWindowHeader } from '#components/mobile/WindowHeader';
 import { MobileWindowWrapper } from '#hoc';
 import { useContainerWidth } from '#hooks';
-import { Document, Page } from '#lib';
+import { Document, Page } from '#lib/pdf';
 import { useState, type ReactElement } from 'react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
