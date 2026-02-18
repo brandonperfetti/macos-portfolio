@@ -1,9 +1,10 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
+import { useContainerWidth } from '#hooks';
 import { Document, Page } from '#lib';
 import { Download } from 'lucide-react';
 import type { ReactElement } from 'react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -12,34 +13,9 @@ import 'react-pdf/dist/Page/TextLayer.css';
  * Resume window rendering a PDF preview with a download action.
  */
 const Resume = (): ReactElement => {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [pageWidth, setPageWidth] = useState(720);
+	const [containerRef, pageWidth] = useContainerWidth(720);
 	const [loadError, setLoadError] = useState<string | null>(null);
 	const [numPages, setNumPages] = useState(1);
-
-	useLayoutEffect(() => {
-		const container = containerRef.current;
-		if (!container) return;
-
-		const syncWidth = () => {
-			setPageWidth(container.clientWidth);
-		};
-
-		syncWidth();
-
-		if (typeof ResizeObserver !== 'undefined') {
-			const observer = new ResizeObserver(syncWidth);
-			observer.observe(container);
-			return () => {
-				observer.disconnect();
-			};
-		}
-
-		window.addEventListener('resize', syncWidth);
-		return () => {
-			window.removeEventListener('resize', syncWidth);
-		};
-	}, []);
 
 	return (
 		<>

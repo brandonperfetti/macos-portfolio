@@ -1,7 +1,8 @@
 import { MobileWindowHeader } from '#components/mobile/WindowHeader';
 import { MobileWindowWrapper } from '#hoc';
+import { useContainerWidth } from '#hooks';
 import { Document, Page } from '#lib';
-import { useLayoutEffect, useRef, useState, type ReactElement } from 'react';
+import { useState, type ReactElement } from 'react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -11,8 +12,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
  * @returns {ReactElement}
  */
 const MobileResume = (): ReactElement => {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [containerWidth, setContainerWidth] = useState(0);
+	const [containerRef, containerWidth] = useContainerWidth();
 	const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
 	const [resumeNumPages, setResumeNumPages] = useState(1);
 	const [resumeRetryCount, setResumeRetryCount] = useState(0);
@@ -21,24 +21,6 @@ const MobileResume = (): ReactElement => {
 		setResumeLoadError(null);
 		setResumeRetryCount((prev) => prev + 1);
 	};
-
-	useLayoutEffect(() => {
-		const container = containerRef.current;
-		if (!container) return;
-
-		const syncWidth = () => {
-			setContainerWidth(container.offsetWidth);
-		};
-
-		syncWidth();
-
-		const observer = new ResizeObserver(syncWidth);
-		observer.observe(container);
-
-		return () => {
-			observer.disconnect();
-		};
-	}, []);
 
 	return (
 		<>
