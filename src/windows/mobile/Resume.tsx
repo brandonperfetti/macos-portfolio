@@ -10,6 +10,7 @@ const MobileResume = (): ReactElement => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerWidth, setContainerWidth] = useState(0);
 	const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
+	const [resumeNumPages, setResumeNumPages] = useState(1);
 	const [resumeRetryCount, setResumeRetryCount] = useState(0);
 
 	const handleRetryLoad = () => {
@@ -56,8 +57,9 @@ const MobileResume = (): ReactElement => {
 							className="resume-pdf"
 							file={`/files/resume.pdf?retry=${String(resumeRetryCount)}`}
 							loading={<p>Loading resume…</p>}
-							onLoadSuccess={() => {
+							onLoadSuccess={({ numPages }) => {
 								setResumeLoadError(null);
+								setResumeNumPages(numPages);
 							}}
 							onLoadError={(error) => {
 								if (import.meta.env.DEV) {
@@ -73,12 +75,21 @@ const MobileResume = (): ReactElement => {
 								);
 							}}
 						>
-							<Page
-								pageNumber={1}
-								width={containerWidth || undefined}
-								renderTextLayer
-								renderAnnotationLayer
-							/>
+							{Array.from(
+								{ length: resumeNumPages },
+								(_, index) => {
+									const pageNumber = index + 1;
+									return (
+										<Page
+											key={pageNumber}
+											pageNumber={pageNumber}
+											width={containerWidth || undefined}
+											renderTextLayer
+											renderAnnotationLayer
+										/>
+									);
+								},
+							)}
 						</Document>
 					)}
 				</div>
