@@ -8,6 +8,7 @@ import {
 	Navbar,
 	Welcome,
 } from '#components';
+import { useIsMobile } from '#hooks';
 import { useWindowStore, type WindowState } from '#store';
 
 const Contact = lazy(() => import('#windows/Contact'));
@@ -32,6 +33,7 @@ const Text = lazy(() => import('#windows/Text'));
  */
 const App = (): ReactElement => {
 	const windows = useWindowStore((state: WindowState) => state.windows);
+	const isMobile = useIsMobile();
 
 	return (
 		<main>
@@ -44,29 +46,21 @@ const App = (): ReactElement => {
 			<Dock />
 
 			<Suspense fallback={null}>
-				{windows.resume.isOpen ? <Resume /> : null}
-				{windows.resume.isOpen ? <MobileResume /> : null}
+				{windows.resume.isOpen ? (isMobile ? <MobileResume /> : <Resume />) : null}
 
-				{windows.imgfile.isOpen ? <ImageFile /> : null}
-				{windows.imgfile.isOpen ? <MobileImageFile /> : null}
+				{windows.imgfile.isOpen ? (isMobile ? <MobileImageFile /> : <ImageFile />) : null}
 
-				{windows.txtfile.isOpen ? <Text /> : null}
-				{windows.txtfile.isOpen ? <MobileText /> : null}
+				{windows.txtfile.isOpen ? (isMobile ? <MobileText /> : <Text />) : null}
 
-				{windows.finder.isOpen ? <Finder /> : null}
-				{windows.finder.isOpen ? <MobileFinder /> : null}
+				{windows.finder.isOpen ? (isMobile ? <MobileFinder /> : <Finder />) : null}
 
-				{windows.safari.isOpen ? <Safari /> : null}
-				{windows.safari.isOpen ? <MobileSafari /> : null}
+				{windows.safari.isOpen ? (isMobile ? <MobileSafari /> : <Safari />) : null}
 
-				{windows.photos.isOpen ? <Photos /> : null}
-				{windows.photos.isOpen ? <MobilePhotos /> : null}
+				{windows.photos.isOpen ? (isMobile ? <MobilePhotos /> : <Photos />) : null}
 
-				{windows.contact.isOpen ? <Contact /> : null}
-				{windows.contact.isOpen ? <MobileContact /> : null}
+				{windows.contact.isOpen ? (isMobile ? <MobileContact /> : <Contact />) : null}
 
-				{windows.terminal.isOpen ? <Terminal /> : null}
-				{windows.terminal.isOpen ? <MobileTerminal /> : null}
+				{windows.terminal.isOpen ? (isMobile ? <MobileTerminal /> : <Terminal />) : null}
 			</Suspense>
 		</main>
 	);
