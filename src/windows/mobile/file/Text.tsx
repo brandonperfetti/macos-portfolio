@@ -47,5 +47,6 @@ const MobileText = (): ReactElement | null => {
 	);
 };
 
+/** Mobile Finder-backed text file window wrapper. */
 const MobileTextWindow = MobileWindowWrapper(MobileText, 'txtfile');
 export default MobileTextWindow;
