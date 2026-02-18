@@ -6,6 +6,10 @@ import { useLayoutEffect, useRef, useState, type ReactElement } from 'react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
+/**
+ * Mobile resume window content that renders the resume PDF preview.
+ * @returns {ReactElement}
+ */
 const MobileResume = (): ReactElement => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerWidth, setContainerWidth] = useState(0);
@@ -98,5 +102,6 @@ const MobileResume = (): ReactElement => {
 	);
 };
 
+/** Mobile window wrapper for the resume view; exported as the default mobile resume window component. */
 const MobileResumeWindow = MobileWindowWrapper(MobileResume, 'resume');
 export default MobileResumeWindow;
