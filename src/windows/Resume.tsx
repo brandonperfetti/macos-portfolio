@@ -15,6 +15,7 @@ const Resume = (): ReactElement => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [pageWidth, setPageWidth] = useState(720);
 	const [loadError, setLoadError] = useState<string | null>(null);
+	const [numPages, setNumPages] = useState(1);
 
 	useLayoutEffect(() => {
 		const updateWidth = () => {
@@ -51,8 +52,9 @@ const Resume = (): ReactElement => {
 				<Document
 					file="/files/resume.pdf"
 					loading={<p>Loading resume…</p>}
-					onLoadSuccess={() => {
+					onLoadSuccess={({ numPages: loadedNumPages }) => {
 						setLoadError(null);
+						setNumPages(loadedNumPages);
 					}}
 					onLoadError={(error) => {
 						setLoadError(
@@ -62,12 +64,18 @@ const Resume = (): ReactElement => {
 						);
 					}}
 				>
-					<Page
-						pageNumber={1}
-						width={pageWidth}
-						renderTextLayer
-						renderAnnotationLayer
-					/>
+					{Array.from({ length: numPages }, (_, index) => {
+						const pageNumber = index + 1;
+						return (
+							<Page
+								key={pageNumber}
+								pageNumber={pageNumber}
+								width={pageWidth}
+								renderTextLayer
+								renderAnnotationLayer
+							/>
+						);
+					})}
 				</Document>
 			</div>
 		</>
