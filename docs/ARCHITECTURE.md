@@ -9,6 +9,10 @@ Window state is centralized in `src/store/window.ts` using Zustand with Immer mi
 
 Pattern: Always use Immer draft mutations (e.g. `state.windows[key].isOpen = true`) instead of returning new objects.
 
+Theme state is centralized in `src/store/theme.ts`.
+- `theme`: `light | dark | system`
+- `setTheme()`: updates current mode used by `src/components/Theme.tsx`
+
 ## Constants-Driven Configuration
 All app metadata lives in `src/constants/index.ts`:
 
@@ -36,11 +40,14 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 - `src/lib/pdf.ts`: pdf.js worker setup + React PDF exports (CDN-first `.mjs` worker with local bundled fallback)
 
 ## Component Architecture
-- `src/App.tsx`: Root layout with `<Navbar />`, `<Home />`, `<Welcome />`, `<Dock />`, and mounted window entry points (for example `Contact`, `Finder`, `Safari`, `Resume`, `Photos`).
+- `src/App.tsx`: Root layout with desktop + mobile surfaces (`Navbar`/`MobileNavbar`, `Home`/`MobileHome`) and mounted desktop/mobile windows.
 - `src/components/Home.tsx`: Desktop home surface for project folder shortcuts that route into Finder.
+- `src/components/Theme.tsx`: Theme selector using Radix dropdown primitives.
+- `src/hooks/useContainerWidth.ts`: Shared container-width observer hook used by desktop/mobile resume windows (`ResizeObserver` with `window.resize` fallback).
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics and explicit Trash-to-Finder exception behavior
 - `src/windows/Finder.tsx`: Finder shell that switches between standard file-grid mode and photos-gallery mode when the active location is Photos
 - `src/windows/Photos.tsx`: Standalone Photos app-style gallery window
+- `src/hoc/MobileWindowWrapper.tsx`: mobile window mount/visibility wrapper
 - Barrel exports via `src/components/index.ts`
 
 ## Path Aliases (Critical)

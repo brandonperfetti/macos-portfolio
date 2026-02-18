@@ -2,6 +2,7 @@ import { dockApps, locations } from '#constants';
 import { gsap } from '#lib';
 import { useLocationStore, useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import type { ReactElement } from 'react';
 import { useRef } from 'react';
 import { Tooltip } from 'react-tooltip';
@@ -112,7 +113,10 @@ export const Dock = (): ReactElement => {
 					return (
 						<div
 							key={app.id}
-							className="relative flex justify-center"
+							className={clsx(
+								'relative flex justify-center',
+								!app.showOnMobile && 'max-sm:hidden',
+							)}
 						>
 							<button
 								type="button"

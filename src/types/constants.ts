@@ -20,6 +20,8 @@ export interface NavLink {
 export interface NavIcon {
 	/** Stable numeric id. */
 	id: number;
+	/** Semantic icon type for rendering behavior. */
+	type: 'status' | 'theme';
 	/** Icon asset path. */
 	img: string;
 }
@@ -32,6 +34,8 @@ interface DockAppBase {
 	name: string;
 	/** Icon filename. */
 	icon: string;
+	/** Whether the icon should appear in mobile dock. */
+	showOnMobile: boolean;
 }
 
 /** Dock app config with enforced WindowKey when openable. */

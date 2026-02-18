@@ -5,7 +5,7 @@ import { useLocationStore, useWindowStore } from '#store';
 import type { FinderImageFile, FinderLocationFolder, FinderNode } from '#types';
 import clsx from 'clsx';
 import { Search } from 'lucide-react';
-import type { ReactElement } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 
 /**
  * Finder window for browsing locations and opening file entries.
@@ -13,6 +13,10 @@ import type { ReactElement } from 'react';
 const Finder = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 	const { activeLocation, setActiveLocation } = useLocationStore();
+	const [selectedItem, setSelectedItem] = useState<{
+		locationId: number;
+		itemId: number;
+	} | null>(null);
 	const currentLocation = activeLocation ?? locations.work;
 	const isPhotosLocation = currentLocation === locations.photos;
 
@@ -22,6 +26,20 @@ const Finder = (): ReactElement => {
 					item.kind === 'file' && item.fileType === 'img',
 			)
 		: [];
+
+	useEffect(() => {
+		const handlePointerDown = (event: PointerEvent) => {
+			const target = event.target as HTMLElement | null;
+			if (target?.closest('.finder-item-button, .finder-photo-button'))
+				return;
+			setSelectedItem(null);
+		};
+
+		document.addEventListener('pointerdown', handlePointerDown);
+		return () => {
+			document.removeEventListener('pointerdown', handlePointerDown);
+		};
+	}, []);
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
@@ -111,7 +129,7 @@ const Finder = (): ReactElement => {
 				<Search className="icon" aria-hidden="true" />
 			</div>
 
-			<div className="flex h-full bg-white">
+			<div className="dark:bg-dark-700 flex h-full bg-white">
 				<div className="sidebar">
 					{renderList('Favorites', Object.values(locations))}
 					{renderList('Projects', locations.work.children)}
@@ -123,8 +141,21 @@ const Finder = (): ReactElement => {
 								<li key={item.id}>
 									<button
 										type="button"
-										className="cursor-pointer"
+										className={clsx(
+											'finder-photo-button',
+											selectedItem?.locationId ===
+												currentLocation.id &&
+												selectedItem.itemId ===
+													item.id &&
+												'finder-photo-selected',
+										)}
 										onClick={() => {
+											setSelectedItem({
+												locationId: currentLocation.id,
+												itemId: item.id,
+											});
+										}}
+										onDoubleClick={() => {
 											openItem(item);
 										}}
 									>
@@ -143,13 +174,27 @@ const Finder = (): ReactElement => {
 							<li key={item.id} className={item.position}>
 								<button
 									type="button"
-									className="flex flex-col items-center gap-2"
+									className={clsx(
+										'finder-item-button',
+										selectedItem?.locationId ===
+											currentLocation.id &&
+											selectedItem.itemId === item.id &&
+											'finder-item-selected',
+									)}
 									onClick={() => {
+										setSelectedItem({
+											locationId: currentLocation.id,
+											itemId: item.id,
+										});
+									}}
+									onDoubleClick={() => {
 										openItem(item);
 									}}
 								>
-									<img src={item.icon} alt={item.name} />
-									<p className="truncate text-sm font-medium">
+									<span className="finder-item-icon">
+										<img src={item.icon} alt={item.name} />
+									</span>
+									<p className="finder-item-name truncate">
 										{item.name}
 									</p>
 								</button>

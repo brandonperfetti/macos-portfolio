@@ -1,9 +1,10 @@
 import { WindowControls } from '#components';
 import { WindowWrapper } from '#hoc';
+import { useContainerWidth } from '#hooks';
 import { Document, Page } from '#lib';
 import { Download } from 'lucide-react';
 import type { ReactElement } from 'react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -12,23 +13,9 @@ import 'react-pdf/dist/Page/TextLayer.css';
  * Resume window rendering a PDF preview with a download action.
  */
 const Resume = (): ReactElement => {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [pageWidth, setPageWidth] = useState(720);
+	const [containerRef, pageWidth] = useContainerWidth(720);
 	const [loadError, setLoadError] = useState<string | null>(null);
-
-	useLayoutEffect(() => {
-		const updateWidth = () => {
-			if (!containerRef.current) return;
-			setPageWidth(containerRef.current.clientWidth);
-		};
-
-		updateWidth();
-		window.addEventListener('resize', updateWidth);
-
-		return () => {
-			window.removeEventListener('resize', updateWidth);
-		};
-	}, []);
+	const [numPages, setNumPages] = useState(1);
 
 	return (
 		<>
@@ -51,8 +38,9 @@ const Resume = (): ReactElement => {
 				<Document
 					file="/files/resume.pdf"
 					loading={<p>Loading resume…</p>}
-					onLoadSuccess={() => {
+					onLoadSuccess={({ numPages: loadedNumPages }) => {
 						setLoadError(null);
+						setNumPages(loadedNumPages);
 					}}
 					onLoadError={(error) => {
 						setLoadError(
@@ -62,12 +50,18 @@ const Resume = (): ReactElement => {
 						);
 					}}
 				>
-					<Page
-						pageNumber={1}
-						width={pageWidth}
-						renderTextLayer
-						renderAnnotationLayer
-					/>
+					{Array.from({ length: numPages }, (_, index) => {
+						const pageNumber = index + 1;
+						return (
+							<Page
+								key={pageNumber}
+								pageNumber={pageNumber}
+								width={pageWidth}
+								renderTextLayer
+								renderAnnotationLayer
+							/>
+						);
+					})}
 				</Document>
 			</div>
 		</>

@@ -18,6 +18,15 @@ Pattern: Use Immer draft mutations (e.g. `state.windows[key].isOpen = true`) ins
 
 Pattern: `activeLocation` uses `FinderLocationFolder` to support both root locations and nested folders.
 
+## Theme Store
+`src/store/theme.ts` tracks global theme mode.
+
+- `theme` supports `light | dark | system`
+- `setTheme()` updates mode and persists through `localStorage` in `src/components/Theme.tsx`
+- System mode listens to `prefers-color-scheme` changes and updates root `.dark` class
+
+Pattern: Keep all theme mode state in the store; UI components should read/write via `useThemeStore` instead of owning independent theme state.
+
 ## Types
 `WindowKey` and `WindowConfig` live in `src/types/windows.ts`.
 Use `#types` for imports outside `src/types/*`; inside `src/types/*`, use local relative imports to avoid circular barrel resolution.

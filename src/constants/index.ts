@@ -41,18 +41,22 @@ const navLinks = [
 const navIcons = [
 	{
 		id: 1,
+		type: 'status',
 		img: '/icons/wifi.svg',
 	},
 	{
 		id: 2,
+		type: 'status',
 		img: '/icons/search.svg',
 	},
 	{
 		id: 3,
+		type: 'status',
 		img: '/icons/user.svg',
 	},
 	{
 		id: 4,
+		type: 'theme',
 		img: '/icons/mode.svg',
 	},
 ] satisfies NavIcon[];
@@ -66,36 +70,42 @@ const dockApps = [
 		name: 'Portfolio', // was "Finder"
 		icon: 'finder.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'safari',
 		name: 'Articles', // was "Safari"
 		icon: 'safari.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'photos',
 		name: 'Gallery', // was "Photos"
 		icon: 'photos.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'contact',
 		name: 'Contact', // or "Get in touch"
 		icon: 'contact.png',
 		canOpen: true,
+		showOnMobile: true,
 	},
 	{
 		id: 'terminal',
 		name: 'Skills', // was "Terminal"
 		icon: 'terminal.png',
 		canOpen: true,
+		showOnMobile: false,
 	},
 	{
 		id: 'trash',
 		name: 'Archive', // was "Trash"
 		icon: 'trash.png',
 		canOpen: false,
+		showOnMobile: false,
 	},
 ] satisfies DockApp[];
 
