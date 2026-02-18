@@ -9,7 +9,8 @@ import {
 	Welcome,
 } from '#components';
 import { useIsMobile } from '#hooks';
-import { useWindowStore, type WindowState } from '#store';
+import { useWindowStore } from '#store';
+import { useShallow } from 'zustand/react/shallow';
 
 const Contact = lazy(() => import('#windows/Contact'));
 const Finder = lazy(() => import('#windows/Finder'));
@@ -28,11 +29,35 @@ const Safari = lazy(() => import('#windows/Safari'));
 const Terminal = lazy(() => import('#windows/Terminal'));
 const Text = lazy(() => import('#windows/Text'));
 
+interface OpenWindows {
+	resume: boolean;
+	imgfile: boolean;
+	txtfile: boolean;
+	finder: boolean;
+	safari: boolean;
+	photos: boolean;
+	contact: boolean;
+	terminal: boolean;
+}
+
 /**
  * Root layout for the macOS-style portfolio.
  */
 const App = (): ReactElement => {
-	const windows = useWindowStore((state: WindowState) => state.windows);
+	const openWindows = useWindowStore(
+		useShallow(
+			(state): OpenWindows => ({
+				resume: state.windows.resume.isOpen,
+				imgfile: state.windows.imgfile.isOpen,
+				txtfile: state.windows.txtfile.isOpen,
+				finder: state.windows.finder.isOpen,
+				safari: state.windows.safari.isOpen,
+				photos: state.windows.photos.isOpen,
+				contact: state.windows.contact.isOpen,
+				terminal: state.windows.terminal.isOpen,
+			}),
+		),
+	);
 	const isMobile = useIsMobile();
 
 	return (
@@ -45,23 +70,53 @@ const App = (): ReactElement => {
 
 			<Dock />
 
-			<Suspense fallback={null}>
-				{windows.resume.isOpen ? (isMobile ? <MobileResume /> : <Resume />) : null}
+			{openWindows.resume ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileResume /> : <Resume />}
+				</Suspense>
+			) : null}
 
-				{windows.imgfile.isOpen ? (isMobile ? <MobileImageFile /> : <ImageFile />) : null}
+			{openWindows.imgfile ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileImageFile /> : <ImageFile />}
+				</Suspense>
+			) : null}
 
-				{windows.txtfile.isOpen ? (isMobile ? <MobileText /> : <Text />) : null}
+			{openWindows.txtfile ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileText /> : <Text />}
+				</Suspense>
+			) : null}
 
-				{windows.finder.isOpen ? (isMobile ? <MobileFinder /> : <Finder />) : null}
+			{openWindows.finder ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileFinder /> : <Finder />}
+				</Suspense>
+			) : null}
 
-				{windows.safari.isOpen ? (isMobile ? <MobileSafari /> : <Safari />) : null}
+			{openWindows.safari ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileSafari /> : <Safari />}
+				</Suspense>
+			) : null}
 
-				{windows.photos.isOpen ? (isMobile ? <MobilePhotos /> : <Photos />) : null}
+			{openWindows.photos ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobilePhotos /> : <Photos />}
+				</Suspense>
+			) : null}
 
-				{windows.contact.isOpen ? (isMobile ? <MobileContact /> : <Contact />) : null}
+			{openWindows.contact ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileContact /> : <Contact />}
+				</Suspense>
+			) : null}
 
-				{windows.terminal.isOpen ? (isMobile ? <MobileTerminal /> : <Terminal />) : null}
-			</Suspense>
+			{openWindows.terminal ? (
+				<Suspense fallback={null}>
+					{isMobile ? <MobileTerminal /> : <Terminal />}
+				</Suspense>
+			) : null}
 		</main>
 	);
 };
