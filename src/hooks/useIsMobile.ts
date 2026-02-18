@@ -18,7 +18,6 @@ export const useIsMobile = (): boolean => {
 			setIsMobile(media.matches);
 		};
 
-		sync();
 		media.addEventListener('change', sync);
 		return () => {
 			media.removeEventListener('change', sync);
