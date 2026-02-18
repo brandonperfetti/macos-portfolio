@@ -43,6 +43,7 @@ Shared runtime utilities live in `src/lib/` and are re-exported via `#lib`.
 - `src/App.tsx`: Root layout with desktop + mobile surfaces (`Navbar`/`MobileNavbar`, `Home`/`MobileHome`) and mounted desktop/mobile windows.
 - `src/components/Home.tsx`: Desktop home surface for project folder shortcuts that route into Finder.
 - `src/components/Theme.tsx`: Theme selector using Radix dropdown primitives.
+- `src/hooks/useContainerWidth.ts`: Shared container-width observer hook used by desktop/mobile resume windows (`ResizeObserver` with `window.resize` fallback).
 - `src/components/Dock.tsx`: GSAP-powered dock with magnification physics and explicit Trash-to-Finder exception behavior
 - `src/windows/Finder.tsx`: Finder shell that switches between standard file-grid mode and photos-gallery mode when the active location is Photos
 - `src/windows/Photos.tsx`: Standalone Photos app-style gallery window

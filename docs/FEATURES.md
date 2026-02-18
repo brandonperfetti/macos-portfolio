@@ -33,6 +33,10 @@ Update `navLinks` in `src/constants/index.ts` with `type` matching window keys.
   - `--mobile-window-header-height`
   to prevent header/navbar overlap regressions.
 
+### Resume PDF Rendering
+- Desktop and mobile resume windows render all pages from the loaded PDF (`numPages`) instead of hardcoding page 1.
+- Width scaling for both resume views is shared via `useContainerWidth` (`src/hooks/useContainerWidth.ts`) to keep sizing behavior consistent across breakpoints.
+
 ### Photos Behavior
 - Dock `Photos` opens the dedicated `Photos` window (`WindowKey: 'photos'`).
 - Finder `Photos` location renders an in-Finder gallery view.
