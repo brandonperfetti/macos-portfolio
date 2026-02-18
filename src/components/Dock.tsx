@@ -1,5 +1,5 @@
 import { dockApps, locations } from '#constants';
-import { gsap } from '#lib';
+import { gsap } from '#lib/gsap';
 import { useLocationStore, useWindowStore } from '#store';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';

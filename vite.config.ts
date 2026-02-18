@@ -9,6 +9,9 @@ export default defineConfig({
 	plugins: [react(), tailwindcss()],
 	resolve: {
 		alias: {
+			// GSAP ships Draggable with uppercase filename; this alias prevents
+			// Linux build failures when source imports lowercase path.
+			'gsap/draggable': 'gsap/Draggable',
 			'#components': resolve(
 				dirname(fileURLToPath(import.meta.url)),
 				'src/components',
