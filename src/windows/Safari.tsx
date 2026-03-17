@@ -29,14 +29,19 @@ const Safari = (): ReactElement => {
 	const [addressInput, setAddressInput] = useState('');
 	const [pageIndex, setPageIndex] = useState(0);
 	const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
-	const [addressInputEl, setAddressInputEl] = useState<HTMLInputElement | null>(null);
+	const [addressInputEl, setAddressInputEl] =
+		useState<HTMLInputElement | null>(null);
 	const windows = useWindowStore((state: WindowState) => state.windows);
 
 	const isSafariTopmost = useMemo(() => {
-		const openWindows = Object.values(windows).filter((windowMeta) => windowMeta.isOpen);
+		const openWindows = Object.values(windows).filter(
+			(windowMeta) => windowMeta.isOpen,
+		);
 		if (openWindows.length === 0) return false;
 
-		const topZIndex = Math.max(...openWindows.map((windowMeta) => windowMeta.zIndex));
+		const topZIndex = Math.max(
+			...openWindows.map((windowMeta) => windowMeta.zIndex),
+		);
 		return windows.safari.isOpen && windows.safari.zIndex === topZIndex;
 	}, [windows]);
 
@@ -130,7 +135,10 @@ const Safari = (): ReactElement => {
 						aria-expanded={isBookmarksOpen}
 						onClick={toggleBookmarksMenu}
 					>
-						<PanelLeft className="safari-toolbar-icon" aria-hidden="true" />
+						<PanelLeft
+							className="safari-toolbar-icon"
+							aria-hidden="true"
+						/>
 					</button>
 
 					<div className="ml-3 flex items-center gap-1">
@@ -190,7 +198,10 @@ const Safari = (): ReactElement => {
 							void handleShare();
 						}}
 					>
-						<Share className="safari-toolbar-icon" aria-hidden="true" />
+						<Share
+							className="safari-toolbar-icon"
+							aria-hidden="true"
+						/>
 					</button>
 					<button
 						type="button"
@@ -200,7 +211,10 @@ const Safari = (): ReactElement => {
 							openExternalUrl('https://www.google.com');
 						}}
 					>
-						<Plus className="safari-toolbar-icon" aria-hidden="true" />
+						<Plus
+							className="safari-toolbar-icon"
+							aria-hidden="true"
+						/>
 					</button>
 				</div>
 			</div>
@@ -212,21 +226,28 @@ const Safari = (): ReactElement => {
 				>
 					<div className="safari-sidebar-scroll">
 						<div className="safari-sidebar-header">
-							<p className="safari-sidebar-title">Bookmarks Sidebar</p>
+							<p className="safari-sidebar-title">
+								Bookmarks Sidebar
+							</p>
 						</div>
 						{bookmarksByCategory.map(([category, bookmarks]) => (
-							<div key={category} className="safari-bookmarks-group">
-								<p className="safari-bookmarks-heading">{category}</p>
-									{bookmarks.map((bookmark) => (
-										<button
-											key={bookmark.id}
-											type="button"
-											className="safari-bookmark-item"
-											tabIndex={isBookmarksOpen ? 0 : -1}
-											onClick={() => {
-												openExternalUrl(bookmark.url);
-											}}
-										>
+							<div
+								key={category}
+								className="safari-bookmarks-group"
+							>
+								<p className="safari-bookmarks-heading">
+									{category}
+								</p>
+								{bookmarks.map((bookmark) => (
+									<button
+										key={bookmark.id}
+										type="button"
+										className="safari-bookmark-item"
+										tabIndex={isBookmarksOpen ? 0 : -1}
+										onClick={() => {
+											openExternalUrl(bookmark.url);
+										}}
+									>
 										{bookmark.title}
 									</button>
 								))}
@@ -238,25 +259,27 @@ const Safari = (): ReactElement => {
 				<div className="blog">
 					<h2>My Developer Blog</h2>
 					<div className="space-y-8">
-						{visiblePosts.map(({ id, image, title, date, link }) => (
-							<div key={id} className="blog-post">
-								<div className="col-span-2">
-									<img src={image} alt={title} />
+						{visiblePosts.map(
+							({ id, image, title, date, link }) => (
+								<div key={id} className="blog-post">
+									<div className="col-span-2">
+										<img src={image} alt={title} />
+									</div>
+									<div className="content">
+										<p>{date}</p>
+										<h3>{title}</h3>
+										<a
+											href={link}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Check out the full post{' '}
+											<MoveRight className="icon-hover" />
+										</a>
+									</div>
 								</div>
-								<div className="content">
-									<p>{date}</p>
-									<h3>{title}</h3>
-									<a
-										href={link}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Check out the full post{' '}
-										<MoveRight className="icon-hover" />
-									</a>
-								</div>
-							</div>
-						))}
+							),
+						)}
 					</div>
 				</div>
 			</div>
