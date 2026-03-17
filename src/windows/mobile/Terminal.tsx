@@ -53,5 +53,10 @@ const MobileTerminal = (): ReactElement => {
 	);
 };
 
+/**
+ * Public mobile terminal window export used by the window registry.
+ *
+ * @returns {ReactElement} Mobile terminal window wrapper component.
+ */
 const MobileTerminalWindow = MobileWindowWrapper(MobileTerminal, 'terminal');
 export default MobileTerminalWindow;
