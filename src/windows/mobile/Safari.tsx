@@ -42,10 +42,14 @@ const MobileSafari = (): ReactElement => {
 	const canGoForward = pageIndex < totalPages - 1;
 
 	const bookmarksByCategory = useMemo(() => {
-		const grouped = new Map<string, typeof safariBookmarks>();
+		const grouped = new Map<string, (typeof safariBookmarks)[number][]>();
 		safariBookmarks.forEach((bookmark) => {
-			const current = grouped.get(bookmark.category) ?? [];
-			grouped.set(bookmark.category, [...current, bookmark]);
+			const current = grouped.get(bookmark.category);
+			if (current) {
+				current.push(bookmark);
+				return;
+			}
+			grouped.set(bookmark.category, [bookmark]);
 		});
 		return Array.from(grouped.entries());
 	}, []);
