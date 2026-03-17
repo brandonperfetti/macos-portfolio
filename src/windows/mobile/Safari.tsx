@@ -136,7 +136,6 @@ const MobileSafari = (): ReactElement => {
 						aria-label="Go back"
 						disabled={!canGoBack}
 						onClick={() => {
-							if (!canGoBack) return;
 							setPageIndex((previous) => previous - 1);
 						}}
 					>
@@ -148,7 +147,6 @@ const MobileSafari = (): ReactElement => {
 						aria-label="Go forward"
 						disabled={!canGoForward}
 						onClick={() => {
-							if (!canGoForward) return;
 							setPageIndex((previous) => previous + 1);
 						}}
 					>

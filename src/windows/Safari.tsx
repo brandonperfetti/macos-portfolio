@@ -147,24 +147,28 @@ const Safari = (): ReactElement => {
 							className="safari-toolbar-btn"
 							aria-label="Previous articles page"
 							onClick={() => {
-								if (!canGoBack) return;
 								setPageIndex((previous) => previous - 1);
 							}}
 							disabled={!canGoBack}
 						>
-							<ChevronLeft className="safari-toolbar-icon" aria-hidden="true" />
+							<ChevronLeft
+								className="safari-toolbar-icon"
+								aria-hidden="true"
+							/>
 						</button>
 						<button
 							type="button"
 							className="safari-toolbar-btn"
 							aria-label="Next articles page"
 							onClick={() => {
-								if (!canGoForward) return;
 								setPageIndex((previous) => previous + 1);
 							}}
 							disabled={!canGoForward}
 						>
-							<ChevronRight className="safari-toolbar-icon" aria-hidden="true" />
+							<ChevronRight
+								className="safari-toolbar-icon"
+								aria-hidden="true"
+							/>
 						</button>
 					</div>
 				</div>
