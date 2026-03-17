@@ -4,6 +4,11 @@ import { WindowWrapper } from '#hoc';
 import { Check, Flag } from 'lucide-react';
 import type { ReactElement } from 'react';
 
+/**
+ * Desktop terminal window that renders the categorized tech stack summary.
+ *
+ * @returns {ReactElement} Terminal-like tech stack view for desktop.
+ */
 const Terminal = (): ReactElement => {
 	const loadedCount = techStack.length;
 	return (
@@ -32,7 +37,9 @@ const Terminal = (): ReactElement => {
 							<h3>{category}</h3>
 							<ul>
 								{items.map((item, i) => (
-									<li key={`${category}-${item}`}>
+									<li
+										key={`${category}-${String(i)}-${item}`}
+									>
 										{item} {i < items.length - 1 ? ',' : ''}
 									</li>
 								))}

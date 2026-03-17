@@ -4,6 +4,11 @@ import { MobileWindowWrapper } from '#hoc';
 import { Check, ChevronRight, Flag } from 'lucide-react';
 import type { ReactElement } from 'react';
 
+/**
+ * Mobile terminal window that presents the tech stack in a compact list.
+ *
+ * @returns {ReactElement} Mobile terminal content.
+ */
 const MobileTerminal = (): ReactElement => {
 	return (
 		<>
