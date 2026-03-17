@@ -83,6 +83,9 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			<section
 				id={windowKey}
 				ref={ref}
+				onPointerDown={() => {
+					focusWindow(windowKey);
+				}}
 				style={{
 					zIndex,
 					display: isOpen ? undefined : 'none',
