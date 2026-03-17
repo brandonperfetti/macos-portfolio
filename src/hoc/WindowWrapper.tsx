@@ -67,6 +67,7 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 				onPress: () => {
 					focusWindow(windowKey);
 				},
+				// GSAP Draggable options typing is stricter than this inferred shape; cast keeps compile-time compatibility.
 			} as unknown as Parameters<typeof Draggable.create>[1];
 
 			const [instance] = Draggable.create(el, draggableOptions);
