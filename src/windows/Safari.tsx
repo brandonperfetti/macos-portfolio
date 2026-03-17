@@ -1,6 +1,7 @@
 import { WindowControls } from '#components';
 import { blogPosts, safariBookmarks } from '#constants';
 import { WindowWrapper } from '#hoc';
+import { groupBookmarksByCategory } from '#lib/bookmark-utils';
 import { resolveSafariAddressInput } from '#lib/safari-address';
 import { useWindowStore, type WindowState } from '#store';
 import {
@@ -66,14 +67,10 @@ const Safari = (): ReactElement => {
 	const canGoBack = pageIndex > 0;
 	const canGoForward = pageIndex < totalPages - 1;
 
-	const bookmarksByCategory = useMemo(() => {
-		const grouped = new Map<string, typeof safariBookmarks>();
-		safariBookmarks.forEach((bookmark) => {
-			const current = grouped.get(bookmark.category) ?? [];
-			grouped.set(bookmark.category, [...current, bookmark]);
-		});
-		return Array.from(grouped.entries());
-	}, []);
+	const bookmarksByCategory = useMemo(
+		() => groupBookmarksByCategory(safariBookmarks),
+		[],
+	);
 
 	const openExternalUrl = (url: string): void => {
 		window.open(url, '_blank', 'noopener,noreferrer');
