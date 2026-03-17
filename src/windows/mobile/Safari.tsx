@@ -110,7 +110,10 @@ const MobileSafari = (): ReactElement => {
 			</div>
 			<footer>
 				<form className="search" onSubmit={handleAddressSubmit}>
-					<Search className="mobile-safari-search-icon pointer-events-none" aria-hidden="true" />
+					<Search
+						className="mobile-safari-search-icon pointer-events-none"
+						aria-hidden="true"
+					/>
 					<input
 						type="text"
 						placeholder="Search or enter website name"
@@ -121,7 +124,10 @@ const MobileSafari = (): ReactElement => {
 							setAddressInput(event.target.value);
 						}}
 					/>
-					<Mic className="mobile-safari-search-icon" aria-hidden="true" />
+					<Mic
+						className="mobile-safari-search-icon"
+						aria-hidden="true"
+					/>
 				</form>
 				<div className="mobile-safari-actions">
 					<button
@@ -182,7 +188,11 @@ const MobileSafari = (): ReactElement => {
 				</div>
 			</footer>
 			{isBookmarksOpen ? (
-				<div className="mobile-safari-bookmarks-drawer" role="dialog" aria-label="Bookmarks">
+				<div
+					className="mobile-safari-bookmarks-drawer"
+					role="dialog"
+					aria-label="Bookmarks"
+				>
 					<button
 						type="button"
 						className="mobile-safari-bookmarks-backdrop"
@@ -192,7 +202,10 @@ const MobileSafari = (): ReactElement => {
 						}}
 					/>
 					<div className="mobile-safari-bookmarks-sheet">
-						<div className="mobile-safari-bookmarks-sheet-handle" aria-hidden="true" />
+						<div
+							className="mobile-safari-bookmarks-sheet-handle"
+							aria-hidden="true"
+						/>
 						<div className="mobile-safari-bookmarks-sheet-header">
 							<h3>Bookmarks</h3>
 							<button
@@ -207,24 +220,33 @@ const MobileSafari = (): ReactElement => {
 							</button>
 						</div>
 						<div className="mobile-safari-bookmarks-sheet-content">
-							{bookmarksByCategory.map(([category, bookmarks]) => (
-								<div key={category} className="safari-bookmarks-group">
-									<p className="safari-bookmarks-heading">{category}</p>
-									{bookmarks.map((bookmark) => (
-										<button
-											key={bookmark.id}
-											type="button"
-											className="safari-bookmark-item"
-											onClick={() => {
-												openExternalUrl(bookmark.url);
-												setIsBookmarksOpen(false);
-											}}
-										>
-											{bookmark.title}
-										</button>
-									))}
-								</div>
-							))}
+							{bookmarksByCategory.map(
+								([category, bookmarks]) => (
+									<div
+										key={category}
+										className="safari-bookmarks-group"
+									>
+										<p className="safari-bookmarks-heading">
+											{category}
+										</p>
+										{bookmarks.map((bookmark) => (
+											<button
+												key={bookmark.id}
+												type="button"
+												className="safari-bookmark-item"
+												onClick={() => {
+													openExternalUrl(
+														bookmark.url,
+													);
+													setIsBookmarksOpen(false);
+												}}
+											>
+												{bookmark.title}
+											</button>
+										))}
+									</div>
+								),
+							)}
 						</div>
 					</div>
 				</div>
