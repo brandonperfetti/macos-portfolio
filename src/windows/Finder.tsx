@@ -5,7 +5,7 @@ import { useLocationStore, useWindowStore } from '#store';
 import type { FinderImageFile, FinderLocationFolder, FinderNode } from '#types';
 import clsx from 'clsx';
 import { Search } from 'lucide-react';
-import { useEffect, useState, type ReactElement } from 'react';
+import { useEffect, useMemo, useState, type ReactElement } from 'react';
 
 /**
  * Finder window for browsing locations and opening file entries.
@@ -20,12 +20,16 @@ const Finder = (): ReactElement => {
 	const currentLocation = activeLocation ?? locations.work;
 	const isPhotosLocation = currentLocation === locations.photos;
 
-	const photos = isPhotosLocation
-		? currentLocation.children.filter(
-				(item): item is FinderImageFile =>
-					item.kind === 'file' && item.fileType === 'img',
-			)
-		: [];
+	const photos = useMemo(
+		() =>
+			isPhotosLocation
+				? currentLocation.children.filter(
+						(item): item is FinderImageFile =>
+							item.kind === 'file' && item.fileType === 'img',
+					)
+				: [],
+		[currentLocation.children, isPhotosLocation],
+	);
 
 	useEffect(() => {
 		const handlePointerDown = (event: PointerEvent) => {
@@ -103,9 +107,10 @@ const Finder = (): ReactElement => {
 						>
 							<button
 								type="button"
-								className="flex w-full cursor-pointer items-center gap-2"
+								className="-mx-3 -my-2 flex w-[calc(100%+1.5rem)] cursor-pointer items-center gap-2 rounded-md px-3 py-2"
 								onClick={() => {
 									setActiveLocation(item);
+									setSelectedItem(null);
 								}}
 							>
 								<img
@@ -129,7 +134,7 @@ const Finder = (): ReactElement => {
 				<Search className="icon" aria-hidden="true" />
 			</div>
 
-			<div className="dark:bg-dark-700 flex h-full bg-white">
+			<div className="dark:bg-dark-700 flex min-h-0 flex-1 bg-white">
 				<div className="sidebar">
 					{renderList('Favorites', Object.values(locations))}
 					{renderList('Projects', locations.work.children)}
@@ -162,8 +167,29 @@ const Finder = (): ReactElement => {
 										<img
 											src={item.imageUrl}
 											alt={item.name}
+											loading="lazy"
+											decoding="async"
 										/>
 									</button>
+									<p className="gallery-item-title">
+										{item.name}
+									</p>
+									{item.subtitle ? (
+										<p className="gallery-item-issuer">
+											{item.issuerUrl ? (
+												<a
+													href={item.issuerUrl}
+													target="_blank"
+													rel="noopener noreferrer"
+													className="gallery-item-issuer-link"
+												>
+													{item.subtitle}
+												</a>
+											) : (
+												item.subtitle
+											)}
+										</p>
+									) : null}
 								</li>
 							))}
 						</ul>
@@ -194,7 +220,7 @@ const Finder = (): ReactElement => {
 									<span className="finder-item-icon">
 										<img src={item.icon} alt={item.name} />
 									</span>
-									<p className="finder-item-name truncate">
+									<p className="finder-item-name">
 										{item.name}
 									</p>
 								</button>

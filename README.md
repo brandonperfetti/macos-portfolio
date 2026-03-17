@@ -53,7 +53,7 @@ The interface offers full dark mode support and seamlessly adapts to mobile with
 
 ## <a name="features">🔋 Features</a>
 
-👉 **MacOS-Style Desktop**: A fully interactive macOS-like environment with draggable windows, app launching, and realistic physics.
+👉 **macOS-Style Desktop**: A fully interactive macOS-like environment with draggable windows, app launching, and realistic physics.
 
 👉 **Window Management System**: True-to-life window behavior including open, close, minimize, and focus logic.
 

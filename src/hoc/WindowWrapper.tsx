@@ -3,7 +3,7 @@ import { useWindowStore, type WindowState } from '#store';
 import type { WindowKey } from '#types';
 import { useGSAP } from '@gsap/react';
 import type { ComponentType, ReactElement, JSX as ReactJSX } from 'react';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Wraps a window component with open/close animation, drag behavior, and z-index focus.
@@ -12,14 +12,14 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 	Component: ComponentType<Props>,
 	windowKey: WindowKey,
 ): ComponentType<Props> => {
-	const Wrapped = (props: Props): ReactElement => {
+	const Wrapped = (props: Props): ReactElement | null => {
 		const windows = useWindowStore((state: WindowState) => state.windows);
 		const focusWindow = useWindowStore(
 			(state: WindowState) => state.focusWindow,
 		);
 		const { isOpen, zIndex } = windows[windowKey];
 		const ref = useRef<HTMLElement | null>(null);
-		const [isDesktop, setIsDesktop] = useState(() =>
+		const [isDesktop, setIsDesktop] = useState<boolean>(() =>
 			typeof window !== 'undefined'
 				? window.matchMedia('(min-width: 640px)').matches
 				: true,
@@ -38,9 +38,9 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			};
 		}, []);
 
-			useGSAP(() => {
-				const el = ref.current;
-				if (!el || !isOpen || !isDesktop) return;
+		useGSAP(() => {
+			const el = ref.current;
+			if (!el || !isOpen || !isDesktop) return;
 
 			gsap.fromTo(
 				el,
@@ -53,37 +53,44 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 					ease: 'power3.out',
 				},
 			);
-			}, [isDesktop, isOpen]);
+		}, [isDesktop, isOpen]);
 
-			useGSAP(() => {
-				const el = ref.current;
-				if (!el || !isOpen || !isDesktop) return;
-
-			const [instance] = Draggable.create(el, {
+		useGSAP(() => {
+			const el = ref.current;
+			if (!el || !isOpen || !isDesktop) return;
+			const headerTrigger =
+				el.querySelector<HTMLElement>('.window-header');
+			const draggableOptions = {
+				trigger: headerTrigger ?? el,
+				dragClickables: false,
+				allowEventDefault: true,
 				onPress: () => {
 					focusWindow(windowKey);
 				},
-			});
+				// GSAP Draggable options typing is stricter than this inferred shape; cast keeps compile-time compatibility.
+			} as unknown as Parameters<typeof Draggable.create>[1];
+
+			const [instance] = Draggable.create(el, draggableOptions);
 
 			return () => {
 				instance.kill();
 			};
-			}, [focusWindow, isDesktop, isOpen, windowKey]);
+		}, [focusWindow, isDesktop, isOpen, windowKey]);
 
-		useLayoutEffect(() => {
-			const el = ref.current;
-			if (!el) return;
-			el.style.display = isOpen && isDesktop ? 'block' : 'none';
-		}, [isDesktop, isOpen]);
-
-		if (!isDesktop) return <></>;
+		if (!isDesktop) return null;
 
 		return (
 			<section
 				id={windowKey}
 				ref={ref}
-				style={{ zIndex }}
-				className="absolute"
+				onPointerDown={() => {
+					focusWindow(windowKey);
+				}}
+				style={{
+					zIndex,
+					display: isOpen ? undefined : 'none',
+				}}
+				className="desktop-window absolute"
 			>
 				<Component {...props} />
 			</section>

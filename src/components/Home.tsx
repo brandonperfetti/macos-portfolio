@@ -15,6 +15,34 @@ export const Home = (): ReactElement => {
 	const { openWindow } = useWindowStore();
 	const containerRef = useRef<HTMLElement | null>(null);
 	const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+	const [isShortDesktop, setIsShortDesktop] = useState<boolean>(false);
+
+	useEffect(() => {
+		let resizeTimer: ReturnType<typeof window.setTimeout> | null = null;
+
+		const syncViewportMode = () => {
+			setIsShortDesktop(window.innerHeight < 900);
+		};
+
+		const handleResize = () => {
+			if (resizeTimer !== null) {
+				window.clearTimeout(resizeTimer);
+			}
+			resizeTimer = window.setTimeout(() => {
+				syncViewportMode();
+				resizeTimer = null;
+			}, 100);
+		};
+
+		syncViewportMode();
+		window.addEventListener('resize', handleResize);
+		return () => {
+			if (resizeTimer !== null) {
+				window.clearTimeout(resizeTimer);
+			}
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
@@ -78,6 +106,30 @@ export const Home = (): ReactElement => {
 		};
 	}, []);
 
+	const getHomeItemStyle = (index: number): React.CSSProperties => {
+		const topOffset = 84;
+		const rowGap = 132;
+		const rightOffset = 28;
+		const colGap = 190;
+
+		if (!isShortDesktop) {
+			return {
+				top: `${String(topOffset + index * rowGap)}px`,
+				right: `${String(rightOffset)}px`,
+			};
+		}
+
+		// On shorter desktops, switch to a clean 2-column layout.
+		const rowsPerColumn = Math.ceil(homeItems.length / 2);
+		const column = Math.floor(index / rowsPerColumn);
+		const row = index % rowsPerColumn;
+
+		return {
+			top: `${String(topOffset + row * rowGap)}px`,
+			right: `${String(rightOffset + column * colGap)}px`,
+		};
+	};
+
 	return (
 		<section id="home" ref={containerRef}>
 			<ul>
@@ -87,10 +139,13 @@ export const Home = (): ReactElement => {
 						className={clsx(
 							'group home-item',
 							selectedItemId === item.id && 'home-item-selected',
-							item.kind === 'folder'
-								? (item.windowPosition ?? item.position)
-								: item.position,
+							item.kind === 'folder' ? undefined : item.position,
 						)}
+						style={
+							item.kind === 'folder'
+								? getHomeItemStyle(index)
+								: undefined
+						}
 						onClick={() => {
 							setSelectedItemId(item.id);
 						}}
@@ -99,7 +154,9 @@ export const Home = (): ReactElement => {
 						}}
 					>
 						<img src={item.icon} alt={item.name} />
-						<p>{item.name}</p>
+						<p>
+							<span className="home-item-label">{item.name}</span>
+						</p>
 					</li>
 				))}
 			</ul>

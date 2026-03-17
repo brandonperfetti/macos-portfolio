@@ -38,6 +38,7 @@ export const MobileWindowHeader = ({
 				<span>Go Back</span>
 			</button>
 			<p className="mobile-header-title">{title}</p>
+			<div className="mobile-header-spacer" aria-hidden="true" />
 		</div>
 	);
 };

@@ -57,6 +57,18 @@ export interface BlogPost {
 	link: string;
 }
 
+/** Curated bookmark entry for Safari window menus. */
+export interface SafariBookmark {
+	/** Stable numeric id. */
+	id: number;
+	/** Category grouping label. */
+	category: string;
+	/** Display title. */
+	title: string;
+	/** External link URL. */
+	url: string;
+}
+
 /** Tech stack grouping entry. */
 export interface TechStackCategory {
 	/** Section label. */
@@ -79,20 +91,18 @@ export interface SocialLink {
 	link: string;
 }
 
-/** Sidebar link entry for Photos window. */
-export interface PhotosLink {
-	/** Stable numeric id. */
-	id: number;
-	/** Icon asset path. */
-	icon: string;
-	/** Visible label. */
-	title: string;
-}
-
 /** Gallery tile entry. */
 export interface GalleryItem {
 	/** Stable numeric id. */
 	id: number;
+	/** Certification title. */
+	title: string;
+	/** Certification issuer. */
+	issuer: string;
+	/** Optional issuer website URL. */
+	issuerUrl?: string;
+	/** Certification category used for filtering/grouping. */
+	category: string;
 	/** Image asset path. */
 	img: string;
 }

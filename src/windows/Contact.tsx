@@ -12,6 +12,7 @@ const Contact = (): ReactElement => {
 			<div className="window-header">
 				<WindowControls target="contact" />
 				<h2>Contact Me</h2>
+				<div className="window-header-spacer" aria-hidden="true" />
 			</div>
 
 			<div className="space-y-5 p-5">

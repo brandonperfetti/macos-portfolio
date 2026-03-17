@@ -4,6 +4,11 @@ import { MobileWindowWrapper } from '#hoc';
 import { Check, ChevronRight, Flag } from 'lucide-react';
 import type { ReactElement } from 'react';
 
+/**
+ * Mobile terminal window that presents the tech stack in a compact list.
+ *
+ * @returns {ReactElement} Mobile terminal content.
+ */
 const MobileTerminal = (): ReactElement => {
 	return (
 		<>
@@ -38,8 +43,9 @@ const MobileTerminal = (): ReactElement => {
 						<Check size={20} /> {techStack.length} of{' '}
 						{techStack.length} stacks loaded successfully (100%)
 					</p>
-					<p className="text-black dark:text-white">
-						<Flag size={15} fill="currentColor" /> Render time: 6ms
+					<p className="text-neutral-900 dark:text-neutral-100">
+						<Flag size={15} className="text-inherit" /> Render time:
+						9ms
 					</p>
 				</div>
 			</div>
@@ -47,5 +53,10 @@ const MobileTerminal = (): ReactElement => {
 	);
 };
 
+/**
+ * Public mobile terminal window export used by the window registry.
+ *
+ * @returns {ReactElement} Mobile terminal window wrapper component.
+ */
 const MobileTerminalWindow = MobileWindowWrapper(MobileTerminal, 'terminal');
 export default MobileTerminalWindow;

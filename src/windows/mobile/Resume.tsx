@@ -26,7 +26,7 @@ const MobileResume = (): ReactElement => {
 		<>
 			<MobileWindowHeader windowKey="resume" title="Resume" />
 			<div className="mobile-file-scroll">
-				<div ref={containerRef} className="w-full px-3 pb-6">
+				<div ref={containerRef} className="w-full pb-6">
 					{resumeLoadError ? (
 						<div className="flex items-center justify-between gap-3">
 							<p role="alert">{resumeLoadError}</p>
