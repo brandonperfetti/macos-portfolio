@@ -18,14 +18,29 @@ export const Home = (): ReactElement => {
 	const [isShortDesktop, setIsShortDesktop] = useState<boolean>(false);
 
 	useEffect(() => {
+		let resizeTimer: ReturnType<typeof window.setTimeout> | null = null;
+
 		const syncViewportMode = () => {
 			setIsShortDesktop(window.innerHeight < 900);
 		};
 
+		const handleResize = () => {
+			if (resizeTimer !== null) {
+				window.clearTimeout(resizeTimer);
+			}
+			resizeTimer = window.setTimeout(() => {
+				syncViewportMode();
+				resizeTimer = null;
+			}, 100);
+		};
+
 		syncViewportMode();
-		window.addEventListener('resize', syncViewportMode);
+		window.addEventListener('resize', handleResize);
 		return () => {
-			window.removeEventListener('resize', syncViewportMode);
+			if (resizeTimer !== null) {
+				window.clearTimeout(resizeTimer);
+			}
+			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
 
