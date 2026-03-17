@@ -894,10 +894,10 @@ body {
 		@apply dark:bg-dark-700 absolute top-[var(--mobile-navbar-height)] z-[var(--z-mobile-window)] flex h-[calc(100dvh-var(--mobile-navbar-height))] w-screen flex-col overflow-hidden bg-white transition-colors duration-300 select-none sm:hidden;
 
 		.preview {
-			@apply dark:bg-dark-700 flex min-h-full items-center bg-gray-100/10 px-5 py-2;
+			@apply dark:bg-dark-700 flex min-h-0 items-start bg-gray-100/10 px-4 pt-3 pb-4;
 
 			img {
-				@apply h-fit w-full object-contain object-center;
+				@apply h-auto w-full object-contain object-top;
 			}
 		}
 	}
