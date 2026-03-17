@@ -14,7 +14,14 @@ import {
 	Search,
 	Share,
 } from 'lucide-react';
-import { useMemo, useState, type FormEvent, type ReactElement } from 'react';
+import {
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+	type FormEvent,
+	type ReactElement,
+} from 'react';
 
 const MOBILE_SAFARI_PAGE_SIZE = 2;
 
@@ -22,6 +29,9 @@ const MobileSafari = (): ReactElement => {
 	const [addressInput, setAddressInput] = useState('');
 	const [pageIndex, setPageIndex] = useState(0);
 	const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
+	const bookmarksSheetRef = useRef<HTMLDivElement | null>(null);
+	const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+	const bookmarksSheetLabelId = 'mobile-safari-bookmarks-label';
 
 	const handleAddressSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -75,6 +85,79 @@ const MobileSafari = (): ReactElement => {
 	const toggleBookmarksMenu = (): void => {
 		setIsBookmarksOpen((previous) => !previous);
 	};
+
+	useEffect(() => {
+		if (isBookmarksOpen) {
+			previouslyFocusedRef.current =
+				document.activeElement as HTMLElement | null;
+			const timer = window.setTimeout(() => {
+				const container = bookmarksSheetRef.current;
+				if (!container) return;
+
+				const firstFocusable = container.querySelector<HTMLElement>(
+					'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+				);
+
+				(firstFocusable ?? container).focus();
+			}, 0);
+
+			return () => {
+				window.clearTimeout(timer);
+			};
+		}
+
+		previouslyFocusedRef.current?.focus();
+		previouslyFocusedRef.current = null;
+	}, [isBookmarksOpen]);
+
+	useEffect(() => {
+		if (!isBookmarksOpen) return;
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				setIsBookmarksOpen(false);
+				return;
+			}
+			if (event.key !== 'Tab') return;
+
+			const container = bookmarksSheetRef.current;
+			if (!container) return;
+
+			const focusable = Array.from(
+				container.querySelectorAll<HTMLElement>(
+					'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+				),
+			);
+
+			if (focusable.length === 0) {
+				event.preventDefault();
+				container.focus();
+				return;
+			}
+
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			const active = document.activeElement as HTMLElement | null;
+
+			if (event.shiftKey) {
+				if (active === first || !container.contains(active)) {
+					event.preventDefault();
+					last.focus();
+				}
+				return;
+			}
+
+			if (active === last) {
+				event.preventDefault();
+				first.focus();
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyDown);
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [isBookmarksOpen]);
 
 	return (
 		<>
@@ -184,7 +267,8 @@ const MobileSafari = (): ReactElement => {
 				<div
 					className="mobile-safari-bookmarks-drawer"
 					role="dialog"
-					aria-label="Bookmarks"
+					aria-modal="true"
+					aria-labelledby={bookmarksSheetLabelId}
 				>
 					<button
 						type="button"
@@ -194,13 +278,17 @@ const MobileSafari = (): ReactElement => {
 							setIsBookmarksOpen(false);
 						}}
 					/>
-					<div className="mobile-safari-bookmarks-sheet">
+					<div
+						ref={bookmarksSheetRef}
+						className="mobile-safari-bookmarks-sheet"
+						tabIndex={-1}
+					>
 						<div
 							className="mobile-safari-bookmarks-sheet-handle"
 							aria-hidden="true"
 						/>
 						<div className="mobile-safari-bookmarks-sheet-header">
-							<h3>Bookmarks</h3>
+							<h3 id={bookmarksSheetLabelId}>Bookmarks</h3>
 							<button
 								type="button"
 								className="mobile-safari-sheet-close"
