@@ -11,10 +11,11 @@ const Terminal = (): ReactElement => {
 			<div className="window-header">
 				<WindowControls target="terminal" />
 				<h2>Tech Stack</h2>
+				<div className="window-header-spacer" aria-hidden="true" />
 			</div>
 			<div className="techstack">
 				<p>
-					<span className="font-bold"> @brandon % </span>
+					<span className="font-bold"> @brandonperfetti % </span>
 					show tech stack
 				</p>
 
@@ -46,9 +47,9 @@ const Terminal = (): ReactElement => {
 						stacks loaded successfully (100%)
 					</p>
 
-					<p className="text-black">
-						<Flag size={15} fill="black" />
-						Render time: 6ms
+					<p className="text-neutral-900 dark:text-neutral-100">
+						<Flag size={15} className="text-inherit" />
+						Render time: 9ms
 					</p>
 				</div>
 			</div>

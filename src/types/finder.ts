@@ -56,6 +56,12 @@ export type FinderImageFile = FinderBase & {
 	kind: 'file';
 	/** Image file type. */
 	fileType: 'img';
+	/** Optional short subtitle (e.g. certificate issuer). */
+	subtitle?: string;
+	/** Optional external URL for the issuer website. */
+	issuerUrl?: string;
+	/** Optional category label (e.g. AI, Frontend, Testing). */
+	category?: string;
 	/** Image asset path. */
 	imageUrl: string;
 };

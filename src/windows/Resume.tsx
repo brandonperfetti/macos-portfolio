@@ -23,17 +23,19 @@ const Resume = (): ReactElement => {
 				<WindowControls target="resume" />
 				<h2>Resume.pdf</h2>
 
-				<a
-					href="/files/resume.pdf"
-					download
-					className="cursor-pointer"
-					title="Download resume"
-					aria-label="Download resume"
-				>
-					<Download className="icon" aria-hidden="true" />
-				</a>
+				<div className="window-header-actions">
+					<a
+						href="/files/resume.pdf"
+						download
+						className="cursor-pointer"
+						title="Download resume"
+						aria-label="Download resume"
+					>
+						<Download className="icon" aria-hidden="true" />
+					</a>
+				</div>
 			</div>
-			<div ref={containerRef}>
+			<div ref={containerRef} className="resume-content">
 				{loadError ? <p role="alert">{loadError}</p> : null}
 				<Document
 					file="/files/resume.pdf"

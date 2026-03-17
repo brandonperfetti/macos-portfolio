@@ -39,7 +39,7 @@ const MobileTerminal = (): ReactElement => {
 						{techStack.length} stacks loaded successfully (100%)
 					</p>
 					<p className="text-black dark:text-white">
-						<Flag size={15} fill="currentColor" /> Render time: 6ms
+						<Flag size={15} fill="currentColor" /> Render time: 9ms
 					</p>
 				</div>
 			</div>

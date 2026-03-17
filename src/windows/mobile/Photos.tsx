@@ -2,22 +2,24 @@ import { MobileWindowHeader } from '#components/mobile/WindowHeader';
 import { locations } from '#constants';
 import { MobileWindowWrapper } from '#hoc';
 import { useWindowStore } from '#store';
-import { isFinderImageFile, type FinderImageFile } from '#types';
-import type { ReactElement } from 'react';
+import { useMemo, type ReactElement } from 'react';
 
 const MobilePhotos = (): ReactElement => {
 	const { openWindow } = useWindowStore();
-	const photos = locations.photos.children;
+	const photos = useMemo(
+		() =>
+			[...locations.photos.children].sort((a, b) =>
+				a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }),
+			),
+		[],
+	);
 
 	return (
 		<>
-			<MobileWindowHeader windowKey="photos" title="All Photos" />
+			<MobileWindowHeader windowKey="photos" title="Certifications" />
 			<div className="gallery">
 				<ul>
-					{photos.map((item) => {
-						if (!isFinderImageFile(item)) return null;
-						const imageFile: FinderImageFile = item;
-
+					{photos.map((imageFile) => {
 						return (
 							<li key={imageFile.id}>
 								<button
@@ -25,15 +27,25 @@ const MobilePhotos = (): ReactElement => {
 									onClick={() => {
 										openWindow('imgfile', imageFile);
 									}}
-								>
-									<img
-										src={imageFile.imageUrl}
-										alt={
-											imageFile.name ||
-											`Gallery image ${String(imageFile.id)}`
-										}
-									/>
-								</button>
+									>
+										<img
+											src={imageFile.imageUrl}
+											alt={imageFile.name}
+										/>
+									</button>
+									<p className="gallery-item-title">
+										{imageFile.name}
+									</p>
+									<p className="gallery-item-issuer">
+										<a
+											href={imageFile.issuerUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="gallery-item-issuer-link"
+										>
+											{imageFile.subtitle}
+										</a>
+									</p>
 							</li>
 						);
 					})}
