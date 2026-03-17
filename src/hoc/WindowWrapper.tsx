@@ -12,7 +12,7 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 	Component: ComponentType<Props>,
 	windowKey: WindowKey,
 ): ComponentType<Props> => {
-	const Wrapped = (props: Props): ReactElement => {
+	const Wrapped = (props: Props): ReactElement | null => {
 		const windows = useWindowStore((state: WindowState) => state.windows);
 		const focusWindow = useWindowStore(
 			(state: WindowState) => state.focusWindow,
@@ -58,7 +58,8 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 		useGSAP(() => {
 			const el = ref.current;
 			if (!el || !isOpen || !isDesktop) return;
-			const headerTrigger = el.querySelector<HTMLElement>('.window-header');
+			const headerTrigger =
+				el.querySelector<HTMLElement>('.window-header');
 			const draggableOptions = {
 				trigger: headerTrigger ?? el,
 				dragClickables: false,
@@ -75,7 +76,7 @@ const WindowWrapper = <Props extends ReactJSX.IntrinsicAttributes>(
 			};
 		}, [focusWindow, isDesktop, isOpen, windowKey]);
 
-		if (!isDesktop) return <></>;
+		if (!isDesktop) return null;
 
 		return (
 			<section
