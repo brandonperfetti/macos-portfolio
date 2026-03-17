@@ -782,7 +782,7 @@ body {
 			}
 
 			.finder-item-name {
-				@apply w-40 max-h-10 overflow-hidden rounded px-1.5 py-0.5 text-center text-sm leading-tight font-medium whitespace-normal break-words transition-colors;
+				@apply max-h-10 w-40 overflow-hidden rounded px-1.5 py-0.5 text-center text-sm leading-tight font-medium break-words whitespace-normal transition-colors;
 			}
 
 			.finder-item-selected {
@@ -909,7 +909,7 @@ body {
 				@apply absolute z-0 flex w-44 flex-col items-center select-none;
 
 				img {
-					@apply size-16 rounded-md p-1 object-contain object-center group-hover:bg-gray-950/10;
+					@apply size-16 rounded-md object-contain object-center p-1 group-hover:bg-gray-950/10;
 				}
 
 				p {
