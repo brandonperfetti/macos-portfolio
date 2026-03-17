@@ -9,7 +9,9 @@ const MobilePhotos = (): ReactElement => {
 	const photos = useMemo(
 		() =>
 			[...locations.photos.children].sort((a, b) =>
-				a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }),
+				a.name.localeCompare(b.name, undefined, {
+					sensitivity: 'base',
+				}),
 			),
 		[],
 	);
@@ -27,25 +29,27 @@ const MobilePhotos = (): ReactElement => {
 									onClick={() => {
 										openWindow('imgfile', imageFile);
 									}}
+								>
+									<img
+										src={imageFile.imageUrl}
+										alt={imageFile.name}
+										loading="lazy"
+										decoding="async"
+									/>
+								</button>
+								<p className="gallery-item-title">
+									{imageFile.name}
+								</p>
+								<p className="gallery-item-issuer">
+									<a
+										href={imageFile.issuerUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="gallery-item-issuer-link"
 									>
-										<img
-											src={imageFile.imageUrl}
-											alt={imageFile.name}
-										/>
-									</button>
-									<p className="gallery-item-title">
-										{imageFile.name}
-									</p>
-									<p className="gallery-item-issuer">
-										<a
-											href={imageFile.issuerUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="gallery-item-issuer-link"
-										>
-											{imageFile.subtitle}
-										</a>
-									</p>
+										{imageFile.subtitle}
+									</a>
+								</p>
 							</li>
 						);
 					})}
