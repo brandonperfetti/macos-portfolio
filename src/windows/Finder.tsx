@@ -5,7 +5,7 @@ import { useLocationStore, useWindowStore } from '#store';
 import type { FinderImageFile, FinderLocationFolder, FinderNode } from '#types';
 import clsx from 'clsx';
 import { Search } from 'lucide-react';
-import { useMemo, useState, type ReactElement } from 'react';
+import { useEffect, useMemo, useState, type ReactElement } from 'react';
 
 /**
  * Finder window for browsing locations and opening file entries.
@@ -30,6 +30,20 @@ const Finder = (): ReactElement => {
 				: [],
 		[currentLocation.children, isPhotosLocation],
 	);
+
+	useEffect(() => {
+		const handlePointerDown = (event: PointerEvent) => {
+			const target = event.target as HTMLElement | null;
+			if (target?.closest('.finder-item-button, .finder-photo-button'))
+				return;
+			setSelectedItem(null);
+		};
+
+		document.addEventListener('pointerdown', handlePointerDown);
+		return () => {
+			document.removeEventListener('pointerdown', handlePointerDown);
+		};
+	}, []);
 
 	const openItem = (item: FinderNode) => {
 		if (item.kind === 'folder') {
