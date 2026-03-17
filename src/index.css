@@ -324,10 +324,7 @@ body {
 		.blog {
 			@apply dark:bg-dark-700 mx-auto min-h-0 w-full max-w-3xl flex-1 overflow-y-auto bg-white px-4 py-5;
 
-			padding-bottom: calc(
-				var(--mobile-safari-footer-height) +
-					env(safe-area-inset-bottom) + 0.75rem
-			);
+			padding-bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
 
 			h2 {
 				@apply mb-10 text-xl font-bold text-pink-600;
@@ -640,6 +637,7 @@ body {
 
 		.gallery {
 			@apply h-full min-h-0 flex-1 overflow-y-auto p-5;
+
 			overscroll-behavior: contain;
 		}
 	}
@@ -704,7 +702,9 @@ body {
 
 	#resume {
 		@apply dark:bg-dark-700 absolute top-16 left-7/12 flex h-[78vh] w-[min(72vw,56rem)] max-w-[80vw] flex-col overflow-x-hidden overflow-y-auto rounded-xl bg-white shadow-2xl drop-shadow-2xl transition-colors duration-300 max-sm:hidden;
+
 		scrollbar-width: none;
+
 		-ms-overflow-style: none;
 
 		&::-webkit-scrollbar {
