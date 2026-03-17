@@ -13,12 +13,7 @@ import {
 	Search,
 	Share,
 } from 'lucide-react';
-import {
-	useMemo,
-	useState,
-	type FormEvent,
-	type ReactElement,
-} from 'react';
+import { useMemo, useState, type FormEvent, type ReactElement } from 'react';
 
 const MOBILE_SAFARI_PAGE_SIZE = 2;
 
