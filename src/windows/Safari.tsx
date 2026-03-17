@@ -217,15 +217,16 @@ const Safari = (): ReactElement => {
 						{bookmarksByCategory.map(([category, bookmarks]) => (
 							<div key={category} className="safari-bookmarks-group">
 								<p className="safari-bookmarks-heading">{category}</p>
-								{bookmarks.map((bookmark) => (
-									<button
-										key={bookmark.id}
-										type="button"
-										className="safari-bookmark-item"
-										onClick={() => {
-											openExternalUrl(bookmark.url);
-										}}
-									>
+									{bookmarks.map((bookmark) => (
+										<button
+											key={bookmark.id}
+											type="button"
+											className="safari-bookmark-item"
+											tabIndex={isBookmarksOpen ? 0 : -1}
+											onClick={() => {
+												openExternalUrl(bookmark.url);
+											}}
+										>
 										{bookmark.title}
 									</button>
 								))}
