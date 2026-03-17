@@ -84,7 +84,9 @@ const Safari = (): ReactElement => {
 				url: shareUrl,
 			});
 			return;
-		} catch {
+		} catch (error) {
+			const name = (error as DOMException | undefined)?.name;
+			if (name === 'AbortError') return;
 			// Fall back to clipboard below.
 		}
 
