@@ -32,7 +32,7 @@ const Terminal = (): ReactElement => {
 							<h3>{category}</h3>
 							<ul>
 								{items.map((item, i) => (
-									<li key={i}>
+									<li key={`${category}-${item}`}>
 										{item} {i < items.length - 1 ? ',' : ''}
 									</li>
 								))}
