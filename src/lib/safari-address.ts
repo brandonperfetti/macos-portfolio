@@ -24,6 +24,7 @@ export const resolveSafariAddressInput = (input: string): string | null => {
 	if (URL_INPUT_PATTERN.test(value)) {
 		try {
 			const parsed = new URL(withDefaultProtocol(value));
+			// Defense-in-depth: URL_INPUT_PATTERN + withDefaultProtocol constrain input, but protocol is re-checked for safety.
 			if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
 				return parsed.toString();
 			}
@@ -34,4 +35,3 @@ export const resolveSafariAddressInput = (input: string): string | null => {
 
 	return `${SEARCH_ENGINE_URL}${encodeURIComponent(value)}`;
 };
-
