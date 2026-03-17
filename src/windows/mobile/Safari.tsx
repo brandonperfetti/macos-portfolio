@@ -254,7 +254,7 @@ const MobileSafari = (): ReactElement => {
 					<button
 						type="button"
 						className="mobile-safari-action"
-						aria-label="Open new tab"
+						aria-label="Open Google in new tab"
 						onClick={() => {
 							openExternalUrl('https://www.google.com');
 						}}
